@@ -197,7 +197,7 @@
         <span>sf</span> • 
         <span>lme4</span>• 
         <span>glmmTMB</span>• 
-        <span>Shiny</span>
+        <span>mgcv</span>
         <span>Git</span> • 
         <span>Quarto</span> • 
         <span>Shiny</span>
@@ -209,9 +209,10 @@
             <h2 class="bio-title">About Me</h2>
             <p class="bio-text">
                 I am a wildlife statistician passionate about bridging the gap between complex ecological data and actionable conservation strategies. 
-                With a strong foundation in <strong>Bayesian inference</strong>, <strong>spatial analysis</strong>, and <strong>reproducible research</strong>, 
-                I specialize in turning messy field data into clear insights. My work ranges from estimating population dynamics in fragmented habitats 
-                to developing open-source tools that help ecologists visualize trends. I believe that rigorous statistics are the backbone of effective wildlife management.
+                With a strong foundation in <strong>R programming</strong>, <strong>spatial analysis</strong>, and <strong>reproducible research</strong>, 
+                I specialize in turning messy field data into clear insights. My work ranges from estimating bat population dynamics via an NB GAMM from a nested hierarchical structure
+                of ARU deployements, to developing various plots to aid Cooper's hawk researcher population trends. My work is multifaceted, combining rigorous statistical modeling with 
+                practical ecological applications. I aim to contribute meaningful insights that support wildlife conservation and inform management decisions.
             </p>
         </div>
     </section>
@@ -219,7 +220,7 @@
     <div class="container">
         
         <!-- Category: Peer-Reviewed Research -->
-        <h2 class="section-title">Peer-Reviewed Research</h2>
+        <h2 class="section-title">Manuscript Projects</h2>
         <div class="project-grid">
             
             <!-- Project 1: Manuscript -->
@@ -227,8 +228,8 @@
                 <!-- Replace src with your image path -->
                 <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                 <div class="card-content">
-                    <span class="card-tag">Journal Publication</span>
-                    <h3>Urban Coyote Density Estimation</h3>
+                    <span class="card-tag">Manuscripts awaiting publication</span>
+                    <h3>Cooper's Hawk </h3>
                     <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across fragmented habitats. Published in <em>Ecological Applications</em>.</p>
                     <div class="card-links">
                         <a href="https://github.com/youruser/coyote-study" class="link-text">View Code →</a>
@@ -242,18 +243,20 @@
         </div>
 
         <!-- Category: Applied Field Analysis -->
-        <h2 class="section-title">Field Analysis & Extracurriculars</h2>
+        <h2 class="section-title">Extracurriculars</h2>
         <div class="project-grid">
             
             <!-- Project 2: Extracurricular -->
             <article class="card">
-                <img src="images/migration-map.png" alt="Migration heat map" class="card-img">
+                <img src="images/GAMMPoster.png" alt="Modeled Bat NB GAMM Poster" class="card-img">
                 <div class="card-content">
-                    <span class="card-tag">Independent Project</span>
-                    <h3>Avian Migration Patterns</h3>
-                    <p>Cleaned and visualized 50k+ eBird records using <code>dplyr</code> and <code>sf</code>. Identified seasonal corridors and potential collision hotspots.</p>
+                    <span class="card-tag">The Wildlife Society</span>
+                    <h3>Do Habitat Edges Really Concentrate Bat Activity? </h3>
+                    <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
+                         <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity 
+                         in open, edge and forested areas.</p>
                     <div class="card-links">
-                        <a href="https://github.com/youruser/bird-migration" class="link-text">View Repo →</a>
+                        <a href="https://github.com/sacoleman18-cloud/SchmeeckleBatGAMMAnalysis" class="link-text">View Repo →</a>
                         <a href="#" class="link-text">Live Dashboard →</a>
                     </div>
                 </div>
