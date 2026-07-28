@@ -58,6 +58,32 @@
         }
         .tech-stack span { margin: 0 10px; font-weight: 600; color: var(--primary); }
 
+        /* Biography Section Styles */
+        .bio-section {
+            background-color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bio-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .bio-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #444;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
         /* Main Container */
         .container {
             max-width: 1200px;
@@ -171,12 +197,24 @@
         <span>sf</span> • 
         <span>lme4</span>• 
         <span>glmmTMB</span>• 
-        <span>S</span>• 
         <span>Shiny</span>
         <span>Git</span> • 
         <span>Quarto</span> • 
         <span>Shiny</span>
     </div>
+    
+    <!-- Biography Section -->
+    <section class="bio-section">
+        <div class="container">
+            <h2 class="bio-title">About Me</h2>
+            <p class="bio-text">
+                I am a wildlife statistician passionate about bridging the gap between complex ecological data and actionable conservation strategies. 
+                With a strong foundation in <strong>Bayesian inference</strong>, <strong>spatial analysis</strong>, and <strong>reproducible research</strong>, 
+                I specialize in turning messy field data into clear insights. My work ranges from estimating population dynamics in fragmented habitats 
+                to developing open-source tools that help ecologists visualize trends. I believe that rigorous statistics are the backbone of effective wildlife management.
+            </p>
+        </div>
+    </section>
 
     <div class="container">
         
