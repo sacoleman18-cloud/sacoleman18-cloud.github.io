@@ -91,7 +91,32 @@
             background-color: #219a52; /* Slightly darker green on hover */
         }
 
-        /* Tech Stack Icons Panel */
+        /* Tech Stack Panel */
+        .tech-stack-panel {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tech-stack-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
         .tech-stack-icons {
             background: white;
             padding: 1.5rem 0;
@@ -282,32 +307,43 @@
         <p>Wildlife Statistician & Data Scientist<br>Specializing in R, GLMMS, and Spatial Ecology</p>
         <a href="path/to/your-resume.pdf" class="cta-button">Download Resume</a>
     </header>
-
-    <!-- Tech Stack Icons -->
-    <div class="tech-stack-icons">
-        <div class="tech-icon" title="RStudio">
-            <img src="images/rstudio.png" alt="RStudio Logo">
-        </div>
-        <div class="tech-icon" title="ArcGIS Pro">
-            <img src="images/arcgis-pro.png" alt="ArcGIS Pro Logo">
-        </div>
-        <div class="tech-icon" title="VSCode">
-            <img src="images/vscode.png" alt="Visual Studio Code Logo">
-        </div>
-        <div class="tech-icon" title="Git">
-            <img src="images/git.png" alt="Git Logo">
-        </div>
-        <div class="tech-icon" title="Quarto">
-            <img src="images/quarto.png" alt="Quarto Logo">
-        </div>
-        <div class="tech-icon" title="Shiny">
-            <img src="images/shiny.png" alt="Shiny Logo">
-        </div>
-        <div class="tech-icon" title="Microsoft Word">
-            <img src="images/word.png" alt="Microsoft Word Logo">
-        </div>
-        <div class="tech-icon" title="Microsoft Excel">
-            <img src="images/excel.png" alt="Microsoft Excel Logo">
+    
+    <!-- Technical Proficiencies Panel -->
+    <div class="tech-stack-panel">
+        <h3 class="panel-title">Technical Proficiencies</h3>
+        <div class="tech-stack-icons">
+            <div class="tech-icon" title="RStudio">
+                <img src="images/rstudio.png" alt="RStudio Logo">
+            </div>
+            <div class="tech-icon" title="ArcGIS Pro">
+                <img src="images/arcgis-pro.png" alt="ArcGIS Pro Logo">
+            </div>
+            <!-- Tech Stack Icons -->
+        <div class="tech-stack-icons">
+            <div class="tech-icon" title="RStudio">
+                <img src="images/rstudio.png" alt="RStudio Logo">
+            </div>
+            <div class="tech-icon" title="ArcGIS Pro">
+                <img src="images/arcgis-pro.png" alt="ArcGIS Pro Logo">
+            </div>
+            <div class="tech-icon" title="VSCode">
+                <img src="images/vscode.png" alt="Visual Studio Code Logo">
+            </div>
+            <div class="tech-icon" title="Git">
+                <img src="images/git.png" alt="Git Logo">
+            </div>
+            <div class="tech-icon" title="Quarto">
+                <img src="images/quarto.png" alt="Quarto Logo">
+            </div>
+            <div class="tech-icon" title="Shiny">
+                <img src="images/shiny.png" alt="Shiny Logo">
+            </div>
+            <div class="tech-icon" title="Microsoft Word">
+                <img src="images/word.png" alt="Microsoft Word Logo">
+            </div>
+            <div class="tech-icon" title="Microsoft Excel">
+                <img src="images/excel.png" alt="Microsoft Excel Logo">
+            </div>
         </div>
     </div>
     
