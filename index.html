@@ -25,11 +25,24 @@
 
         /* Hero Section */
         header {
-            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
+            position: relative;
+            background-image: url('images/Background.jpg');
+            background-size: cover;
+             color: white;
         }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 2; /* Pushes text above overlay */
+        }   
 
         header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
         header p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; }
@@ -258,11 +271,11 @@
 
         </div>
 
-        <!-- Category: Applied Field Analysis -->
+        <!-- Category: Extracurriculars -->
         <h2 class="section-title">Extracurriculars</h2>
         <div class="project-grid">
             
-            <!-- Project 2: Extracurricular -->
+            <!-- Project 3: Extracurricular Bat Poster -->
             <article class="card">
                 <img src="images/GAMMPoster.png" alt="Modeled Bat NB GAMM Poster" class="card-img">
                 <div class="card-content">
