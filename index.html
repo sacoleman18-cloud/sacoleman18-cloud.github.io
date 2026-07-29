@@ -177,6 +177,64 @@
             }
         }
 
+        /* R Packages Section Styles */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .package-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .package-content {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-content h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .package-content p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+}
+
         /* Biography Section Styles */
         .bio-section {
             background-color: white;
@@ -354,6 +412,86 @@
                 of ARU deployements, to developing various plots to aid Cooper's hawk researcher population trends. My work is multifaceted, combining rigorous statistical modeling with 
                 practical ecological applications. I aim to contribute meaningful insights that support wildlife conservation and inform management decisions.
             </p>
+        </div>
+    </section>
+
+    <!-- R Packages Expertise Section -->
+    <section class="container">
+        <h2 class="section-title">R Packages Expertise</h2>
+        <div class="package-grid">
+            
+            <!-- Tidyverse -->
+            <article class="package-card">
+                <img src="images/tidyverse-logo.png" alt="Tidyverse Logo" class="package-img">
+                <div class="package-content">
+                    <h3>tidyverse</h3>
+                    <p>A cohesive collection of R packages designed for data manipulation, cleaning, and visualization. Includes ggplot2, dplyr, tidyr, readr, and purrr for streamlined data workflows.</p>
+                </div>
+            </article>
+            
+            <!-- spatstat -->
+            <article class="package-card">
+                <img src="images/spatstat-example.png" alt="Spatial Point Pattern Analysis" class="package-img">
+                <div class="package-content">
+                    <h3>spatstat</h3>
+                    <p>Spatial point pattern analysis toolkit for exploratory analysis, modeling, and hypothesis testing of spatial data. Essential for wildlife distribution and habitat selection studies.</p>
+                </div>
+            </article>
+            
+            <!-- sf -->
+            <article class="package-card">
+                <img src="images/sf-map-example.png" alt="Simple Features Mapping" class="package-img">
+                <div class="package-content">
+                    <h3>sf</h3>
+                    <p>Supports reading, writing, and manipulating simple feature spatial data. Integrates seamlessly with tidyverse for efficient geospatial data processing and mapping workflows.</p>
+                </div>
+            </article>
+            
+            <!-- lme4 -->
+            <article class="package-card">
+                <img src="images/lme4-plot.png" alt="Mixed Effects Model Plot" class="package-img">
+                <div class="package-content">
+                    <h3>lme4</h3>
+                    <p>Fits linear mixed-effects models (LMMs) and generalized LMMs. Handles hierarchical and nested data structures common in ecological monitoring studies.</p>
+                </div>
+            </article>
+            
+            <!-- glmmTMB -->
+            <article class="package-card">
+                <img src="images/glmmTMB-diagram.png" alt="GLMM Visualization" class="package-img">
+                <div class="package-content">
+                    <h3>glmmTMB</h3>
+                    <p>Extends mixed modeling capabilities with support for zero-inflation, dispersion formulas, and flexible covariance structures. Ideal for complex count data in ecology.</p>
+                </div>
+            </article>
+            
+            <!-- mgcv -->
+            <article class="package-card">
+                <img src="images/mgcv-smooth.png" alt="Smooth Terms Visualization" class="package-img">
+                <div class="package-content">
+                    <h3>mgcv</h3>
+                    <p>Generalized Additive Models with automatic smoothness estimation. Perfect for modeling non-linear relationships in ecological data without pre-specifying functional forms.</p>
+                </div>
+            </article>
+            
+            <!-- Quarto -->
+            <article class="package-card">
+                <img src="images/quarto-document.png" alt="Quarto Document Preview" class="package-img">
+                <div class="package-content">
+                    <h3>Quarto</h3>
+                    <p>Next-gen scientific publishing system that integrates R code, narrative text, and outputs. Produces reproducible reports, presentations, and publications in multiple formats.</p>
+                </div>
+            </article>
+            
+            <!-- Shiny -->
+            <article class="package-card">
+                <img src="images/shiny-dashboard.png" alt="Shiny App Screenshot" class="package-img">
+                <div class="package-content">
+                    <h3>Shiny</h3>
+                    <p>Build interactive web applications directly from R. Enables stakeholders to explore data through dynamic dashboards without requiring programming knowledge.</p>
+                </div>
+            </article>
+
         </div>
     </section>
 
