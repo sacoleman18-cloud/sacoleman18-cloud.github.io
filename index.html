@@ -23,41 +23,71 @@
             line-height: 1.6;
         }
 
-        /* Hero Section */
+        /* Hero Section - Enhanced */
         header {
             position: relative;
             background-image: url('images/Background.jpg');
             background-size: cover;
-             color: white;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 60vh; /* Ensures sufficient height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
         }
 
         header::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); /* Gradient overlay for better depth */
             z-index: 1;
         }
 
         header > * {
             position: relative;
-            z-index: 2; /* Pushes text above overlay */
+            z-index: 2;
+            max-width: 800px;
         }   
 
-        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        header p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; }
-        
+        header h1 { 
+            font-size: 3rem; 
+            margin-bottom: 1rem; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds depth to text */
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p { 
+            font-size: 1.3rem; 
+            opacity: 0.95; 
+            margin: 0 auto 2rem; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            font-weight: 300;
+        }
+
         .cta-button {
             display: inline-block;
             background-color: var(--accent);
             color: white;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.2s;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-shadow: none;
         }
-        .cta-button:hover { transform: translateY(-2px); }
+
+        .cta-button:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #219a52; /* Slightly darker green on hover */
+        }
 
         /* Tech Stack Strip */
         .tech-stack {
