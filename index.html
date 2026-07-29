@@ -91,17 +91,66 @@
             background-color: #219a52; /* Slightly darker green on hover */
         }
 
-        /* Tech Stack Strip */
-        .tech-stack {
+        /* Tech Stack Icons Panel */
+        .tech-stack-icons {
             background: white;
-            padding: 1rem;
-            text-align: center;
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
-            font-size: 0.9rem;
-            color: #666;
         }
-        .tech-stack span { margin: 0 10px; font-weight: 600; color: var(--primary); }
+
+        .tech-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .tech-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .tech-icon:hover img {
+            filter: grayscale(0%);
+        }
+
+        .tech-icon::after {
+            content: attr(title);
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tech-stack-icons {
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            
+            .tech-icon img {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .tech-icon::after {
+                font-size: 0.65rem;
+            }
+        }
 
         /* Biography Section Styles */
         .bio-section {
@@ -234,18 +283,32 @@
         <a href="path/to/your-resume.pdf" class="cta-button">Download Resume</a>
     </header>
 
-    <!-- Tech Stack -->
-    <div class="tech-stack">
-        <span>R</span> • 
-        <span>Tidyverse</span> • 
-        <span>spatstat</span> • 
-        <span>sf</span> • 
-        <span>lme4</span>• 
-        <span>glmmTMB</span>• 
-        <span>mgcv</span>
-        <span>Git</span> • 
-        <span>Quarto</span> • 
-        <span>Shiny</span>
+    <!-- Tech Stack Icons -->
+    <div class="tech-stack-icons">
+        <div class="tech-icon" title="RStudio">
+            <img src="images/rstudio.png" alt="RStudio Logo">
+        </div>
+        <div class="tech-icon" title="ArcGIS Pro">
+            <img src="images/arcgis-pro.png" alt="ArcGIS Pro Logo">
+        </div>
+        <div class="tech-icon" title="VSCode">
+            <img src="images/vscode.png" alt="Visual Studio Code Logo">
+        </div>
+        <div class="tech-icon" title="Git">
+            <img src="images/git.png" alt="Git Logo">
+        </div>
+        <div class="tech-icon" title="Quarto">
+            <img src="images/quarto.png" alt="Quarto Logo">
+        </div>
+        <div class="tech-icon" title="Shiny">
+            <img src="images/shiny.png" alt="Shiny Logo">
+        </div>
+        <div class="tech-icon" title="Microsoft Word">
+            <img src="images/word.png" alt="Microsoft Word Logo">
+        </div>
+        <div class="tech-icon" title="Microsoft Excel">
+            <img src="images/excel.png" alt="Microsoft Excel Logo">
+        </div>
     </div>
     
     <!-- Biography Section -->
