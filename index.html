@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam Coleman | Wildlife Statistician</title>
     <style>
         :root {
-            --primary: #2c3e50; /* Deep Blue-Grey */
-            --accent: #27ae60;  /* Forest Green */
+            --primary: #2c3e50;
+            /* Deep Blue-Grey */
+            --accent: #27ae60;
+            /* Forest Green */
             --bg: #f8f9fa;
             --text: #333;
             --card-bg: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: var(--font-main);
             background-color: var(--bg);
@@ -30,7 +37,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            min-height: 60vh; /* Ensures sufficient height */
+            min-height: 60vh;
+            /* Ensures sufficient height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -43,29 +51,31 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); /* Gradient overlay for better depth */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            /* Gradient overlay for better depth */
             z-index: 1;
         }
 
-        header > * {
+        header>* {
             position: relative;
             z-index: 2;
             max-width: 800px;
-        }   
+        }
 
-        header h1 { 
-            font-size: 3rem; 
-            margin-bottom: 1rem; 
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds depth to text */
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            /* Adds depth to text */
             font-weight: 700;
             letter-spacing: -0.5px;
             color: white;
         }
 
-        header p { 
-            font-size: 1.3rem; 
-            opacity: 0.95; 
-            margin: 0 auto 2rem; 
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin: 0 auto 2rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
             font-weight: 300;
             color: white;
@@ -85,17 +95,18 @@
             text-shadow: none;
         }
 
-        .cta-button:hover { 
-            transform: translateY(-3px); 
+        .cta-button:hover {
+            transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            background-color: #219a52; /* Slightly darker green on hover */
+            background-color: #219a52;
+            /* Slightly darker green on hover */
         }
 
         /* Tech Stack Panel */
         .tech-stack-panel {
             background: white;
             padding: 1.5rem 2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 2rem;
             text-align: center;
         }
@@ -125,7 +136,7 @@
             align-items: center;
             gap: 2rem;
             flex-wrap: wrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 2rem;
         }
 
@@ -166,12 +177,12 @@
                 gap: 1rem;
                 padding: 1rem 0;
             }
-            
+
             .tech-icon img {
                 width: 45px;
                 height: 45px;
             }
-            
+
             .tech-icon::after {
                 font-size: 0.65rem;
             }
@@ -189,7 +200,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -197,7 +208,7 @@
 
         .package-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .package-img {
@@ -233,7 +244,7 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-}
+        }
 
         /* Biography Section Styles */
         .bio-section {
@@ -290,7 +301,7 @@
             background: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -298,14 +309,15 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .card-img {
             height: 180px;
             width: 100%;
             object-fit: cover;
-            background-color: #eee; /* Placeholder color */
+            background-color: #eee;
+            /* Placeholder color */
         }
 
         .card-content {
@@ -324,9 +336,19 @@
             margin-bottom: 0.5rem;
         }
 
-        .card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--primary); }
-        .card p { font-size: 0.95rem; color: #555; margin-bottom: 1rem; flex-grow: 1; }
-        
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
         .card-links {
             margin-top: auto;
             display: flex;
@@ -340,7 +362,10 @@
             font-size: 0.9rem;
             border-bottom: 1px solid transparent;
         }
-        .link-text:hover { border-bottom-color: var(--accent); }
+
+        .link-text:hover {
+            border-bottom-color: var(--accent);
+        }
 
         footer {
             text-align: center;
@@ -352,8 +377,13 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .project-grid { grid-template-columns: 1fr; }
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <!-- Lightbox2 CSS -->
@@ -361,6 +391,7 @@
     <!-- Lightbox2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
+
 <body>
 
     <!-- Hero Header -->
@@ -369,7 +400,7 @@
         <p>Wildlife Statistician & Data Scientist<br>Specializing in R, GLMMS, and Spatial Ecology</p>
         <a href="path/to/your-resume.pdf" class="cta-button">Download Resume</a>
     </header>
-    
+
     <!-- Technical Proficiencies Panel -->
     <div class="tech-stack-panel">
         <h3 class="panel-title">Technical Proficiencies</h3>
@@ -400,17 +431,22 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Biography Section -->
     <section class="bio-section">
         <div class="container">
             <h2 class="bio-title">About Me</h2>
             <p class="bio-text">
-                I am a wildlife statistician passionate about bridging the gap between complex ecological data and actionable conservation strategies. 
-                With a strong foundation in <strong>R programming</strong>, <strong>spatial analysis</strong>, and <strong>reproducible research</strong>, 
-                I specialize in turning messy field data into clear insights. My work ranges from estimating bat population dynamics via an NB GAMM from a nested hierarchical structure
-                of ARU deployements, to developing various plots to aid Cooper's hawk researcher population trends. My work is multifaceted, combining rigorous statistical modeling with 
-                practical ecological applications. I aim to contribute meaningful insights that support wildlife conservation and inform management decisions.
+                I am a wildlife statistician passionate about bridging the gap between complex ecological data and
+                actionable conservation strategies.
+                With a strong foundation in <strong>R programming</strong>, <strong>spatial analysis</strong>, and
+                <strong>reproducible research</strong>,
+                I specialize in turning messy field data into clear insights. My work ranges from estimating bat
+                population dynamics via an NB GAMM from a nested hierarchical structure
+                of ARU deployements, to developing various plots to aid Cooper's hawk researcher population trends. My
+                work is multifaceted, combining rigorous statistical modeling with
+                practical ecological applications. I aim to contribute meaningful insights that support wildlife
+                conservation and inform management decisions.
             </p>
         </div>
     </section>
@@ -419,76 +455,129 @@
     <section class="container">
         <h2 class="section-title">R Packages Expertise</h2>
         <div class="package-grid">
-            
+
             <!-- Tidyverse -->
             <article class="package-card">
                 <img src="images/tidyverse-logo.png" alt="Tidyverse Logo" class="package-img">
                 <div class="package-content">
                     <h3>tidyverse</h3>
-                    <p>A cohesive collection of R packages designed for data manipulation, cleaning, and visualization. Includes ggplot2, dplyr, tidyr, readr, and purrr for streamlined data workflows.</p>
+                    <p>A cohesive collection of R packages designed for data manipulation, cleaning, and
+                        visualization...</p>
+
+                    <!-- New Usage Button -->
+                    <a href="#lightbox-code-tidyverse" class="link-text"
+                        style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem;"
+                        onclick="openCodeLightbox('tidyverse'); return false;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        View Usage Example
+                    </a>
+                </div>
+
+                <!-- Hidden Code + Image Container for Lightbox -->
+                <div id="lightbox-code-tidyverse" style="display:none;">
+                    <div class="lightbox-content">
+                        <div class="code-section">
+                            <h4>R Code Example:</h4>
+                            <pre><code class="language-r"># Tidyverse example: Data visualization with ggplot2
+library(tidyverse)
+
+# Sample wildlife survey data
+survey_data <- tibble(
+  species = c("Cooper's Hawk", "Red-tailed Hawk", "Great Horned Owl"),
+  count = c(23, 45, 12),
+  habitat = c("Forest Edge", "Open Field", "Woodland")
+)
+
+# Create visualization
+ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Wildlife Survey Results",
+       x = "Habitat Type",
+       y = "Observed Count") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+                        </div>
+
+                        <div class="plot-section">
+                            <h4>Generated Plot:</h4>
+                            <img src="images/tidyverse-example-plot.png" alt="Tidyverse ggplot2 example visualization"
+                                style="max-width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
                 </div>
             </article>
-            
+
             <!-- spatstat -->
             <article class="package-card">
                 <img src="images/spatstat-example.png" alt="Spatial Point Pattern Analysis" class="package-img">
                 <div class="package-content">
                     <h3>spatstat</h3>
-                    <p>Spatial point pattern analysis toolkit for exploratory analysis, modeling, and hypothesis testing of spatial data. Essential for wildlife distribution and habitat selection studies.</p>
+                    <p>Spatial point pattern analysis toolkit for exploratory analysis, modeling, and hypothesis testing
+                        of spatial data. Essential for wildlife distribution and habitat selection studies.</p>
                 </div>
             </article>
-            
+
             <!-- sf -->
             <article class="package-card">
                 <img src="images/sf-map-example.png" alt="Simple Features Mapping" class="package-img">
                 <div class="package-content">
                     <h3>sf</h3>
-                    <p>Supports reading, writing, and manipulating simple feature spatial data. Integrates seamlessly with tidyverse for efficient geospatial data processing and mapping workflows.</p>
+                    <p>Supports reading, writing, and manipulating simple feature spatial data. Integrates seamlessly
+                        with tidyverse for efficient geospatial data processing and mapping workflows.</p>
                 </div>
             </article>
-            
+
             <!-- lme4 -->
             <article class="package-card">
                 <img src="images/lme4-plot.png" alt="Mixed Effects Model Plot" class="package-img">
                 <div class="package-content">
                     <h3>lme4</h3>
-                    <p>Fits linear mixed-effects models (LMMs) and generalized LMMs. Handles hierarchical and nested data structures common in ecological monitoring studies.</p>
+                    <p>Fits linear mixed-effects models (LMMs) and generalized LMMs. Handles hierarchical and nested
+                        data structures common in ecological monitoring studies.</p>
                 </div>
             </article>
-            
+
             <!-- glmmTMB -->
             <article class="package-card">
                 <img src="images/glmmTMB-diagram.png" alt="GLMM Visualization" class="package-img">
                 <div class="package-content">
                     <h3>glmmTMB</h3>
-                    <p>Extends mixed modeling capabilities with support for zero-inflation, dispersion formulas, and flexible covariance structures. Ideal for complex count data in ecology.</p>
+                    <p>Extends mixed modeling capabilities with support for zero-inflation, dispersion formulas, and
+                        flexible covariance structures. Ideal for complex count data in ecology.</p>
                 </div>
             </article>
-            
+
             <!-- mgcv -->
             <article class="package-card">
                 <img src="images/mgcv-smooth.png" alt="Smooth Terms Visualization" class="package-img">
                 <div class="package-content">
                     <h3>mgcv</h3>
-                    <p>Generalized Additive Models with automatic smoothness estimation. Perfect for modeling non-linear relationships in ecological data without pre-specifying functional forms.</p>
+                    <p>Generalized Additive Models with automatic smoothness estimation. Perfect for modeling non-linear
+                        relationships in ecological data without pre-specifying functional forms.</p>
                 </div>
             </article>
-            
+
             <!-- Quarto -->
             <article class="package-card">
                 <img src="images/quarto-document.png" alt="Quarto Document Preview" class="package-img">
                 <div class="package-content">
                     <h3>Quarto</h3>
-                    <p>Next-gen scientific publishing system that integrates R code, narrative text, and outputs. Produces reproducible reports, presentations, and publications in multiple formats.</p>
+                    <p>Next-gen scientific publishing system that integrates R code, narrative text, and outputs.
+                        Produces reproducible reports, presentations, and publications in multiple formats.</p>
                 </div>
             </article>
-            
+
             <!-- Shiny -->
             <article class="package-card">
                 <img src="images/shiny-dashboard.png" alt="Shiny App Screenshot" class="package-img">
                 <div class="package-content">
                     <h3>Shiny</h3>
-                    <p>Build interactive web applications directly from R. Enables stakeholders to explore data through dynamic dashboards without requiring programming knowledge.</p>
+                    <p>Build interactive web applications directly from R. Enables stakeholders to explore data through
+                        dynamic dashboards without requiring programming knowledge.</p>
                 </div>
             </article>
 
@@ -496,22 +585,25 @@
     </section>
 
     <div class="container">
-        
+
         <!-- Category: Peer-Reviewed Research -->
         <h2 class="section-title">Manuscript Projects</h2>
         <div class="project-grid">
-            
+
             <!-- Project 1: Victoria, BC COHA Habitat Selection -->
             <article class="card">
                 <!-- Lightbox2 link for the image -->
-                <a href="images/Victoria_COHA_map.png" data-lightbox="project-1" data-title="Cooper's Hawk spatial distribution in Victoria, BC">
+                <a href="images/Victoria_COHA_map.png" data-lightbox="project-1"
+                    data-title="Cooper's Hawk spatial distribution in Victoria, BC">
                     <img src="images/Victoria_COHA_map.png" alt="Population trend graph" class="card-img">
                 </a>
                 <div class="card-content">
                     <span class="card-tag">Manuscripts awaiting publication</span>
                     <h3>Cooper's Hawk spatial distribution in Victoria, BC </h3>
-                    <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize Cooper's Hawk spatial distribution in Victoria, BC.
-                        Worked with the <code>spatstat</code> package for spatial point pattern analysis, Clark-evans index, and other spatial statistics 
+                    <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize
+                        Cooper's Hawk spatial distribution in Victoria, BC.
+                        Worked with the <code>spatstat</code> package for spatial point pattern analysis, Clark-evans
+                        index, and other spatial statistics
                         to understand habitat selection and distribution patterns.
                     </p>
                     <div class="card-links">
@@ -520,17 +612,19 @@
                     </div>
                 </div>
             </article>
-            
+
             <!-- Project 2: Manuscript -->
             <article class="card">
                 <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-2" data-title="Cooper's Hawk spatial distribution">
+                <a href="images/manuscript-plot.png" data-lightbox="project-2"
+                    data-title="Cooper's Hawk spatial distribution">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                 </a>
                 <div class="card-content">
                     <span class="card-tag">Manuscripts awaiting publication</span>
                     <h3>Cooper's Hawk </h3>
-                    <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across fragmented habitats. Published in <em>Ecological Applications</em>.</p>
+                    <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across
+                        fragmented habitats. Published in <em>Ecological Applications</em>.</p>
                     <div class="card-links">
                         <a href="https://github.com/youruser/coyote-study" class="link-text">View Code →</a>
                         <a href="#" class="link-text">Read Paper →</a>
@@ -543,21 +637,24 @@
         <!-- Category: Extracurriculars -->
         <h2 class="section-title">Extracurriculars</h2>
         <div class="project-grid">
-            
+
             <!-- Project 3: Extracurricular Bat Poster -->
             <article class="card">
                 <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-3" data-title="Cooper's Hawk spatial distribution">
+                <a href="images/manuscript-plot.png" data-lightbox="project-3"
+                    data-title="Cooper's Hawk spatial distribution">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                 </a>
                 <div class="card-content">
                     <span class="card-tag">The Wildlife Society</span>
                     <h3>Do Habitat Edges Really Concentrate Bat Activity? </h3>
                     <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
-                         <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity 
-                         in open, edge and forested areas.</p>
+                        <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
+                        in open, edge and forested areas.
+                    </p>
                     <div class="card-links">
-                        <a href="https://github.com/sacoleman18-cloud/SchmeeckleBatGAMMAnalysis" class="link-text">View Repo →</a>
+                        <a href="https://github.com/sacoleman18-cloud/SchmeeckleBatGAMMAnalysis" class="link-text">View
+                            Repo →</a>
                         <a href="#" class="link-text">Live Dashboard →</a>
                     </div>
                 </div>
@@ -566,13 +663,15 @@
             <!-- Project 4: Class Project -->
             <article class="card">
                 <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-4" data-title="Cooper's Hawk spatial distribution">
+                <a href="images/manuscript-plot.png" data-lightbox="project-4"
+                    data-title="Cooper's Hawk spatial distribution">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                 </a>
                 <div class="card-content">
                     <span class="card-tag">Academic Work</span>
                     <h3>Species Distribution Modeling</h3>
-                    <p>Compared GLM, GAM, and Random Forest approaches for predicting habitat suitability. Focused on model validation and spatial autocorrelation.</p>
+                    <p>Compared GLM, GAM, and Random Forest approaches for predicting habitat suitability. Focused on
+                        model validation and spatial autocorrelation.</p>
                     <div class="card-links">
                         <a href="https://github.com/sacoleman18-cloud/sdm-class" class="link-text">View Code →</a>
                     </div>
@@ -584,19 +683,21 @@
         <!-- Category: Tools & Education -->
         <h2 class="section-title">Educational Resources</h2>
         <div class="project-grid">
-            
+
             <!-- Project 5: Harlan's hawk -->
             <article class="card">
                 <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-5" data-title="Cooper's Hawk spatial distribution">
+                <a href="images/manuscript-plot.png" data-lightbox="project-5"
+                    data-title="Cooper's Hawk spatial distribution">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                 </a>
                 <div class="card-content">
                     <span class="card-tag">Video Materials</span>
                     <h3>What is a Harlan's white-morph red-tailed hawk?</h3>
-                    <p>Various plots and visual materials explaining the characteristics and identification of Harlan's white-morph red-tailed hawks.</p>
+                    <p>Various plots and visual materials explaining the characteristics and identification of Harlan's
+                        white-morph red-tailed hawks.</p>
                     <div class="card-links">
-                        <a href="https://youruser.shinyapps.io/survey-sim/" class="link-text">Instagram Video  →</a>
+                        <a href="https://youruser.shinyapps.io/survey-sim/" class="link-text">Instagram Video →</a>
                         <a href="https://github.com/youruser/survey-sim" class="link-text">Repo →</a>
                     </div>
                 </div>
@@ -608,10 +709,12 @@
 
     <footer>
         <p>&copy; 2026 Sam Coleman. Built with R & HTML.</p>
-        <p><a href="mailto:sacoleman18@gmail.com" style="color: var(--primary);">Email Me</a> • 
-            <a href="https://linkedin.com/in/yourprofile" style="color: var(--primary);">LinkedIn</a></p> •
-             <a href="https://github.com/sacoleman18-cloud" style="color: var(--primary);">GitHub</a></p>
+        <p><a href="mailto:sacoleman18@gmail.com" style="color: var(--primary);">Email Me</a> •
+            <a href="https://linkedin.com/in/yourprofile" style="color: var(--primary);">LinkedIn</a>
+        </p> •
+        <a href="https://github.com/sacoleman18-cloud" style="color: var(--primary);">GitHub</a></p>
     </footer>
 
 </body>
+
 </html>
