@@ -538,24 +538,208 @@
                     <div class="lightbox-content">
                         <div class="code-section">
                             <h4>R Code Example:</h4>
-                            <pre><code class="language-r"># Tidyverse example: Data visualization with ggplot2
-library(tidyverse)
+                            <pre><code class="language-r">#!/usr/bin/env Rscript
+#
+# brood_count_violin.R
+#
+# Violin + sina plot comparing brood counts between dispersal and
+# non-dispersal groups. The plot layers, from back to front:
+#
+#   1. Violin outline (density shape)
+#   2. Box-plot rectangle (filled, then outlined)
+#   3. Sina jittered points (individual observations)
+#   4. Box-plot median bar and whiskers
+#   5. Mean marker (diamond shape)
+#
+# The box-plot elements are drawn manually with geom_rect / geom_segment
+# instead of geom_boxplot so we can control z-order relative to sina points.
 
-# Sample wildlife survey data
-survey_data <- tibble(
-  species = c("Cooper's Hawk", "Red-tailed Hawk", "Great Horned Owl"),
-  count = c(23, 45, 12),
-  habitat = c("Forest Edge", "Open Field", "Woodland")
+library(ggplot2)
+library(dplyr)
+library(ggforce)
+source("scripts/shared_utils.R")
+
+# ── Load data ────────────────────────────────────────────
+res <- load_coha_data()
+df <- prepare_brood_plot_df(res$data)
+
+if (nrow(df) == 0) stop("No valid brood-count rows after filtering.")
+
+# Map the two-level factor to numeric x-coordinates (1 = nd, 2 = disp)
+df <- mutate(df, brood_x = as.numeric(BroodDisvsNonDis))
+
+# ── Compute box-plot statistics per group ─────────────────
+box_width <- 0.2
+
+box_stats <- df |>
+  group_by(BroodDisvsNonDis, brood_x) |>
+  summarise(
+    q1          = quantile(BroodCount, 0.25, names = FALSE),
+    median_brood = median(BroodCount),
+    q3          = quantile(BroodCount, 0.75, names = FALSE),
+    mean_brood  = mean(BroodCount),
+    iqr         = q3 - q1,
+    .groups     = "drop"
+  ) |>
+  rowwise() |>
+  mutate(
+    lower_bound    = q1 - 1.5 * iqr,
+    upper_bound    = q3 + 1.5 * iqr,
+    lower_whisker  = min(df$BroodCount[
+      df$BroodDisvsNonDis == BroodDisvsNonDis & df$BroodCount >= lower_bound
+    ]),
+    upper_whisker  = max(df$BroodCount[
+      df$BroodDisvsNonDis == BroodDisvsNonDis & df$BroodCount <= upper_bound
+    ])
+  ) |>
+  ungroup()
+
+# ── Build the plot ───────────────────────────────────────
+
+# Base: axes, labels, theme
+p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
+  scale_x_continuous(
+    breaks  = c(1, 2),
+    labels  = unname(brood_pal$labels[c("nd", "disp")]),
+    limits  = c(0.45, 2.62),
+    expand  = expansion(mult = c(0.02, 0.02))
+  ) +
+  scale_y_continuous(
+    breaks = pretty(df$BroodCount, n = 6),
+    expand = expansion(mult = c(0.02, 0.08))
+  ) +
+  labs(
+    x     = "Brood Dispersal Status",
+    y     = "Brood Count",
+    title = "Brood Count by Dispersal Status"
+  ) +
+  plot_theme(base_size = 12) +
+  theme(
+    plot.title       = element_text(hjust = 0.5),
+    legend.position  = "none",
+    panel.grid.major.x = element_blank()
+  )
+
+# Layer 1: Violin outline (unfilled density shape behind everything)
+p <- p + geom_violin(
+  fill    = NA,
+  color   = "black",
+  width   = 0.78,
+  linewidth = 1,
+  trim    = FALSE
 )
 
-# Create visualization
-ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Wildlife Survey Results",
-       x = "Habitat Type",
-       y = "Observed Count") +
-  theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5))</code></pre>
+# Layer 2: Box-plot fill rectangle (semi-transparent group color)
+p <- p + geom_rect(
+  data    = box_stats,
+  aes(
+    fill   = BroodDisvsNonDis,
+    xmin   = brood_x - box_width / 2,
+    xmax   = brood_x + box_width / 2,
+    ymin   = q1,
+    ymax   = q3
+  ),
+  inherit.aes = FALSE,
+  linewidth = 0,
+  color   = NA,
+  alpha   = 1
+)
+
+# Layer 3: Sina jittered points (individual data points over box fill)
+p <- p + ggforce::geom_sina(
+  aes(fill   = BroodDisvsNonDis),
+  maxwidth  = 0.22,
+  shape     = 21,
+  size      = 2.2,
+  stroke    = 0.35,
+  alpha     = 0.9,
+  color     = "black"
+)
+
+# Layer 4: Box-plot outline on top of sina (crisp black edges)
+p <- p + geom_rect(
+  data    = box_stats,
+  aes(
+    xmin   = brood_x - box_width / 2,
+    xmax   = brood_x + box_width / 2,
+    ymin   = q1,
+    ymax   = q3
+  ),
+  inherit.aes = FALSE,
+  linewidth = 1.05,
+  fill    = NA,
+  color   = "black"
+)
+
+# Layer 5: Median bar (horizontal line inside box)
+p <- p + geom_segment(
+  data    = box_stats,
+  aes(
+    x     = brood_x - box_width / 2,
+    xend  = brood_x + box_width / 2,
+    y     = median_brood,
+    yend  = median_brood
+  ),
+  inherit.aes = FALSE,
+  color   = "black",
+  linewidth = 1.05
+)
+
+# Layer 6: Whiskers — vertical stems from box edges to whisker tips
+p <- p +
+  geom_segment(
+    data = box_stats, inherit.aes = FALSE,
+    aes(x = brood_x, xend = brood_x, y = q3, yend = upper_whisker),
+    color = "black", linewidth = 1.05
+  ) +
+  geom_segment(
+    data = box_stats, inherit.aes = FALSE,
+    aes(x = brood_x, xend = brood_x, y = q1, yend = lower_whisker),
+    color = "black", linewidth = 1.05
+  ) +
+  # Whisker caps (short horizontal ticks at whisker tips)
+  geom_segment(
+    data = box_stats, inherit.aes = FALSE,
+    aes(x = brood_x - 0.055, xend = brood_x + 0.055,
+        y = upper_whisker, yend = upper_whisker),
+    color = "black", linewidth = 1.05
+  ) +
+  geom_segment(
+    data = box_stats, inherit.aes = FALSE,
+    aes(x = brood_x - 0.055, xend = brood_x + 0.055,
+        y = lower_whisker, yend = lower_whisker),
+    color = "black", linewidth = 1.05
+  )
+
+# Layer 7: Mean marker — white background diamond (hides behind) then colored diamond
+mean_stats <- select(box_stats, BroodDisvsNonDis, brood_x, mean_brood)
+
+p <- p +
+  geom_point(
+    data = mean_stats, inherit.aes = FALSE,
+    aes(x = brood_x, y = mean_brood),
+    shape = 23, size = 5.1, stroke = 0, color = NA, fill = "white"
+  ) +
+  geom_point(
+    data = mean_stats, inherit.aes = FALSE,
+    aes(x = brood_x, y = mean_brood),
+    shape = 23, size = 4, stroke = 0.9, color = "black",
+    fill = brood_pal$colors[as.character(mean_stats$BroodDisvsNonDis)]
+  ) +
+  scale_fill_manual(values = brood_pal$fills, drop = FALSE)
+
+# ── Save ─────────────────────────────────────────────────
+if (!dir.exists(FIGURES_DIR)) dir.create(FIGURES_DIR, recursive = TRUE)
+
+ggsave(
+  file.path(FIGURES_DIR, "brood_violin.png"),
+  p, width = 10, height = 6, dpi = 300
+)
+
+ggsave(
+  file.path(FIGURES_DIR, "brood_violin.pdf"),
+  p, width = 10, height = 6
+)</code></pre>
                         </div>
 
                         <div class="plot-section">
@@ -772,14 +956,13 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
     </footer>
 
     <script>
-        // Global variable to track active lightbox
         let activeLightboxOverlay = null;
+        let activeOriginalParent = null;   // ← NEW: remember where the lightbox came from
 
         function openCodeLightbox(packageName) {
             // Close any existing lightbox first
             closeCodeLightbox();
 
-            // Show the specific lightbox
             const lightboxId = 'lightbox-code-' + packageName;
             const lightbox = document.getElementById(lightboxId);
 
@@ -788,24 +971,27 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
                 return;
             }
 
+            // ── Store the original parent BEFORE moving the node ──
+            activeOriginalParent = lightbox.parentElement;
+
             // Create overlay
             const overlay = document.createElement('div');
             overlay.id = 'code-lightbox-overlay';
             overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.85);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto;
-        padding: 2rem;
-        box-sizing: border-box;
-    `;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 2rem;
+            box-sizing: border-box;
+        `;
 
             // Click outside to close
             overlay.onclick = function (e) {
@@ -818,42 +1004,30 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
             document.body.appendChild(overlay);
             overlay.appendChild(lightbox);
 
-            // Store reference to active overlay
             activeLightboxOverlay = overlay;
-
-            // Show the lightbox content
             lightbox.style.display = 'block';
 
-            // Add escape key handler (only one at a time)
             document.addEventListener('keydown', handleEscapeKey);
-
-            // Prevent body scrolling when lightbox is open
             document.body.style.overflow = 'hidden';
         }
 
         function closeCodeLightbox() {
-            // Remove escape key listener
             document.removeEventListener('keydown', handleEscapeKey);
-
-            // Restore body scrolling
             document.body.style.overflow = '';
 
-            // If there's an active overlay, remove it
             if (activeLightboxOverlay) {
-                // Move lightbox back to its original parent
                 const lightbox = activeLightboxOverlay.querySelector('[id^="lightbox-code-"]');
                 if (lightbox) {
-                    // Find the original parent (the package-card)
-                    const originalParent = lightbox.closest('.package-card');
-                    if (originalParent) {
-                        originalParent.appendChild(lightbox);
+                    // ── Use the STORED reference, not .closest() ──
+                    if (activeOriginalParent) {
+                        activeOriginalParent.appendChild(lightbox);
                     }
                     lightbox.style.display = 'none';
                 }
 
-                // Remove the overlay
                 activeLightboxOverlay.remove();
                 activeLightboxOverlay = null;
+                activeOriginalParent = null;   // ← clear the reference
             }
         }
 
@@ -863,7 +1037,6 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
             }
         }
 
-        // Clean up on page unload
         window.addEventListener('beforeunload', closeCodeLightbox);
     </script>
 </body>
