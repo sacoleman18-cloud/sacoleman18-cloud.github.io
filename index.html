@@ -307,6 +307,14 @@
             flex-direction: column;
         }
 
+        .card-link {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            color: inherit;
+            text-decoration: none;
+        }
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
@@ -674,121 +682,88 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
 
     <div class="container">
 
-        <!-- Category: Peer-Reviewed Research -->
-        <h2 class="section-title">Manuscript Projects</h2>
+        <h2 class="section-title">Manuscript in review</h2>
         <div class="project-grid">
 
             <!-- Project 1: Victoria, BC COHA Habitat Selection -->
             <article class="card">
-                <!-- Lightbox2 link for the image -->
-                <a href="images/Victoria_COHA_map.png" data-lightbox="project-1"
-                    data-title="Cooper's Hawk spatial distribution in Victoria, BC">
+                <a class="card-link" href="projects/COHAVictoriaBC.html"
+                    aria-label="Open Cooper's Hawk spatial distribution in Victoria, BC project page">
                     <img src="images/Victoria_COHA_map.png" alt="Population trend graph" class="card-img">
-                </a>
-                <div class="card-content">
-                    <span class="card-tag">Manuscripts awaiting publication</span>
-                    <h3>Cooper's Hawk spatial distribution in Victoria, BC </h3>
-                    <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize
-                        Cooper's Hawk spatial distribution in Victoria, BC.
-                        Worked with the <code>spatstat</code> package for spatial point pattern analysis, Clark-evans
-                        index, and other spatial statistics
-                        to understand habitat selection and distribution patterns.
-                    </p>
-                    <div class="card-links">
-                        <a href="https://github.com/youruser/coyote-study" class="link-text">View Code →</a>
-                        <a href="#" class="link-text">Read Paper →</a>
+                    <div class="card-content">
+                        <span class="card-tag">Manuscripts awaiting publication</span>
+                        <h3>Cooper's Hawk spatial distribution in Victoria, BC </h3>
+                        <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize
+                            Cooper's Hawk spatial distribution in Victoria, BC.
+                            Worked with the <code>spatstat</code> package for spatial point pattern analysis, Clark-evans
+                            index, and other spatial statistics
+                            to understand habitat selection and distribution patterns.
+                        </p>
                     </div>
-                </div>
+                </a>
             </article>
 
             <!-- Project 2: Manuscript -->
             <article class="card">
-                <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-2"
-                    data-title="Cooper's Hawk spatial distribution">
+                <a class="card-link" href="projects/COHADispersal.html"
+                    aria-label="Open Cooper's Hawk project page">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                </a>
-                <div class="card-content">
-                    <span class="card-tag">Manuscripts awaiting publication</span>
-                    <h3>Cooper's Hawk </h3>
-                    <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across
-                        fragmented habitats. Published in <em>Ecological Applications</em>.</p>
-                    <div class="card-links">
-                        <a href="https://github.com/youruser/coyote-study" class="link-text">View Code →</a>
-                        <a href="#" class="link-text">Read Paper →</a>
+                    <div class="card-content">
+                        <span class="card-tag">Manuscripts awaiting publication</span>
+                        <h3>Cooper's Hawk </h3>
+                        <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across
+                            fragmented habitats. Published in <em>Ecological Applications</em>.</p>
                     </div>
-                </div>
+                </a>
             </article>
 
         </div>
 
-        <!-- Category: Extracurriculars -->
-        <h2 class="section-title">Extracurriculars</h2>
+        <h2 class="section-title">Scientific poster</h2>
         <div class="project-grid">
 
             <!-- Project 3: Extracurricular Bat Poster -->
             <article class="card">
-                <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-3"
-                    data-title="Cooper's Hawk spatial distribution">
+                <a class="card-link" href="projects/SchmeeckleBatGAMM.html"
+                    aria-label="Open Do Habitat Edges Really Concentrate Bat Activity project page">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                </a>
-                <div class="card-content">
-                    <span class="card-tag">The Wildlife Society</span>
-                    <h3>Do Habitat Edges Really Concentrate Bat Activity? </h3>
-                    <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
-                        <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
-                        in open, edge and forested areas.
-                    </p>
-                    <div class="card-links">
-                        <a href="https://github.com/sacoleman18-cloud/SchmeeckleBatGAMMAnalysis" class="link-text">View
-                            Repo →</a>
-                        <a href="#" class="link-text">Live Dashboard →</a>
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Do Habitat Edges Really Concentrate Bat Activity? </h3>
+                        <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
+                            <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
+                            in open, edge and forested areas.
+                        </p>
                     </div>
-                </div>
+                </a>
             </article>
 
             <!-- Project 4: Class Project -->
             <article class="card">
-                <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-4"
-                    data-title="Cooper's Hawk spatial distribution">
+                <a class="card-link" href="projects/ColburnMAXENT.html"
+                    aria-label="Open Species Distribution Modeling project page">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                </a>
-                <div class="card-content">
-                    <span class="card-tag">Academic Work</span>
-                    <h3>Species Distribution Modeling</h3>
-                    <p>Compared GLM, GAM, and Random Forest approaches for predicting habitat suitability. Focused on
-                        model validation and spatial autocorrelation.</p>
-                    <div class="card-links">
-                        <a href="https://github.com/sacoleman18-cloud/sdm-class" class="link-text">View Code →</a>
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Species Distribution Modeling</h3>
+                        <p>Compared GLM, GAM, and Random Forest approaches for predicting habitat suitability. Focused on
+                            model validation and spatial autocorrelation.</p>
                     </div>
-                </div>
+                </a>
             </article>
-
-        </div>
-
-        <!-- Category: Tools & Education -->
-        <h2 class="section-title">Educational Resources</h2>
-        <div class="project-grid">
 
             <!-- Project 5: Harlan's hawk -->
             <article class="card">
-                <!-- Lightbox2 link for the image -->
-                <a href="images/manuscript-plot.png" data-lightbox="project-5"
-                    data-title="Cooper's Hawk spatial distribution">
+                <a class="card-link" href="projects/OwlEctoSize.html"
+                    aria-label="Open Harlan's white-morph red-tailed hawk project page">
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                </a>
-                <div class="card-content">
-                    <span class="card-tag">Video Materials</span>
-                    <h3>What is a Harlan's white-morph red-tailed hawk?</h3>
-                    <p>Various plots and visual materials explaining the characteristics and identification of Harlan's
-                        white-morph red-tailed hawks.</p>
-                    <div class="card-links">
-                        <a href="https://youruser.shinyapps.io/survey-sim/" class="link-text">Instagram Video →</a>
-                        <a href="https://github.com/youruser/survey-sim" class="link-text">Repo →</a>
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>What is a Harlan's white-morph red-tailed hawk?</h3>
+                        <p>Various plots and visual materials explaining the characteristics and identification of Harlan's
+                            white-morph red-tailed hawks.</p>
                     </div>
-                </div>
+                </a>
             </article>
 
         </div>

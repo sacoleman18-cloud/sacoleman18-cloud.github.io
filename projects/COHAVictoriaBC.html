@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooper's Hawk Spatial Distribution | Sam Coleman</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f8f9fa;
+            --text: #333;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── Top Navigation Bar ── */
+        .navbar {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .navbar a:hover { color: var(--accent); }
+
+        .navbar-left { display: flex; gap: 1.5rem; align-items: center; }
+        .navbar-right { display: flex; gap: 1.5rem; align-items: center; }
+
+        /* ── Status Badge ── */
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-in-review {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-poster {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* ── Page Header ── */
+        .project-header {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .project-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── Main Content Area ── */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .project-content section {
+            margin-bottom: 3rem;
+        }
+
+        .project-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .project-content p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* ── Abstract Callout ── */
+        .abstract-box {
+            background: #f0f7f4;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem;
+        }
+
+        .abstract-box p {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 0;
+        }
+
+        /* ── Figures Grid ── */
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .figure-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .figure-item img {
+            width: 100%;
+            display: block;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+
+        .figure-item img:hover { transform: scale(1.02); }
+
+        .figure-caption {
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ── Code Block ── */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 1rem;
+        }
+
+        .code-block code { font-family: inherit; }
+
+        /* ── Tools Used Pills ── */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-pill {
+            background: #eef2f7;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #dbe4ef;
+        }
+
+        /* ── Poster Display (for poster projects) ── */
+        .poster-display {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .poster-display img {
+            width: 100%;
+            display: block;
+        }
+
+        .poster-download-bar {
+            background: var(--primary);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .poster-download-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .poster-download-bar a:hover { color: var(--accent); }
+
+        /* ── Key Findings List ── */
+        .findings-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .findings-list li {
+            padding: 0.75rem 0 0.75rem 2rem;
+            position: relative;
+            font-size: 1.02rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .findings-list li:last-child { border-bottom: none; }
+
+        .findings-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* ── External Links Footer ── */
+        .links-footer {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .links-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .links-footer a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ── Back Link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover { color: var(--accent); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .project-header h1 { font-size: 1.5rem; }
+            .figures-grid { grid-template-columns: 1fr; }
+            .navbar { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ─────────── Sticky Navbar ─────────── -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+        <div class="navbar-right">
+            <a href="../index.html">Home</a>
+            <a href="https://github.com/sacoleman18-cloud">GitHub</a>
+            <a href="mailto:sacoleman18@gmail.com">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ─────────── Project Title & Metadata ─────────── -->
+    <header class="project-header">
+        <span class="status-badge status-in-review">In Review</span>
+        <!-- Use status-poster for posters, status-published for published work -->
+        <h1>Cooper's Hawk Spatial Distribution in Victoria, BC</h1>
+        <p class="subtitle">Multi-decadal spatial point pattern analysis of habitat selection</p>
+
+        <div class="project-meta">
+            <span>📅 2024 – 2026</span>
+            <span>📍 Victoria, British Columbia</span>
+            <span>🧑‍🔬 Role: Lead Analyst</span>
+        </div>
+    </header>
+
+    <!-- ─────────── Main Content ─────────── -->
+    <main class="project-content">
+
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            ← All Projects
+        </a>
+
+        <!-- ── Abstract (for papers) ── -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-box">
+                <p>
+                    Cooper's Hawks (<em>Accipiter cooperii</em>) have increasingly colonized
+                    urban environments, yet the spatial drivers of their distribution within
+                    cities remain poorly understood. Using a multi-decadal dataset of sighting
+                    records from Victoria, BC, we employed spatial point pattern analysis
+                    to quantify habitat selection patterns...
+                </p>
+            </div>
+        </section>
+
+        <!-- ── Poster Display (INCLUDE THIS SECTION FOR POSTERS, REMOVE FOR PAPERS) ── -->
+        <!--
+        <section id="poster">
+            <h2>Scientific Poster</h2>
+            <div class="poster-display">
+                <img src="../images/bat-poster-full.png" alt="Poster: Do Habitat Edges Concentrate Bat Activity?">
+                <div class="poster-download-bar">
+                    <a href="../downloads/bat-poster.pdf" download>⬇ Download Poster (PDF)</a>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <!-- ── Key Findings ── -->
+        <section id="findings">
+            <h2>Key Findings</h2>
+            <ul class="findings-list">
+                <li>
+                    Clark-Evans test revealed significant clustering of Cooper's Hawk
+                    sightings in proximity to forest edge habitat (R = 0.71, p &lt; 0.001).
+                </li>
+                <li>
+                    Kernel density estimates identified three core activity centers,
+                    all within 150 meters of riparian corridors.
+                </li>
+                <li>
+                    Pair correlation function analysis supported aggregated distribution
+                    at scales of 0–500m, transitioning to random at larger distances.
+                </li>
+                <li>
+                    Results inform urban corridor planning for raptor conservation
+                    in rapidly developing municipalities.
+                </li>
+            </ul>
+        </section>
+
+        <!-- ── Figures ── -->
+        <section id="figures">
+            <h2>Selected Figures</h2>
+            <div class="figures-grid">
+                <div class="figure-item">
+                    <a href="../images/victoria-coha-density.png"
+                       data-lightbox="project-figures"
+                       data-title="Kernel density surface of Cooper's Hawk observations">
+                        <img src="../images/victoria-coha-density.png"
+                             alt="Density surface map">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 1.</strong> Kernel density surface showing
+                        concentration of Cooper's Hawk observations across Victoria, BC.
+                    </div>
+                </div>
+                <div class="figure-item">
+                    <a href="../images/pcf-analysis.png"
+                       data-lightbox="project-figures"
+                       data-title="Pair correlation function analysis">
+                        <img src="../images/pcf-analysis.png"
+                             alt="Pair correlation function plot">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 2.</strong> Pair correlation function (g(r))
+                        indicating aggregation at distances &lt; 500m.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Methodology & Code ── -->
+        <section id="methods">
+            <h2>Methodology & Code</h2>
+            <p>
+                Spatial point pattern analysis was conducted using the <code>spatstat</code>
+                package in R. Observation coordinates were imported as a planar point
+                pattern (<code>ppp</code>) object with a polygonal study window derived
+                from municipal boundary shapefiles processed with <code>sf</code>.
+            </p>
+
+            <div class="code-block"><code># Clark-Evans test for spatial randomness
+library(spatstat)
+library(sf)
+
+# Import study area boundary
+vic_boundary &lt;- st_read("data/victoria_boundary.shp")
+win &lt;- as.owin(vic_boundary)
+
+# Create point pattern object
+coha_ppp &lt;- ppp(
+  x = sightings$longitude,
+  y = sightings$latitude,
+  window = win
+)
+
+# Clark-Evans aggregation test
+ce_test &lt;- clarkevans(coha_ppp, correction = "none")
+print(ce_test)
+
+# Kernel density estimation
+density_map &lt;- density.ppp(coha_ppp, sigma = 150)
+plot(density_map, main = "Cooper's Hawk Intensity Surface")</code></div>
+        </section>
+
+        <!-- ── Tools Used ── -->
+        <section id="tools">
+            <h2>Tools & Packages</h2>
+            <div class="tools-row">
+                <span class="tool-pill">R</span>
+                <span class="tool-pill">spatstat</span>
+                <span class="tool-pill">sf</span>
+                <span class="tool-pill">tidyverse</span>
+                <span class="tool-pill">ArcGIS Pro</span>
+                <span class="tool-pill">Quarto</span>
+            </div>
+        </section>
+
+        <!-- ── External Links ── -->
+        <div class="links-footer">
+            <a href="https://github.com/sacoleman18-cloud/coha-spatial">📊 View Repository</a>
+            <a href="../downloads/coha-manuscript-draft.pdf">📄 Download Manuscript</a>
+            <a href="mailto:sacoleman18@gmail.com">✉ Request Full Text</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
