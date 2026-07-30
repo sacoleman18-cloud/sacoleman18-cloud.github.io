@@ -772,54 +772,99 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
     </footer>
 
     <script>
+        // Global variable to track active lightbox
+        let activeLightboxOverlay = null;
+
         function openCodeLightbox(packageName) {
-            // Hide all lightboxes first
-            document.querySelectorAll('[id^="lightbox-code-"]').forEach(el => {
-                el.style.display = 'none';
-            });
+            // Close any existing lightbox first
+            closeCodeLightbox();
 
             // Show the specific lightbox
             const lightboxId = 'lightbox-code-' + packageName;
             const lightbox = document.getElementById(lightboxId);
 
-            if (lightbox) {
-                lightbox.style.display = 'block';
+            if (!lightbox) {
+                console.error('Lightbox not found:', lightboxId);
+                return;
+            }
 
-                // Create overlay
-                const overlay = document.createElement('div');
-                overlay.id = 'code-lightbox-overlay';
-                overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-        `;
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'code-lightbox-overlay';
+            overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        padding: 2rem;
+        box-sizing: border-box;
+    `;
 
-                overlay.onclick = function () {
-                    lightbox.style.display = 'none';
-                    overlay.remove();
-                };
+            // Click outside to close
+            overlay.onclick = function (e) {
+                if (e.target === overlay) {
+                    closeCodeLightbox();
+                }
+            };
 
-                document.body.appendChild(overlay);
-                overlay.appendChild(lightbox);
+            // Append overlay and move lightbox into it
+            document.body.appendChild(overlay);
+            overlay.appendChild(lightbox);
 
-                // Close on Escape key
-                document.addEventListener('keydown', function closeOnEscape(e) {
-                    if (e.key === 'Escape') {
-                        lightbox.style.display = 'none';
-                        overlay.remove();
-                        document.removeEventListener('keydown', closeOnEscape);
+            // Store reference to active overlay
+            activeLightboxOverlay = overlay;
+
+            // Show the lightbox content
+            lightbox.style.display = 'block';
+
+            // Add escape key handler (only one at a time)
+            document.addEventListener('keydown', handleEscapeKey);
+
+            // Prevent body scrolling when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCodeLightbox() {
+            // Remove escape key listener
+            document.removeEventListener('keydown', handleEscapeKey);
+
+            // Restore body scrolling
+            document.body.style.overflow = '';
+
+            // If there's an active overlay, remove it
+            if (activeLightboxOverlay) {
+                // Move lightbox back to its original parent
+                const lightbox = activeLightboxOverlay.querySelector('[id^="lightbox-code-"]');
+                if (lightbox) {
+                    // Find the original parent (the package-card)
+                    const originalParent = lightbox.closest('.package-card');
+                    if (originalParent) {
+                        originalParent.appendChild(lightbox);
                     }
-                });
+                    lightbox.style.display = 'none';
+                }
+
+                // Remove the overlay
+                activeLightboxOverlay.remove();
+                activeLightboxOverlay = null;
             }
         }
+
+        function handleEscapeKey(e) {
+            if (e.key === 'Escape') {
+                closeCodeLightbox();
+            }
+        }
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', closeCodeLightbox);
     </script>
 </body>
 
