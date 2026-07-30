@@ -518,7 +518,7 @@
                 <div class="package-content">
                     <h3>tidyverse</h3>
                     <p>A cohesive collection of R packages designed for data manipulation, cleaning, and
-                        visualization...</p>
+                        visualization. Packages include: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and lubridate.</p>
 
                     <!-- New Usage Button -->
                     <a href="#lightbox-code-tidyverse" class="link-text"
@@ -538,39 +538,7 @@
                     <div class="lightbox-content">
                         <div class="code-section">
                             <h4>R Code Example:</h4>
-                            <pre><code class="language-r">#!/usr/bin/env Rscript
-#
-# brood_count_violin.R
-#
-# Violin + sina plot comparing brood counts between dispersal and
-# non-dispersal groups. The plot layers, from back to front:
-#
-#   1. Violin outline (density shape)
-#   2. Box-plot rectangle (filled, then outlined)
-#   3. Sina jittered points (individual observations)
-#   4. Box-plot median bar and whiskers
-#   5. Mean marker (diamond shape)
-#
-# The box-plot elements are drawn manually with geom_rect / geom_segment
-# instead of geom_boxplot so we can control z-order relative to sina points.
-
-library(ggplot2)
-library(dplyr)
-library(ggforce)
-source("scripts/shared_utils.R")
-
-# ── Load data ────────────────────────────────────────────
-res <- load_coha_data()
-df <- prepare_brood_plot_df(res$data)
-
-if (nrow(df) == 0) stop("No valid brood-count rows after filtering.")
-
-# Map the two-level factor to numeric x-coordinates (1 = nd, 2 = disp)
-df <- mutate(df, brood_x = as.numeric(BroodDisvsNonDis))
-
-# ── Compute box-plot statistics per group ─────────────────
-box_width <- 0.2
-
+                            <pre><code class="language-r"> 
 box_stats <- df |>
   group_by(BroodDisvsNonDis, brood_x) |>
   summarise(
@@ -619,127 +587,7 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
     legend.position  = "none",
     panel.grid.major.x = element_blank()
   )
-
-# Layer 1: Violin outline (unfilled density shape behind everything)
-p <- p + geom_violin(
-  fill    = NA,
-  color   = "black",
-  width   = 0.78,
-  linewidth = 1,
-  trim    = FALSE
-)
-
-# Layer 2: Box-plot fill rectangle (semi-transparent group color)
-p <- p + geom_rect(
-  data    = box_stats,
-  aes(
-    fill   = BroodDisvsNonDis,
-    xmin   = brood_x - box_width / 2,
-    xmax   = brood_x + box_width / 2,
-    ymin   = q1,
-    ymax   = q3
-  ),
-  inherit.aes = FALSE,
-  linewidth = 0,
-  color   = NA,
-  alpha   = 1
-)
-
-# Layer 3: Sina jittered points (individual data points over box fill)
-p <- p + ggforce::geom_sina(
-  aes(fill   = BroodDisvsNonDis),
-  maxwidth  = 0.22,
-  shape     = 21,
-  size      = 2.2,
-  stroke    = 0.35,
-  alpha     = 0.9,
-  color     = "black"
-)
-
-# Layer 4: Box-plot outline on top of sina (crisp black edges)
-p <- p + geom_rect(
-  data    = box_stats,
-  aes(
-    xmin   = brood_x - box_width / 2,
-    xmax   = brood_x + box_width / 2,
-    ymin   = q1,
-    ymax   = q3
-  ),
-  inherit.aes = FALSE,
-  linewidth = 1.05,
-  fill    = NA,
-  color   = "black"
-)
-
-# Layer 5: Median bar (horizontal line inside box)
-p <- p + geom_segment(
-  data    = box_stats,
-  aes(
-    x     = brood_x - box_width / 2,
-    xend  = brood_x + box_width / 2,
-    y     = median_brood,
-    yend  = median_brood
-  ),
-  inherit.aes = FALSE,
-  color   = "black",
-  linewidth = 1.05
-)
-
-# Layer 6: Whiskers — vertical stems from box edges to whisker tips
-p <- p +
-  geom_segment(
-    data = box_stats, inherit.aes = FALSE,
-    aes(x = brood_x, xend = brood_x, y = q3, yend = upper_whisker),
-    color = "black", linewidth = 1.05
-  ) +
-  geom_segment(
-    data = box_stats, inherit.aes = FALSE,
-    aes(x = brood_x, xend = brood_x, y = q1, yend = lower_whisker),
-    color = "black", linewidth = 1.05
-  ) +
-  # Whisker caps (short horizontal ticks at whisker tips)
-  geom_segment(
-    data = box_stats, inherit.aes = FALSE,
-    aes(x = brood_x - 0.055, xend = brood_x + 0.055,
-        y = upper_whisker, yend = upper_whisker),
-    color = "black", linewidth = 1.05
-  ) +
-  geom_segment(
-    data = box_stats, inherit.aes = FALSE,
-    aes(x = brood_x - 0.055, xend = brood_x + 0.055,
-        y = lower_whisker, yend = lower_whisker),
-    color = "black", linewidth = 1.05
-  )
-
-# Layer 7: Mean marker — white background diamond (hides behind) then colored diamond
-mean_stats <- select(box_stats, BroodDisvsNonDis, brood_x, mean_brood)
-
-p <- p +
-  geom_point(
-    data = mean_stats, inherit.aes = FALSE,
-    aes(x = brood_x, y = mean_brood),
-    shape = 23, size = 5.1, stroke = 0, color = NA, fill = "white"
-  ) +
-  geom_point(
-    data = mean_stats, inherit.aes = FALSE,
-    aes(x = brood_x, y = mean_brood),
-    shape = 23, size = 4, stroke = 0.9, color = "black",
-    fill = brood_pal$colors[as.character(mean_stats$BroodDisvsNonDis)]
-  ) +
-  scale_fill_manual(values = brood_pal$fills, drop = FALSE)
-
-# ── Save ─────────────────────────────────────────────────
-if (!dir.exists(FIGURES_DIR)) dir.create(FIGURES_DIR, recursive = TRUE)
-
-ggsave(
-  file.path(FIGURES_DIR, "brood_violin.png"),
-  p, width = 10, height = 6, dpi = 300
-)
-
-ggsave(
-  file.path(FIGURES_DIR, "brood_violin.pdf"),
-  p, width = 10, height = 6
-)</code></pre>
+</code></pre>
                         </div>
 
                         <div class="plot-section">
