@@ -385,6 +385,62 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Lightbox Code Enhancement */
+        .lightbox-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+
+        .code-section,
+        .plot-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .code-section h4,
+        .plot-section h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        code {
+            font-family: inherit;
+        }
+
+        /* Syntax highlighting (optional - add Prism.js for better highlighting) */
+        .language-r {
+            color: #ecf0f1;
+        }
     </style>
     <!-- Lightbox2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
@@ -715,6 +771,56 @@ ggplot(survey_data, aes(x = habitat, y = count, fill = species)) +
         <a href="https://github.com/sacoleman18-cloud" style="color: var(--primary);">GitHub</a></p>
     </footer>
 
+    <script>
+        function openCodeLightbox(packageName) {
+            // Hide all lightboxes first
+            document.querySelectorAll('[id^="lightbox-code-"]').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show the specific lightbox
+            const lightboxId = 'lightbox-code-' + packageName;
+            const lightbox = document.getElementById(lightboxId);
+
+            if (lightbox) {
+                lightbox.style.display = 'block';
+
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'code-lightbox-overlay';
+                overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        `;
+
+                overlay.onclick = function () {
+                    lightbox.style.display = 'none';
+                    overlay.remove();
+                };
+
+                document.body.appendChild(overlay);
+                overlay.appendChild(lightbox);
+
+                // Close on Escape key
+                document.addEventListener('keydown', function closeOnEscape(e) {
+                    if (e.key === 'Escape') {
+                        lightbox.style.display = 'none';
+                        overlay.remove();
+                        document.removeEventListener('keydown', closeOnEscape);
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>
