@@ -4,499 +4,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaleidoscope Pro Cleaner and Standardizer | Sam Coleman</title>
+    <title>KPRO Standardizer | Personal Coding Project</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
         :root {
-            --primary: #de261d;
-            --accent: #4e5a32;
-            --bg: #dfe2dd;
-            --text: #333;
-            --card-bg: #ffffff;
-            --font-main: 'protipo', Tahoma, Geneva, Verdana, sans-serif;
+            --ink: #101418;
+            --slate: #1d2630;
+            --muted: #6a7280;
+            --paper: #f6f6f2;
+            --card: #ffffff;
+            --line: #d7ddd4;
+            --mint: #a8d5ba;
+            --amber: #f0b35f;
+            --signal: #d9472d;
+            --code: #111822;
+            --mono: 'IBM Plex Mono', 'Courier New', monospace;
+            --display: 'Space Grotesk', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: var(--font-main);
-            background-color: var(--bg);
-            color: var(--text);
+            margin: 0;
+            font-family: var(--display);
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 10% 0%, #e8f2ea 0%, transparent 35%),
+                radial-gradient(circle at 100% 20%, #f6e4cc 0%, transparent 30%),
+                var(--paper);
             line-height: 1.6;
         }
 
-        /* ── Top Navigation Bar ── */
-        .navbar {
-            background: var(--primary);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        a {
+            color: inherit;
+        }
+
+        .topbar {
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 20;
+            backdrop-filter: blur(8px);
+            background: rgba(246, 246, 242, 0.88);
+            border-bottom: 1px solid rgba(16, 20, 24, 0.08);
         }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-        }
-
-        .navbar a:hover { color: var(--accent); }
-
-        .navbar-left { display: flex; gap: 1.5rem; align-items: center; }
-        .navbar-right { display: flex; gap: 1.5rem; align-items: center; }
-
-        /* ── Status Badge ── */
-        .status-badge {
-            display: inline-block;
-            padding: 0.35rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-in-review {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-
-        .status-published {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .status-poster {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
-        /* ── Page Header ── */
-        .project-header {
-            background: white;
-            padding: 3rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .project-header h1 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .project-header .subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-meta {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        .project-meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        /* ── Main Content Area ── */
-        .project-content {
-            max-width: 900px;
+        .topbar-inner {
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        .project-content section {
-            margin-bottom: 3rem;
+        .top-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--slate);
         }
 
-        .project-content h2 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
+        .top-links a {
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
         }
 
-        .project-content p {
-            font-size: 1.02rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
+        .top-links a:hover {
+            border-bottom-color: var(--slate);
         }
 
-        /* ── Abstract Callout ── */
-        .abstract-box {
-            background: #f0f7f4;
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem 2rem;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 2rem;
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.5rem 1.25rem 4rem;
         }
 
-        .abstract-box p {
-            font-style: italic;
-            color: #444;
-            margin-bottom: 0;
-        }
-
-        /* ── Figures Grid ── */
-        .figures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .figure-item {
-            background: white;
-            border-radius: 8px;
+        .hero {
+            background: linear-gradient(135deg, #16202b 0%, #1e2d38 65%, #243746 100%);
+            color: #f4f7f8;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            position: relative;
+            box-shadow: 0 18px 45px rgba(17, 24, 34, 0.26);
         }
 
-        .figure-item img {
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(169, 213, 186, 0.2), transparent 45%),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.05) 0,
+                    rgba(255, 255, 255, 0.05) 1px,
+                    transparent 1px,
+                    transparent 30px
+                );
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 2.5rem 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .project-chip {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #0f1a1e;
+            background: var(--mint);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.12;
+        }
+
+        .hero p {
+            margin: 1rem 0 0;
+            color: #d8dee3;
+            max-width: 60ch;
+            font-size: 1.02rem;
+        }
+
+        .hero-stats {
+            background: rgba(9, 13, 18, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
+            padding: 1rem;
+        }
+
+        .hero-stats h2 {
+            margin: 0 0 0.8rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #b9c3cb;
+            font-family: var(--mono);
+            font-weight: 600;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 0.8rem;
+        }
+
+        .stat .k {
+            display: block;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .stat .l {
+            display: block;
+            color: #c6d1d8;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 0.25rem;
+        }
+
+        .section {
+            margin-top: 1.8rem;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 1.35rem 1.2rem;
+            box-shadow: 0 8px 25px rgba(15, 20, 26, 0.04);
+        }
+
+        .section h2 {
+            margin: 0 0 0.85rem;
+            font-size: 1.2rem;
+            color: var(--slate);
+        }
+
+        .overview {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1rem;
+        }
+
+        .side-note {
+            border: 1px dashed #c9cfca;
+            border-radius: 12px;
+            background: #fafcf9;
+            padding: 0.9rem;
+            font-size: 0.92rem;
+            color: #37414e;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.9rem;
+        }
+
+        .pill {
+            border: 1px solid #cfd6ce;
+            background: #f5f8f4;
+            border-radius: 999px;
+            padding: 0.32rem 0.7rem;
+            font-size: 0.79rem;
+            color: #2a3340;
+            white-space: nowrap;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .stage {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0.85rem;
+            background: linear-gradient(180deg, #ffffff, #f9faf8);
+        }
+
+        .stage .num {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #ffffff;
+            background: var(--signal);
+            border-radius: 6px;
+            padding: 0.16rem 0.4rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .stage h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1rem;
+        }
+
+        .stage p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #3e4a58;
+        }
+
+        .outputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.9rem;
+        }
+
+        .output-card {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0.95rem;
+            background: #fcfcfb;
+        }
+
+        .output-card h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-family: var(--mono);
+        }
+
+        .output-card p {
+            margin: 0.5rem 0 0;
+            color: #445061;
+            font-size: 0.93rem;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .report-list {
+            margin: 0;
+            padding-left: 1.1rem;
+            color: #2a3340;
+        }
+
+        .report-list li {
+            margin-bottom: 0.45rem;
+        }
+
+        .shot {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8faf8;
+        }
+
+        .shot img {
             width: 100%;
             display: block;
-            cursor: zoom-in;
-            transition: transform 0.2s ease;
+            height: 240px;
+            object-fit: cover;
         }
 
-        .figure-item img:hover { transform: scale(1.02); }
-
-        .figure-caption {
-            padding: 0.85rem 1rem;
-            font-size: 0.85rem;
-            color: #666;
-            text-align: center;
+        .shot p {
+            margin: 0;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.83rem;
+            color: #445061;
+            border-top: 1px solid var(--line);
         }
 
-        /* ── Code Block ── */
         .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 1.5rem;
-            border-radius: 6px;
+            margin-top: 0.8rem;
+            background: var(--code);
+            color: #e8edf3;
+            border-radius: 12px;
+            border: 1px solid #2a384a;
+            padding: 1rem;
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.82rem;
-            line-height: 1.55;
+            font-family: var(--mono);
+            font-size: 0.84rem;
+            line-height: 1.6;
+        }
+
+        .links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
             margin-top: 1rem;
         }
 
-        .code-block code { font-family: inherit; }
+        .btn {
+            text-decoration: none;
+            border: 1px solid #263341;
+            color: #263341;
+            background: #f7f8f7;
+            border-radius: 10px;
+            padding: 0.5rem 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-        /* ── Tools Used Pills ── */
-        .tools-row {
+        .btn.primary {
+            background: #223244;
+            border-color: #223244;
+            color: #f5f7fb;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            margin-top: 1.2rem;
+            padding: 0.75rem 0.15rem;
+            color: var(--muted);
+            font-size: 0.84rem;
             display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
             flex-wrap: wrap;
-            gap: 0.5rem;
         }
 
-        .tool-pill {
-            background: #eef2f7;
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid #dbe4ef;
+        @media (max-width: 980px) {
+            .hero-inner,
+            .overview,
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        /* ── Poster Display (for poster projects) ── */
-        .poster-display {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: 2rem 0;
-        }
+        @media (max-width: 680px) {
+            .container {
+                padding: 1rem 0.85rem 2.8rem;
+            }
 
-        .poster-display img {
-            width: 100%;
-            display: block;
-        }
+            .hero-inner {
+                padding: 1.4rem 1rem;
+            }
 
-        .poster-download-bar {
-            background: var(--primary);
-            padding: 1rem;
-            text-align: center;
-        }
+            .outputs,
+            .pipeline,
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
 
-        .poster-download-bar a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .poster-download-bar a:hover { color: var(--accent); }
-
-        /* ── Key Findings List ── */
-        .findings-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .findings-list li {
-            padding: 0.75rem 0 0.75rem 2rem;
-            position: relative;
-            font-size: 1.02rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .findings-list li:last-child { border-bottom: none; }
-
-        .findings-list li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* ── External Links Footer ── */
-        .links-footer {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 2rem 0;
-            border-top: 1px solid #eee;
-        }
-
-        .links-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.6rem 1.5rem;
-            border: 2px solid var(--primary);
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .links-footer a:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* ── Back Link ── */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .back-link:hover { color: var(--accent); }
-
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-            .project-header h1 { font-size: 1.5rem; }
-            .figures-grid { grid-template-columns: 1fr; }
-            .navbar { flex-direction: column; gap: 0.5rem; }
+            .section {
+                padding: 1rem 0.9rem;
+            }
         }
     </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
 
 <body>
-
-    <!-- ─────────── Sticky Navbar ─────────── -->
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="../index.html">← Back to Portfolio</a>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <strong>KPRO Standardizer</strong>
+            <nav class="top-links">
+                <a href="../index.html">Back to Portfolio</a>
+                <a href="https://github.com/sacoleman18-cloud">GitHub</a>
+                <a href="mailto:sacoleman18@gmail.com">Contact</a>
+            </nav>
         </div>
-        <div class="navbar-right">
-            <a href="../index.html">Home</a>
-            <a href="https://github.com/sacoleman18-cloud">GitHub</a>
-            <a href="mailto:sacoleman18@gmail.com">Contact</a>
-        </div>
-    </nav>
+    </div>
 
-    <!-- ─────────── Project Title & Metadata ─────────── -->
-    <header class="project-header">
-        <span class="status-badge status-in-review">Helper</span>
-        <!-- Use status-poster for posters, status-published for published work -->
-        <h1>Kaleidoscope Pro Standardizer</h1>
-        <p class="subtitle">Coding utility for cleaning and standardizing Kaleidoscope Pro acoustic outputs 
-            into analysis-ready files and automated reports.</p>
-
-        <div class="project-meta">
-            <span>Role: R developer and workflow automation lead</span>
-        </div>
-    </header>
-
-    <!-- ─────────── Main Content ─────────── -->
-    <main class="project-content">
-
-        <!-- Back Link -->
-        <a href="../index.html" class="back-link">
-            ← All Projects
-        </a>
-
-        <!-- ── Abstract (for papers) ── -->
-        <section id="abstract">
-            <h2>Abstract</h2>
-            <div class="abstract-box">
-                <p>
-                    I developed this helper engine to clean and standardize Kaleidoscope Pro <code>id.csv</code> files
-                    from different software versions into a consistent analysis-ready format. The workflow also generates
-                    a <code>calls-per-night.csv</code> file for downstream modeling work, including GLMM-style analyses,
-                    and produces a full Quarto report for project-level quality control and interpretation. The report
-                    includes a study overview with generated parameters such as Study Name, Location, Detectors,
-                    Detector-Nights, Total Recording Hours, and Total Calls Detected, along with 27 plots covering data
-                    quality, detector activity, species composition, temporal patterns, and summary statistics including
-                    detector-level summaries, study-wide summaries, variance decomposition, and hourly activity profiles.
-                    This cross-version standardization supports collaborative projects built from mixed historical datasets.
-                </p>
-            </div>
-        </section>
-
-        <!-- ── Poster Display (INCLUDE THIS SECTION FOR POSTERS, REMOVE FOR PAPERS) ── -->
-        <!--
-        <section id="poster">
-            <h2>Scientific Poster</h2>
-            <div class="poster-display">
-                <img src="../images/bat-poster-full.png" alt="Poster: Do Habitat Edges Concentrate Bat Activity?">
-                <div class="poster-download-bar">
-                    <a href="../downloads/bat-poster.pdf" download>⬇ Download Poster (PDF)</a>
+    <main class="container">
+        <section class="hero" aria-label="Project hero">
+            <div class="hero-inner">
+                <div>
+                    <span class="project-chip">Personal Coding Project</span>
+                    <h1>Kaleidoscope Pro Standardizer</h1>
+                    <p>
+                        A utility I built to clean and harmonize messy Kaleidoscope Pro detector outputs so teams can
+                        run analyses on one standardized structure instead of manually repairing each dataset.
+                    </p>
                 </div>
+                <aside class="hero-stats" aria-label="Project snapshot">
+                    <h2>At A Glance</h2>
+                    <div class="stat-grid">
+                        <div class="stat">
+                            <span class="k">27</span>
+                            <span class="l">Generated plots</span>
+                        </div>
+                        <div class="stat">
+                            <span class="k">2</span>
+                            <span class="l">Primary outputs</span>
+                        </div>
+                        <div class="stat">
+                            <span class="k">1</span>
+                            <span class="l">Quarto report</span>
+                        </div>
+                        <div class="stat">
+                            <span class="k">Multi</span>
+                            <span class="l">KPRO versions</span>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </section>
-        -->
 
-        <!-- ── Key Findings ── -->
-        <section id="findings">
-            <h2>Key Findings</h2>
-            <ul class="findings-list">
-                <li>
-                    Standardizes Kaleidoscope Pro <code>id.csv</code> outputs from different versions into one consistent
-                    schema, reducing manual cleanup before analysis.
-                </li>
-                <li>
-                    Creates a derived <code>calls-per-night.csv</code> product designed for direct use in statistical
-                    workflows, including mixed-model pipelines.
-                </li>
-                <li>
-                    Automatically renders a Quarto report with a generated study summary and 27 diagnostic and ecological
-                    activity plots for fast quality assessment.
-                </li>
-                <li>
-                    Improves collaboration across multi-team projects by harmonizing bat acoustic data collected under
-                    different detector deployments and software versions.
-                </li>
-            </ul>
-        </section>
-
-        <!-- ── Figures ── -->
-        <section id="figures">
-            <h2>Report Components</h2>
-            <div class="figures-grid">
-                <div class="figure-item">
-                    <a href="../images/tidyverse-example-plot.png"
-                       data-lightbox="project-figures"
-                       data-title="Placeholder preview: detector activity and quality-control plot layout">
-                        <img src="../images/tidyverse-example-plot.png"
-                             alt="Placeholder report plot for detector activity and quality control">
-                    </a>
-                    <div class="figure-caption">
-                        <strong>Figure 1.</strong> Placeholder preview for report-level plots showing
-                        detector activity and data-quality diagnostics.
+        <section class="section" aria-label="Project overview">
+            <h2>Overview</h2>
+            <div class="overview">
+                <div>
+                    <p>
+                        This project solves one recurring bottleneck: Kaleidoscope Pro <code>id.csv</code> files from
+                        different versions do not arrive in a consistent format. The tool standardizes those files,
+                        creates a clean <code>calls-per-night.csv</code> for model-ready workflows, and compiles
+                        a Quarto report that packages key diagnostics into one reproducible deliverable.
+                    </p>
+                    <div class="pill-row" aria-label="Technology stack">
+                        <span class="pill">R</span>
+                        <span class="pill">tidyverse</span>
+                        <span class="pill">readr</span>
+                        <span class="pill">dplyr</span>
+                        <span class="pill">lubridate</span>
+                        <span class="pill">Quarto</span>
+                        <span class="pill">Git</span>
                     </div>
                 </div>
-                <div class="figure-item">
-                    <a href="../images/quarto.png"
-                       data-lightbox="project-figures"
-                       data-title="Placeholder preview: Quarto-generated study summary and output packaging">
-                        <img src="../images/quarto.png"
-                             alt="Placeholder visual for Quarto report output and study summary panel">
-                    </a>
-                    <div class="figure-caption">
-                        <strong>Figure 2.</strong> Placeholder preview for automated Quarto output,
-                        including study summaries and standardized reporting sections.
-                    </div>
+                <aside class="side-note">
+                    <strong>Why it matters</strong><br>
+                    Mixed-source acoustic projects break quickly when schemas drift. This engine enforces one canonical
+                    structure so collaborators can share code, QA rules, and models without custom patches per dataset.
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Processing pipeline">
+            <h2>Pipeline</h2>
+            <div class="pipeline">
+                <article class="stage">
+                    <span class="num">01</span>
+                    <h3>Ingest</h3>
+                    <p>Import raw exports and normalize headers across Kaleidoscope Pro versions.</p>
+                </article>
+                <article class="stage">
+                    <span class="num">02</span>
+                    <h3>Standardize</h3>
+                    <p>Map version-specific fields into a single schema and enforce consistent data types.</p>
+                </article>
+                <article class="stage">
+                    <span class="num">03</span>
+                    <h3>Summarize</h3>
+                    <p>Build <code>calls-per-night.csv</code> for downstream analysis pipelines including GLMMs.</p>
+                </article>
+                <article class="stage">
+                    <span class="num">04</span>
+                    <h3>Report</h3>
+                    <p>Render a Quarto report containing study overview metrics and 27 QA and activity plots.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Generated outputs">
+            <h2>Generated Outputs</h2>
+            <div class="outputs">
+                <article class="output-card">
+                    <h3>id-standardized.csv</h3>
+                    <p>
+                        Harmonized call-level file for cross-dataset compatibility and reproducible processing.
+                    </p>
+                </article>
+                <article class="output-card">
+                    <h3>calls-per-night.csv</h3>
+                    <p>
+                        Detector-night summary table designed for fast model input and effort-aware trend analyses.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Quarto report structure">
+            <h2>Quarto Report Contents</h2>
+            <div class="report-grid">
+                <div>
+                    <p>
+                        The generated report includes a study summary block and a suite of 27 plots focused on data
+                        quality, detector activity, species composition, temporal behavior, variance decomposition,
+                        and hourly activity profiles.
+                    </p>
+                    <ul class="report-list">
+                        <li>Study Name, Location, Detectors, Detector-Nights</li>
+                        <li>Total Recording Hours and Total Calls Detected</li>
+                        <li>Detector-level and study-wide summaries</li>
+                        <li>Temporal and hourly activity diagnostics</li>
+                        <li>Variance decomposition and composition checks</li>
+                    </ul>
+                </div>
+                <div>
+                    <figure class="shot">
+                        <img src="../images/tidyverse-example-plot.png" alt="Report preview plot placeholder">
+                        <p>Placeholder: example visualization style used in the automated report output.</p>
+                    </figure>
+                    <figure class="shot" style="margin-top:0.8rem;">
+                        <img src="../images/quarto.png" alt="Quarto workflow placeholder">
+                        <p>Placeholder: Quarto-driven build and export stage.</p>
+                    </figure>
                 </div>
             </div>
         </section>
 
-        <!-- ── Methodology & Code ── -->
-        <section id="methods">
-            <h2>Methodology & Code</h2>
+        <section class="section" aria-label="Implementation snapshot">
+            <h2>Implementation Snapshot</h2>
             <p>
-                The workflow is organized as a reproducible pipeline: ingest Kaleidoscope Pro exports, map
-                version-specific column structures into a unified schema, validate and clean records, generate
-                nightly call summaries, and compile project-level outputs into a Quarto report. This design keeps
-                data cleaning transparent and repeatable across collaborations while reducing hand-edits to source files.
+                A simplified representation of the workflow structure:
             </p>
+            <pre class="code-block"><code>id_std <- read_csv("input/id.csv") |>
+  rename_with(tolower) |>
+  mutate(detector_id = coalesce(detector_id, serial_number))
 
-            <div class="code-block"><code># Standardized Kaleidoscope Pro workflow (conceptual)
-library(tidyverse)
+calls_per_night <- id_std |>
+  mutate(night = as.Date(call_time)) |>
+  count(detector_id, night, species, name = "calls")
 
-# 1) Read and normalize id.csv from mixed software versions
-id_std &lt;- read_csv("input/id.csv") |&gt;
-    rename_with(tolower) |&gt;
-    mutate(detector_id = coalesce(detector_id, serial_number))
-
-# 2) Build calls-per-night summary for downstream models
-calls_per_night &lt;- id_std |&gt;
-    mutate(date = as.Date(call_time)) |&gt;
-    count(detector_id, date, species, name = "calls")
-
+write_csv(id_std, "output/id-standardized.csv")
 write_csv(calls_per_night, "output/calls-per-night.csv")
 
-# 3) Render automated Quarto report
-# quarto render report.qmd</code></div>
-        </section>
-
-        <!-- ── Tools Used ── -->
-        <section id="tools">
-            <h2>Tools & Packages</h2>
-            <div class="tools-row">
-                <span class="tool-pill">R</span>
-                <span class="tool-pill">tidyverse</span>
-                <span class="tool-pill">readr</span>
-                <span class="tool-pill">dplyr</span>
-                <span class="tool-pill">lubridate</span>
-                <span class="tool-pill">Quarto</span>
-                <span class="tool-pill">Git</span>
+# quarto render report.qmd</code></pre>
+            <div class="links">
+                <a class="btn primary" href="#">Repository Link Placeholder</a>
+                <a class="btn" href="#">Report Example Placeholder</a>
+                <a class="btn" href="mailto:sacoleman18@gmail.com">Request Access</a>
             </div>
         </section>
 
-        <!-- ── External Links ── -->
-        <div class="links-footer">
-            <a href="#">View Repository (Link Placeholder)</a>
-            <a href="#">View Quarto Report Sample (Link Placeholder)</a>
-            <a href="mailto:sacoleman18@gmail.com">Request Tool Access</a>
+        <div class="footer">
+            <span>Built as a personal workflow tool for collaborative bat acoustic analysis.</span>
+            <span>Last updated: 2026</span>
         </div>
-
     </main>
-
 </body>
 
 </html>
