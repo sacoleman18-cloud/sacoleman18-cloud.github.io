@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooper's Hawk Spatial Distribution | Sam Coleman</title>
+    <title>Kaleidoscope Pro Cleaner and Standardizer | Sam Coleman</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #27ae60;
-            --bg: #f8f9fa;
+            --primary: #de261d;
+            --accent: #4e5a32;
+            --bg: #dfe2dd;
             --text: #333;
             --card-bg: #ffffff;
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-main: 'protipo', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -341,13 +341,14 @@
 
     <!-- ─────────── Project Title & Metadata ─────────── -->
     <header class="project-header">
-        <span class="status-badge status-in-review">In Review</span>
+        <span class="status-badge status-in-review">Helper</span>
         <!-- Use status-poster for posters, status-published for published work -->
-        <h1>Cooper's Hawk Spatial Distribution in Victoria, BC</h1>
-        <p class="subtitle">Multi-decadal spatial point pattern analysis of habitat selection</p>
+        <h1>Kaleidoscope Pro Standardizer</h1>
+        <p class="subtitle">Coding utility for cleaning and standardizing Kaleidoscope Pro acoustic outputs 
+            into analysis-ready files and automated reports.</p>
 
         <div class="project-meta">
-            <span>Role: R and ArcGIS statistician </span>
+            <span>Role: R developer and workflow automation lead</span>
         </div>
     </header>
 
@@ -364,11 +365,15 @@
             <h2>Abstract</h2>
             <div class="abstract-box">
                 <p>
-                    This study is dealing with wintering Cooper's Hawks (<em>Accipiter cooperii</em>) in urban environments.
-                    Using a multi-decadal dataset of sighting records, we used the sf and spatstat packages in R to handle spatial 
-                    data and perform point pattern analysis. We performed Clark-Evans tests to determine degree of spatial clustering 
-                    of observations. We factored temporal and sex clustering contemporary changes as well as variogram results in COHA 
-                    observations into our models to account for pseudoreplication and overdispersed data. 
+                    I developed this helper engine to clean and standardize Kaleidoscope Pro <code>id.csv</code> files
+                    from different software versions into a consistent analysis-ready format. The workflow also generates
+                    a <code>calls-per-night.csv</code> file for downstream modeling work, including GLMM-style analyses,
+                    and produces a full Quarto report for project-level quality control and interpretation. The report
+                    includes a study overview with generated parameters such as Study Name, Location, Detectors,
+                    Detector-Nights, Total Recording Hours, and Total Calls Detected, along with 27 plots covering data
+                    quality, detector activity, species composition, temporal patterns, and summary statistics including
+                    detector-level summaries, study-wide summaries, variance decomposition, and hourly activity profiles.
+                    This cross-version standardization supports collaborative projects built from mixed historical datasets.
                 </p>
             </div>
         </section>
@@ -391,50 +396,50 @@
             <h2>Key Findings</h2>
             <ul class="findings-list">
                 <li>
-                    Clark-Evans test revealed significant clustering of Cooper's Hawk
-                    sightings in proximity to forest edge habitat (R = 0.71, p &lt; 0.001).
+                    Standardizes Kaleidoscope Pro <code>id.csv</code> outputs from different versions into one consistent
+                    schema, reducing manual cleanup before analysis.
                 </li>
                 <li>
-                    Kernel density estimates identified three core activity centers,
-                    all within 150 meters of riparian corridors.
+                    Creates a derived <code>calls-per-night.csv</code> product designed for direct use in statistical
+                    workflows, including mixed-model pipelines.
                 </li>
                 <li>
-                    Pair correlation function analysis supported aggregated distribution
-                    at scales of 0–500m, transitioning to random at larger distances.
+                    Automatically renders a Quarto report with a generated study summary and 27 diagnostic and ecological
+                    activity plots for fast quality assessment.
                 </li>
                 <li>
-                    Results inform urban corridor planning for raptor conservation
-                    in rapidly developing municipalities.
+                    Improves collaboration across multi-team projects by harmonizing bat acoustic data collected under
+                    different detector deployments and software versions.
                 </li>
             </ul>
         </section>
 
         <!-- ── Figures ── -->
         <section id="figures">
-            <h2>Selected Figures</h2>
+            <h2>Report Components</h2>
             <div class="figures-grid">
                 <div class="figure-item">
-                    <a href="../images/victoria-coha-density.png"
+                    <a href="../images/tidyverse-example-plot.png"
                        data-lightbox="project-figures"
-                       data-title="Kernel density surface of Cooper's Hawk observations">
-                        <img src="../images/victoria-coha-density.png"
-                             alt="Density surface map">
+                       data-title="Placeholder preview: detector activity and quality-control plot layout">
+                        <img src="../images/tidyverse-example-plot.png"
+                             alt="Placeholder report plot for detector activity and quality control">
                     </a>
                     <div class="figure-caption">
-                        <strong>Figure 1.</strong> Kernel density surface showing
-                        concentration of Cooper's Hawk observations across Victoria, BC.
+                        <strong>Figure 1.</strong> Placeholder preview for report-level plots showing
+                        detector activity and data-quality diagnostics.
                     </div>
                 </div>
                 <div class="figure-item">
-                    <a href="../images/pcf-analysis.png"
+                    <a href="../images/quarto.png"
                        data-lightbox="project-figures"
-                       data-title="Pair correlation function analysis">
-                        <img src="../images/pcf-analysis.png"
-                             alt="Pair correlation function plot">
+                       data-title="Placeholder preview: Quarto-generated study summary and output packaging">
+                        <img src="../images/quarto.png"
+                             alt="Placeholder visual for Quarto report output and study summary panel">
                     </a>
                     <div class="figure-caption">
-                        <strong>Figure 2.</strong> Pair correlation function (g(r))
-                        indicating aggregation at distances &lt; 500m.
+                        <strong>Figure 2.</strong> Placeholder preview for automated Quarto output,
+                        including study summaries and standardized reporting sections.
                     </div>
                 </div>
             </div>
@@ -444,34 +449,29 @@
         <section id="methods">
             <h2>Methodology & Code</h2>
             <p>
-                Spatial point pattern analysis was conducted using the <code>spatstat</code>
-                package in R. Observation coordinates were imported as a planar point
-                pattern (<code>ppp</code>) object with a polygonal study window derived
-                from municipal boundary shapefiles processed with <code>sf</code>.
+                The workflow is organized as a reproducible pipeline: ingest Kaleidoscope Pro exports, map
+                version-specific column structures into a unified schema, validate and clean records, generate
+                nightly call summaries, and compile project-level outputs into a Quarto report. This design keeps
+                data cleaning transparent and repeatable across collaborations while reducing hand-edits to source files.
             </p>
 
-            <div class="code-block"><code># Clark-Evans test for spatial randomness
-library(spatstat)
-library(sf)
+            <div class="code-block"><code># Standardized Kaleidoscope Pro workflow (conceptual)
+library(tidyverse)
 
-# Import study area boundary
-vic_boundary &lt;- st_read("data/victoria_boundary.shp")
-win &lt;- as.owin(vic_boundary)
+# 1) Read and normalize id.csv from mixed software versions
+id_std &lt;- read_csv("input/id.csv") |&gt;
+    rename_with(tolower) |&gt;
+    mutate(detector_id = coalesce(detector_id, serial_number))
 
-# Create point pattern object
-coha_ppp &lt;- ppp(
-  x = sightings$longitude,
-  y = sightings$latitude,
-  window = win
-)
+# 2) Build calls-per-night summary for downstream models
+calls_per_night &lt;- id_std |&gt;
+    mutate(date = as.Date(call_time)) |&gt;
+    count(detector_id, date, species, name = "calls")
 
-# Clark-Evans aggregation test
-ce_test &lt;- clarkevans(coha_ppp, correction = "none")
-print(ce_test)
+write_csv(calls_per_night, "output/calls-per-night.csv")
 
-# Kernel density estimation
-density_map &lt;- density.ppp(coha_ppp, sigma = 150)
-plot(density_map, main = "Cooper's Hawk Intensity Surface")</code></div>
+# 3) Render automated Quarto report
+# quarto render report.qmd</code></div>
         </section>
 
         <!-- ── Tools Used ── -->
@@ -479,19 +479,20 @@ plot(density_map, main = "Cooper's Hawk Intensity Surface")</code></div>
             <h2>Tools & Packages</h2>
             <div class="tools-row">
                 <span class="tool-pill">R</span>
-                <span class="tool-pill">spatstat</span>
-                <span class="tool-pill">sf</span>
                 <span class="tool-pill">tidyverse</span>
-                <span class="tool-pill">ArcGIS Pro</span>
+                <span class="tool-pill">readr</span>
+                <span class="tool-pill">dplyr</span>
+                <span class="tool-pill">lubridate</span>
                 <span class="tool-pill">Quarto</span>
+                <span class="tool-pill">Git</span>
             </div>
         </section>
 
         <!-- ── External Links ── -->
         <div class="links-footer">
-            <a href="https://github.com/sacoleman18-cloud/coha-spatial">📊 View Repository</a>
-            <a href="../downloads/coha-manuscript-draft.pdf">📄 Download Manuscript</a>
-            <a href="mailto:sacoleman18@gmail.com">✉ Request Full Text</a>
+            <a href="#">View Repository (Link Placeholder)</a>
+            <a href="#">View Quarto Report Sample (Link Placeholder)</a>
+            <a href="mailto:sacoleman18@gmail.com">Request Tool Access</a>
         </div>
 
     </main>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam Coleman | Wildlife Statistician</title>
     <style>
+        /* CSS Variables for Theming */
         :root {
             --primary: #2c3e50;
             /* Deep Blue-Grey */
@@ -16,21 +17,20 @@
             --card-bg: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        /* Reset some default styles for consistency across browsers */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        /* Body Styling */
         body {
             font-family: var(--font-main);
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
         }
-
-        /* Hero Section - Enhanced */
+        /* Header Styling */
         header {
             position: relative;
             background-image: url('images/Background.jpg');
@@ -46,7 +46,7 @@
             text-align: center;
             padding: 2rem;
         }
-
+        /* Overlay for better text visibility */
         header::before {
             content: "";
             position: absolute;
@@ -55,13 +55,13 @@
             /* Gradient overlay for better depth */
             z-index: 1;
         }
-
+        /* Ensure header content is above the overlay */
         header>* {
             position: relative;
             z-index: 2;
             max-width: 800px;
         }
-
+        /* Header Text Styling */
         header h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
@@ -71,7 +71,7 @@
             letter-spacing: -0.5px;
             color: white;
         }
-
+        /* Subheading Styling */
         header p {
             font-size: 1.3rem;
             opacity: 0.95;
@@ -80,7 +80,7 @@
             font-weight: 300;
             color: white;
         }
-
+        /* Call-to-Action Button Styling */
         .cta-button {
             display: inline-block;
             background-color: var(--accent);
@@ -94,14 +94,13 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-shadow: none;
         }
-
+        /* Hover effect for the CTA button */
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             background-color: #219a52;
             /* Slightly darker green on hover */
         }
-
         /* Tech Stack Panel */
         .tech-stack-panel {
             background: white;
@@ -110,7 +109,7 @@
             margin-bottom: 2rem;
             text-align: center;
         }
-
+        /* Panel Title Styling */
         .panel-title {
             font-size: 1.1rem;
             color: var(--primary);
@@ -119,7 +118,7 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-
+        /* Tech Stack Icons Container */
         .tech-stack-icons {
             display: flex;
             justify-content: center;
@@ -127,7 +126,7 @@
             gap: 2rem;
             flex-wrap: wrap;
         }
-
+        /* Individual Tech Icon Styling */
         .tech-stack-icons {
             background: white;
             padding: 1.5rem 0;
@@ -139,18 +138,18 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 2rem;
         }
-
+        /* Individual Tech Icon Styling */
         .tech-icon {
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s ease;
         }
-
+        /* Hover effect for tech icons */
         .tech-icon:hover {
             transform: translateY(-5px);
         }
-
+        /* Tech Icon Image Styling */
         .tech-icon img {
             width: 60px;
             height: 60px;
@@ -158,11 +157,11 @@
             filter: grayscale(20%);
             transition: filter 0.3s ease;
         }
-
+        /* Remove grayscale on hover for better visibility */
         .tech-icon:hover img {
             filter: grayscale(0%);
         }
-
+        /* Tech Icon Label Styling */
         .tech-icon::after {
             content: attr(title);
             font-size: 0.75rem;
@@ -170,8 +169,7 @@
             margin-top: 0.5rem;
             font-weight: 500;
         }
-
-        /* Responsive adjustments */
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .tech-stack-icons {
                 gap: 1rem;
@@ -189,13 +187,14 @@
         }
 
         /* R Packages Section Styles */
+        /* Grid layout for package cards */
         .package-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
-
+        /* Individual package card styling */
         .package-card {
             background: white;
             border-radius: 8px;
@@ -205,39 +204,38 @@
             display: flex;
             flex-direction: column;
         }
-
+        /* Hover effect for package cards */
         .package-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
-
+        /* Package image styling */
         .package-img {
             width: 100%;
             height: 160px;
             object-fit: cover;
             background-color: #eee;
         }
-
+        /* Package content styling */
         .package-content {
             padding: 1.25rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-
+        /* Package title styling */
         .package-content h3 {
             font-size: 1.1rem;
             color: var(--primary);
             margin-bottom: 0.75rem;
             font-weight: 600;
         }
-
+        /* Package description styling */
         .package-content p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.6;
         }
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .package-grid {
@@ -245,7 +243,6 @@
                 gap: 1rem;
             }
         }
-
         /* Biography Section Styles */
         .bio-section {
             background-color: white;
@@ -254,7 +251,7 @@
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
         }
-
+        /* Biography Title Styling */
         .bio-title {
             font-size: 1.5rem;
             color: var(--primary);
@@ -262,7 +259,7 @@
             text-align: center;
             font-weight: 600;
         }
-
+        /* Biography Text Styling */
         .bio-text {
             font-size: 1.05rem;
             line-height: 1.8;
@@ -271,15 +268,13 @@
             margin: 0 auto;
             text-align: center;
         }
-
-        /* Main Container */
+        /* Container for consistent padding and max-width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-
-        /* Section Styling */
+        /* Section Title Styling */
         .section-title {
             font-size: 1.8rem;
             color: var(--primary);
@@ -288,14 +283,12 @@
             display: inline-block;
             padding-bottom: 0.5rem;
         }
-
-        /* Grid Layout */
+        /* Project Grid Layout */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-
         /* Project Card */
         .card {
             background: var(--card-bg);
@@ -306,7 +299,7 @@
             display: flex;
             flex-direction: column;
         }
-
+        /* Card Link Styling */
         .card-link {
             display: flex;
             flex-direction: column;
@@ -314,27 +307,26 @@
             color: inherit;
             text-decoration: none;
         }
-
+        /* Hover effect for project cards */
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
-
+        /* Card Image Styling */
         .card-img {
             height: 180px;
             width: 100%;
             object-fit: cover;
             background-color: #eee;
-            /* Placeholder color */
         }
-
+        /* Card Content Styling */
         .card-content {
             padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-
+        /* Card Tag Styling */
         .card-tag {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -343,26 +335,26 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
-
+        /* Card Title Styling */
         .card h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
-
+        /* Card Description Styling */
         .card p {
             font-size: 0.95rem;
             color: #555;
             margin-bottom: 1rem;
             flex-grow: 1;
         }
-
+        /* Card Links Styling */
         .card-links {
             margin-top: auto;
             display: flex;
             gap: 1rem;
         }
-
+        /* Individual Card Link Styling */
         .link-text {
             color: var(--primary);
             text-decoration: none;
@@ -370,11 +362,11 @@
             font-size: 0.9rem;
             border-bottom: 1px solid transparent;
         }
-
+        /* Hover effect for card links */
         .link-text:hover {
             border-bottom-color: var(--accent);
         }
-
+        /* Footer Styling */
         footer {
             text-align: center;
             padding: 3rem;
@@ -382,19 +374,17 @@
             color: #777;
             font-size: 0.9rem;
         }
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2rem;
             }
-
+            /* Adjust project grid for smaller screens */
             .project-grid {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Lightbox Code Enhancement */
+        /* Lightbox Styles */
         .lightbox-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -405,14 +395,14 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
+        /* Responsive adjustments for lightbox content */
         @media (max-width: 768px) {
             .lightbox-content {
                 grid-template-columns: 1fr;
                 padding: 1rem;
             }
         }
-
+        /* Code and Plot Section Styling */
         .code-section,
         .plot-section {
             background: #f8f9fa;
@@ -420,7 +410,7 @@
             border-radius: 6px;
             border: 1px solid #e9ecef;
         }
-
+        /* Section Titles Styling */
         .code-section h4,
         .plot-section h4 {
             color: var(--primary);
@@ -428,7 +418,7 @@
             font-size: 1rem;
             font-weight: 600;
         }
-
+        /* Code Block Styling */
         pre {
             background: #2c3e50;
             color: #ecf0f1;
@@ -440,11 +430,10 @@
             line-height: 1.5;
             margin: 0;
         }
-
+        /* Ensure inline code inherits the main font*/
         code {
             font-family: inherit;
         }
-
         /* Syntax highlighting (optional - add Prism.js for better highlighting) */
         .language-r {
             color: #ecf0f1;
@@ -461,7 +450,7 @@
     <!-- Hero Header -->
     <header>
         <h1>Sam Coleman</h1>
-        <p>Wildlife Statistician & Data Scientist<br>Specializing in R, GLMMS, and Spatial Ecology</p>
+        <p>Wildlife Statistician & Data Scientist<br>Specializing in R, ArcGIS Pro, and Spatial Ecology</p>
         <a href="path/to/your-resume.pdf" class="cta-button">Download Resume</a>
     </header>
 
@@ -502,15 +491,17 @@
             <h2 class="bio-title">About Me</h2>
             <p class="bio-text">
                 I am a wildlife statistician passionate about bridging the gap between complex ecological data and
-                actionable conservation strategies.
+                actionable management strategies.
                 With a strong foundation in <strong>R programming</strong>, <strong>spatial analysis</strong>, and
                 <strong>reproducible research</strong>,
                 I specialize in turning messy field data into clear insights. My work ranges from estimating bat
                 population dynamics via an NB GAMM from a nested hierarchical structure
-                of ARU deployements, to developing various plots to aid Cooper's hawk researcher population trends. My
-                work is multifaceted, combining rigorous statistical modeling with
-                practical ecological applications. I aim to contribute meaningful insights that support wildlife
-                conservation and inform management decisions.
+                of ARU deployments, to developing various plots to aid Cooper's hawk researchers in identifying
+                spatial and temporal trends. My work is multifaceted, coming from a field technician background,
+                I am able to identify the challenges of field data collection and translate them into robust 
+                statistical models and practical ecological applications. Anything from accounting for habitat characteristics
+                to addressing detection biases, to even accounting for uneven sampling effort. I aim to contribute meaningful 
+                insights that support wildlife conservation and inform management decisions.
             </p>
         </div>
     </section>
