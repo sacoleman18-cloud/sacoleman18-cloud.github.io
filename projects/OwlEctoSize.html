@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparison of Ectoparasite Communities in Great Horned Owls and Barred Owls | Sam Coleman
+    </title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f8f9fa;
+            --text: #333;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── Top Navigation Bar ── */
+        .navbar {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        .navbar-left {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* ── Status Badge ── */
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-in-review {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-poster {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* ── Page Header ── */
+        .project-header {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .project-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── Main Content Area ── */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .project-content section {
+            margin-bottom: 3rem;
+        }
+
+        .project-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .project-content p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* ── Abstract Callout ── */
+        .abstract-box {
+            background: #f0f7f4;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem;
+        }
+
+        .abstract-box p {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 0;
+        }
+
+        /* ── Figures Grid ── */
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .figure-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .figure-item img {
+            width: 100%;
+            display: block;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+
+        .figure-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .figure-caption {
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ── Code Block ── */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 1rem;
+        }
+
+        .code-block code {
+            font-family: inherit;
+        }
+
+        /* ── Tools Used Pills ── */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-pill {
+            background: #eef2f7;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #dbe4ef;
+        }
+
+        /* ── Poster Display (for poster projects) ── */
+        .poster-display {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .poster-display img {
+            width: 100%;
+            display: block;
+        }
+
+        .poster-download-bar {
+            background: var(--primary);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .poster-download-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .poster-download-bar a:hover {
+            color: var(--accent);
+        }
+
+        /* ── Key Findings List ── */
+        .findings-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .findings-list li {
+            padding: 0.75rem 0 0.75rem 2rem;
+            position: relative;
+            font-size: 1.02rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .findings-list li:last-child {
+            border-bottom: none;
+        }
+
+        .findings-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* ── External Links Footer ── */
+        .links-footer {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .links-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .links-footer a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ── Back Link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .figures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ─────────── Sticky Navbar ─────────── -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+        <div class="navbar-right">
+            <a href="../index.html">Home</a>
+            <a href="https://github.com/sacoleman18-cloud">GitHub</a>
+            <a href="mailto:sacoleman18@gmail.com">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ─────────── Project Title & Metadata ─────────── -->
+    <header class="project-header">
+        <span class="status-badge status-poster">Poster</span>
+        <!-- Use status-poster for posters, status-published for published work -->
+        <h1>Comparison of Ectoparasite Communities in Great Horned Owls and Barred Owls</h1>
+        <p class="subtitle">Worked with roadkill and deceased rehabilitation-collected owl specimens to identify
+            ectoparasite communities.</p>
+
+        <div class="project-meta">
+            <span>Lead Author</span>
+        </div>
+    </header>
+
+    <!-- ─────────── Main Content ─────────── -->
+    <main class="project-content">
+
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            ← All Projects
+        </a>
+
+        <!-- ── Abstract (for papers) ── -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-box">
+                <p>
+                    Great horned owls (Bubo virginianus) and barred owls (Strix varia) are both geographically
+                    widespread,
+                    with ranges that overlap primarily in the Eastern United States. Great horned owls often prey upon
+                    the
+                    smaller barred owls, therefore occupying different trophic levels. Barred owls have recently
+                    expanded
+                    their range to the Pacific Northwest, which has resulted in hybridization and predation cases with
+                    the
+                    threatened northern spotted owl (S. occidentalis). This results in ectoparasite transmissions.
+                    Ectoparasites such as chewing lice (Phthiraptera), feather mites (Acari), and tick flies
+                    (Hippoboscidae)
+                    can cause sub-lethal damage to the host’s feathers. Using digitized museum records from the Stephen
+                    J.
+                    Taft Animal Parasitology Collection and new specimens collected from owls collected from road
+                    mortality
+                    and rehabilitation centers, we had two research objectives. The first objective was a temporal
+                    comparison
+                    of ectoparasite communities of each species by comparing historical and current ectoparasite species
+                    richness. Second, we wanted to compare the ectoparasite communities between the two species of owls.
+                    Our museum records included 12 great horned owl specimens representing 4 ectoparasite species and 6
+                    barred owl specimens representing 1 ectoparasite species. Our preliminary examination of 2 owls
+                    collected in 2022-2023 revealed 3 specimens in the family Menoponidae and 11 specimens in the family
+                    Philopteridae for great horned owls. One barred owl examined for ectoparasites was uninfected. Our
+                    results
+                    suggest that great horned owls have a more diverse ectoparasite community, but further data
+                    collection is
+                    needed to distinguish patterns. Our research highlights how museum collections can be used to
+                    address
+                    ecological questions.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── Poster Display ── -->
+        <section id="poster">
+            <h2>Scientific Poster</h2>
+            <div class="poster-display">
+                <img src="../images/OwlEcto.jpg" alt="Poster: Ectoparasite Communities of Great Horned and Barred Owls">
+                <div class="poster-download-bar">
+                    <a href="../downloads/OwlEcto.pdf" download>⬇ Download Poster (PDF)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Key Findings ── -->
+        <section id="findings">
+            <h2>Key Findings</h2>
+            <ul class="findings-list">
+                <li>
+                    There are distinct differences between the parasite communities of the two owl species
+                    based on current sampling (Fig 3A).
+                <li> Barred Owls have mostly lice and fewer mites.</li>
+                <li> Great Horned Owls have a higher average of mites than lice.</li>
+
+                Historical museum samples revealed a similarities and differences in comparison to our current sampling
+                <li>Barred Owls are under sampled compared to Great Horned Owls</li>
+                <li>Barred Owls had lice and mites but also one record of a flea</li>
+                <li></li>Great Horned Owls had both large numbers of mites and lice</li>
+            </ul>
+        </section>
+
+        <!-- ── Figures ── -->
+        <section id="figures">
+            <h2>Selected Figures</h2>
+            <div class="figures-grid">
+                <div class="figure-item">
+                    <a href="../images/OwlEcto1a.png" data-lightbox="project-figures" data-title="Great Horned Owl">
+                        <img src="../images/OwlEcto1a.png" alt="Great Horned Owl Fig 1a">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 1a.</strong> Great Horned Owl
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/OwlEcto1b.png" data-lightbox="project-figures" data-title="Great Horned Owl">
+                        <img src="../images/OwlEcto1b.png" alt="Great Horned Owl Fig 1b">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 1b.</strong> Great Horned Owl
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/OwlEcto2a.png" data-lightbox="project-figures"
+                        data-title="Fluffing bird feathers to remove ectoparasites">
+                        <img src="../images/OwlEcto2a.png" alt="Fluffing bird feathers to remove ectoparasites Fig 2A">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 2A</strong> Fluffing bird feathers to remove ectoparasites.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/OwlEctoPlot3a.png" data-lightbox="project-figures"
+                        data-title="Owl ectoparasite communities (Fig 3A)">
+                        <img src="../images/OwlEctoPlot3a.png"
+                            alt="Bar charts showing owl ectoparasite communities (Fig 3A)">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 3A</strong> Figure 3A. Average parasite infection from new owl specimens.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/OwlEcto3b.png" data-lightbox="project-figures"
+                        data-title="Owl ectoparasite communities (Fig 3B)">
+                        <img src="../images/OwlEcto3b.png"
+                            alt="Bar charts showing museum owl ectoparasite communities (Fig 3B)">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 3B.</strong> Number of museum records from both species of owls in the digitized
+                        collection.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/OwlEcto4.png" data-lightbox="project-figures" data-title="Great Horned Owl">
+                        <img src="../images/OwlEcto4.png" alt="Great Horned Owl Fig 4">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 4A and 4B.</strong> Mites from museum specimens.
+                        <strong>Figure 4C and 4D.</strong> Lice from museum specimens.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Methodology & Code ── -->
+        <section id="methods">
+            <h2>Methodology</h2>
+            <p> We used digitized museum specimens from the Stephen J.
+                Taft Animal Parasitology Collection to obtain historical
+                records of ectoparasites collected from both species of
+                owls. We obtained owls from rehabilitation centers or as
+                road mortality and systematically surveyed the parasites by
+                thoroughly ruffling feathers over paper lined trays (Fig 2A).
+
+                We photographed each owl and collected data on size and
+                sex for future analyses. Paper from trays was searched on a
+                dissecting microscope and parasites collected and
+                identified to major taxonomic groups for comparison with
+                museum records (Fig 2B and 2C).
+        </section>
+
+        <!-- ── Conferences/Symposiums presented at ── -->
+        <section id="conferences">
+            <h2>Conferences & Symposiums</h2>
+            <ul>
+                <li>2023 Fall COLS Symposium</li>
+                <li>2024 Spring Undergraduate Research Symposium</li>
+                <li>2024 Midwest Association of Parasitologists Annual Meeting (AMCOP 75)</li>
+            </ul>
+        </section>
+
+        <!-- ── Tools Used ── -->
+        <section id="tools">
+            <h2>Tools & Packages</h2>
+            <div class="tools-row">
+                <span class="tool-pill">Microsoft Excel</span>
+                <span class="tool-pill">Microsoft PowerPoint</span>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
