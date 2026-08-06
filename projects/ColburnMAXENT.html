@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilizing MAXENT to determine the
+        top covariates related to Myotis
+        Activity in central Wisconsin | Sam Coleman
+    </title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f8f9fa;
+            --text: #333;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── Top Navigation Bar ── */
+        .navbar {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        .navbar-left {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* ── Status Badge ── */
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-in-review {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-poster {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .status-oral-presentation {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+
+        /* ── Page Header ── */
+        .project-header {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .project-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── Main Content Area ── */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .project-content section {
+            margin-bottom: 3rem;
+        }
+
+        .project-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .project-content p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* ── Abstract Callout ── */
+        .abstract-box {
+            background: #f0f7f4;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem;
+        }
+
+        .abstract-box p {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 0;
+        }
+
+        /* ── Figures Grid ── */
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .figure-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .figure-item img {
+            width: 100%;
+            display: block;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+
+        .figure-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .figure-caption {
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ── Code Block ── */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 1rem;
+        }
+
+        .code-block code {
+            font-family: inherit;
+        }
+
+        /* ── Tools Used Pills ── */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-pill {
+            background: #eef2f7;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #dbe4ef;
+        }
+
+        /* ── Slide Showcase ── */
+        .slide-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            text-align: center;
+            padding: 0.85rem 1rem;
+        }
+
+        /* ── Poster Display (for poster projects) ── */
+        .poster-display {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .poster-display img {
+            width: 100%;
+            display: block;
+        }
+
+        .poster-download-bar {
+            background: var(--primary);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .poster-download-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .poster-download-bar a:hover {
+            color: var(--accent);
+        }
+
+        /* ── Key Findings List ── */
+        .findings-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .findings-list li {
+            padding: 0.75rem 0 0.75rem 2rem;
+            position: relative;
+            font-size: 1.02rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .findings-list li:last-child {
+            border-bottom: none;
+        }
+
+        .findings-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* ── External Links Footer ── */
+        .links-footer {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .links-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .links-footer a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ── Back Link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .figures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ─────────── Sticky Navbar ─────────── -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+        <div class="navbar-right">
+            <a href="../index.html">Home</a>
+            <a href="https://github.com/sacoleman18-cloud">GitHub</a>
+            <a href="mailto:sacoleman18@gmail.com">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ─────────── Project Title & Metadata ─────────── -->
+    <header class="project-header">
+        <span class="status-badge status-oral-presentation">Oral Presentation</span>
+        <h1>Utilizing MAXENT to determine the top covariates related to Myotis Activity in central Wisconsin</h1>
+        <p class="subtitle">Collected bat data from a local wildlife management area in Central Wisconsin to model Myotis activity using MAXENT.</p>
+
+        <div class="project-meta">
+            <span>Lead Author</span>
+        </div>
+    </header>
+
+    <!-- ─────────── Main Content ─────────── -->
+    <main class="project-content">
+
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            ← All Projects
+        </a>
+
+        <!-- ── Abstract (for papers) ── -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-box">
+                <p>
+                    <em>Myotis</em> includes two resident bats in Wisconsin, the little brown bat (<em>M. lucifugus</em>) and the northern
+                    long-eared bat (<em>M. septentrionalis</em>), both of which are state threatened, with the northern long-eared
+                    bat being federally listed under the Endangered Species Act (ESA). The biggest conservation issues that 
+                    these <em>Myotis</em> face are the invasive fungal disease white-nose syndrome, habitat fragmentation, and
+                    insecticide use. Due to the state and federal listing of these species, land managers must adapt their 
+                    land-management techniques to work around the active presence of these bats. The habitat selection of 
+                    <em>Myotis</em> is an under-researched topic that deserves more attention due to their listings. Our research is
+                    looking at the top environmental covariates that lead to the presence of these bats. We placed microphones 
+                    in randomly generated locations throughout the 20-km2 Colburn Wildlife Area, a state-owned preserve in 
+                    central Wisconsin that contains a variety of biomes, including aspen wetlands and oak-dominant woodlands. 
+                    We also conducted variable radius plots at each microphone location and recorded various data on each “in” 
+                    tree. Each variable radius plot’s data was then interpolated to create a raster file which encompassed our 
+                    study area. We used a multimodal approach utilizing the principle of maximum entropy and the software MAXENT, 
+                    to determine the highest weighted environmental covariates related to <em>Myotis</em> activity. This software utilizes 
+                    a jackknife cross-validation technique to determine the importance of each variable. We chose to implement a 
+                    bootstrap resampling technique to test the strength of our model. The MAXENT model determined that the tree 
+                    diversity is the only covariate that has a significant effect on <em>M. lucifugus</em>. <em>M. septentrionalis</em> activity 
+                    was explained by tree plot’s basal area and average tree decay stage. The model strength for <em>M. lucifugus</em> 
+                    and <em>M. septentrionalis</em> is slightly better than random and high performing respectively.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── Presentation Download ── -->
+        <section id="poster">
+            <h2>PowerPoint Presentation</h2>
+            <div class="poster-display">
+                <img src="../images/ColburnMAXENTSlide1.jpg"
+                    alt="PowerPoint Presentation: Utilizing MAXENT to determine the top covariates related to Myotis Activity in central Wisconsin">
+                <div class="poster-download-bar">
+                    <a href="../downloads/ColburnMAXENT.pdf" download>⬇ Download Presentation (PPTX)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Key Findings ── -->
+        <section id="findings">
+            <h2>Key Findings</h2>
+            <ul class="findings-list">
+                <li>
+                    Only our oak-aspen homogenious scale was significant in explaining <em>M. lucifugus</em> activity, 
+                    while 
+                </li>
+                <li>
+                    <em>M. septentrionalis</em> activity was explained by basal area and average tree decay stage.
+                </li>
+                <li>
+                    Custom filters assigned to each AudioMoth detector yielded lower quality calls, which thus 
+                    probably resulted in fewer calls being detected.
+                </li>
+            </ul>
+        </section>
+
+        <!-- ── Figures ── -->
+        <section id="figures">
+            <h2>Selected Figures</h2>
+            <div class="figures-grid">
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig1.jpg" data-lightbox="project-figures"
+                        data-title="Inset map of study area. Created in ArcGIS Pro.">
+                        <img src="../images/ColburnMAXENTFig1.jpg"
+                            alt="Inset map of study area. Created in ArcGIS Pro.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 1.</strong> Inset map of study area. Created in ArcGIS Pro.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig2.jpg" data-lightbox="project-figures"
+                        data-title="Colburn Wildlife Area land cover map detailing tree sampling points.">
+                        <img src="../images/ColburnMAXENTFig2.jpg"
+                            alt="Colburn Wildlife Area land cover map detailing tree sampling points.">
+                    </a>
+                    <div class="figure-caption">
+                            <strong>Figure 2.</strong> Land cover map detailing tree sampling points in Colburn Wildlife Area. Data was retrieved
+                            from WISCLANDS 2.0 level-4 data from the Wisconsin Department of Natural Resources. Accessible area was determined for 
+                            ease of access for study volunteers. All sampling points were randomly generated with a 100m buffer beteween each point.
+                            Created in ArcGIS Pro.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig3.jpg" data-lightbox="project-figures"
+                        data-title="AudioMoth bat detector deployed in oak upland forest.">
+                        <img src="../images/ColburnMAXENTFig3.jpg"
+                            alt="AudioMoth bat detector deployed in oak upland forest.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 3.</strong> AudioMoth bat detector deployed in oak upland forest.
+
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig4.jpg" data-lightbox="project-figures"
+                        data-title="Northern Long-eared bat (<em>Myotis septentrionalis</em>) sonogram.">
+                        <img src="../images/ColburnMAXENTFig4.jpg"
+                            alt="Northern Long-eared bat (<em>Myotis septentrionalis</em>) sonogram.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 4.</strong> Northern Long-eared Bat (<em>Myotis septentrionalis</em>) sonogram.
+                        Frequency ranges from 40 kHz-89 kHz.
+
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig5.jpg" data-lightbox="project-figures"
+                        data-title="Rasterized Basal Areas of trees in Colburn Wildlife Area.">
+                        <img src="../images/ColburnMAXENTFig5.jpg"
+                            alt="Rasterized Basal Areas of trees in Colburn Wildlife Area.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 5.</strong> Rasterized Basal Areas of trees in Colburn Wildlife Area. Legend is on the scale of
+                            1/2 Trees per Acre. We used ArcGIS pro to convert each variable radius plot to a vector point. We then used QGIS to 
+                            perform an Inverse Distance Weighted (IDW) interpolation to create a raster file of estimated basal areas throughout 
+                            the whole study area. Raster Tiff files were then converted to ASCII files for use in MAXENT.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig6.jpg" data-lightbox="project-figures"
+                        data-title="Rasterized Oak-Aspen Homogeneity Index.">
+                        <img src="../images/ColburnMAXENTFig6.jpg"
+                            alt="Rasterized Oak-Aspen Homogeneity Index.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 6.</strong> Rasterized oak-aspen homogeneity index. The oak-aspen scale was created by categorically
+                        assigning each variable radius plot to a scale of 1-5 based on the amount of oak and aspen trees present in the plot with
+                        80-100% Aspen being a 1, 50-79% Aspen being a 2, neither oak nor aspen are dominant being a 3, 50-80% Oak being a 4, and 80-100% 
+                        Oak being a 5. We then used QGIS to perform an Inverse Distance Weighted (IDW) interpolation to create a raster file of the oak-aspen 
+                        homogeneity index throughout the whole study area. Raster Tiff files were then converted to ASCII files for use in MAXENT.
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig7.jpg" data-lightbox="project-figures"
+                        data-title="Rasterized canopy class map of Colburn Wildlife Area.">
+                                    <img src="../images/ColburnMAXENTFig7.jpg"
+                                        alt="Rasterized canopy class map of Colburn Wildlife Area.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 7.</strong> Rasterized canopy class map of Colburn Wildlife Area. The canopy class was 
+                        created by ordinally assigning each tree within a variable radius plot (VRP) on a scale of 1-4, with 1
+                        being suppressed tree, 2 being an intermediate tree, 3 being a co-dominant tree, and 4 being a dominant 
+                        tree. We then averaged each tree within each VRP and used QGIS to perform an Inverse Distance Weighted (IDW) 
+                        interpolation of each VRP to create a raster file of the canopy class throughout the whole study area. 
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig8.jpg" data-lightbox="project-figures"
+                        data-title="Rasterized tree decay stage map of Colburn Wildlife Area.">
+                        <img src="../images/ColburnMAXENTFig8.jpg"
+                            alt="Rasterized tree decay stage map of Colburn Wildlife Area.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 8.</strong> Rasterized canopy class map of Colburn Wildlife Area. The canopy class was 
+                        created by categorically assigning each tree within a variable radius plot (VRP) on a scale of 1-5, with 1
+                        being a completely bare tree, 2 being a tree with some bark still intact, but majority bare, 3 being a tree 
+                        with 50-80% decay, 4 being a tree with 1-49% decay, and 5 being a tree with no indications of rot or decay. 
+                        We then averaged each tree within each VRP and used QGIS to perform an Inverse Distance Weighted (IDW)
+                        interpolation of each VRP to create a raster file of the average tree decay stage throughout the whole study area.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig9.jpg" data-lightbox="project-figures"
+                        data-title="Rasterized basal area of trees with shaggy bark in Colburn Wildlife Area.">
+                        <img src="../images/ColburnMAXENTFig9.jpg"
+                            alt="Rasterized basal area of trees with shaggy bark in Colburn Wildlife Area.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 9.</strong> Rasterized basal area of trees with shaggy bark in Colburn Wildlife Area. We assigned
+                        every tree within each variable radius plot (VRP) a binary value of 1 or 0 based on whether the tree had shaggy 
+                        bark or not. We then calculated the basal area of each tree with shaggy bark and used QGIS to perform an Inverse 
+                        Distance Weighted (IDW) interpolation of each VRP to create a raster file of the basal area of trees with shaggy 
+                        bark throughout the whole study area.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig10.jpg" data-lightbox="project-figures"
+                        data-title="Little Brown Bat (<em>Myotis lucifugus</em>) Habitat Suitability (0 worst – 1 best)">
+                        <img src="../images/ColburnMAXENTFig10.jpg"
+                            alt="Little Brown Bat (<em>Myotis lucifugus</em>) Habitat Suitability (0 worst – 1 best)">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 10.</strong> MAXENT results for Little Brown Bat (<em>Myotis lucifugus</em>) 
+                        Habitat Suitability (0 worst – 1 best).
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig11.jpg" data-lightbox="project-figures"
+                        data-title="Northern Long-eared Bat (<em>Myotis septentrionalis</em>) Habitat Suitability (0 worst – 1 best)">
+                        <img src="../images/ColburnMAXENTFig11.jpg"
+                            alt="Northern Long-eared Bat (<em>Myotis septentrionalis</em>) Habitat Suitability (0 worst – 1 best)">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 11.</strong> MAXENT results for Northern Long-eared Bat (<em>Myotis septentrionalis</em>) 
+                        Habitat Suitability (0 worst – 1 best).
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig12.jpg" data-lightbox="project-figures"
+                        data-title="Little Brown Bat (<em>Myotis lucifugus</em>) covariate explanation results.">
+                        <img src="../images/ColburnMAXENTFig12.jpg"
+                            alt="Little Brown Bat (<em>Myotis lucifugus</em>) covariate explanation results.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 12.</strong> MAXENT Little Brown Bat (<em>Myotis lucifugus</em>) covariate explanation 
+                        results. Only the oak-aspen homogenious scale was significant in explaining <em>M. lucifugus</em> activity
+                        with more bats being detected in areas with more aspen trees present. The other covariates were not significant 
+                        in explaining <em>M. lucifugus</em> activity.
+
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTFig13.jpg" data-lightbox="project-figures"
+                        data-title="Northern Long-eared Bat (<em>Myotis septentrionalis</em>) covariate explanation results.">
+                        <img src="../images/ColburnMAXENTFig13.jpg"
+                            alt="Northern Long-eared Bat (<em>Myotis septentrionalis</em>) covariate explanation results.">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 13.</strong> MAXENT Northern Long-eared Bat (<em>Myotis septentrionalis</em>) covariate explanation 
+                        results. The decay stage covariate explained 66% of the model, while the basal area covariate explained the remaining 33%.
+                        The other covariates were not significant in explaining <em>M. septentrionalis</em> activity.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Methodology & Code ── -->
+        <section id="methods">
+            <h2>Methodology</h2>
+            <p> We deployed 4 AudioMoth bat detectors in randomly generated locations throughout the Colburn Wildlife Area, cycling each detector around 
+                once every 2 weeks from June 1st 2024-August 31st. Detectors were filtered to only detect <em>Myotis</em> species to save space on microSD
+                cards. We then conducted variable radius plots at each detector location and recorded various data 
+                on each “in” tree, including each tree's diameter as breast height (DBH), presence or absence of peeling bark, an ordinally assigned rank
+                to each tree's canopy class with 1 being suppresed and 4 being dominant, each tree species, and a categorically assigned number based on 
+                each tree's decay stage on a scale of 1-5 with 1 being the most decayed and 5 being the least decayed. Each variable radius plot’s data was 
+                then interpolated to create raster files for our study area. We extracted Bat calls from each AudioMoth detector utilizing Kaleidoscope Pro. 
+                We used a multimodal approach utilizing the principle of maximum entropy and the software MAXENT, to determine the highest weighted environmental 
+                covariates related to <em>Myotis</em> activity. This software utilizes a jackknife cross-validation technique to determine the importance of each 
+                variable. We chose to implement a bootstrap resampling technique to test the strength of our model.</p>
+
+        <!-- ── Conferences/Symposiums presented at ── -->
+        <section id="conferences">
+            <h2>Conferences & Symposiums</h2>
+            <ul>
+                <li>2025 Wisconsin The Wildlife Society Annual Meeting, Stevens Point, Wisconsin</li>
+                <li>2025 Midwest Bat Working Group Annual Meeting, Fort Wayne, Indiana</li>
+            </ul>
+        </section>
+
+        <!-- ── Presentation Slides ── -->
+        <section id="slides">
+            <h2>Presentation Slides</h2>
+            <div class="figures-grid">
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide1.jpg" data-lightbox="presentation-slides" data-title="Slide 1">
+                        <img src="../images/ColburnMAXENTSlide1.jpg" alt="Slide 1 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 1</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide2.jpg" data-lightbox="presentation-slides" data-title="Slide 1">
+                        <img src="../images/ColburnMAXENTSlide2.jpg" alt="Slide 2 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 2</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide3.jpg" data-lightbox="presentation-slides" data-title="Slide 3">
+                        <img src="../images/ColburnMAXENTSlide3.jpg" alt="Slide 3 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 3</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide4.jpg" data-lightbox="presentation-slides" data-title="Slide 4">
+                        <img src="../images/ColburnMAXENTSlide4.jpg" alt="Slide 4 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 4</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide5.jpg" data-lightbox="presentation-slides" data-title="Slide 5">
+                        <img src="../images/ColburnMAXENTSlide5.jpg" alt="Slide 5 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 5</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide6.jpg" data-lightbox="presentation-slides" data-title="Slide 6">
+                        <img src="../images/ColburnMAXENTSlide6.jpg" alt="Slide 6 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 6</p>
+                </div>  
+                
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide7.jpg" data-lightbox="presentation-slides" data-title="Slide 7">
+                        <img src="../images/ColburnMAXENTSlide7.jpg" alt="Slide 7 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 7</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide8.jpg" data-lightbox="presentation-slides" data-title="Slide 8">
+                        <img src="../images/ColburnMAXENTSlide8.jpg" alt="Slide 8 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 8</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide9.jpg" data-lightbox="presentation-slides" data-title="Slide 9">
+                        <img src="../images/ColburnMAXENTSlide9.jpg" alt="Slide 9 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 9</p>
+                </div>
+                
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide10.jpg" data-lightbox="presentation-slides" data-title="Slide 10">
+                        <img src="../images/ColburnMAXENTSlide10.jpg" alt="Slide 10 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 10</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide11.jpg" data-lightbox="presentation-slides" data-title="Slide 11">
+                        <img src="../images/ColburnMAXENTSlide11.jpg" alt="Slide 11 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 11</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide12.jpg" data-lightbox="presentation-slides" data-title="Slide 12">
+                        <img src="../images/ColburnMAXENTSlide12.jpg" alt="Slide 12 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 12</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide13.jpg" data-lightbox="presentation-slides" data-title="Slide 13">
+                        <img src="../images/ColburnMAXENTSlide13.jpg" alt="Slide 13 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 13</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide14.jpg" data-lightbox="presentation-slides" data-title="Slide 14">
+                        <img src="../images/ColburnMAXENTSlide14.jpg" alt="Slide 14 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 14</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide15.jpg" data-lightbox="presentation-slides" data-title="Slide 15">
+                        <img src="../images/ColburnMAXENTSlide15.jpg" alt="Slide 15 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 15</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide16.jpg" data-lightbox="presentation-slides" data-title="Slide 16">
+                        <img src="../images/ColburnMAXENTSlide16.jpg" alt="Slide 16 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 16</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide17.jpg" data-lightbox="presentation-slides" data-title="Slide 17">
+                        <img src="../images/ColburnMAXENTSlide17.jpg" alt="Slide 17 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 17</p>
+                </div>
+                
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide18.jpg" data-lightbox="presentation-slides" data-title="Slide 18">
+                        <img src="../images/ColburnMAXENTSlide18.jpg" alt="Slide 18 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 18</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide19.jpg" data-lightbox="presentation-slides" data-title="Slide 19">
+                        <img src="../images/ColburnMAXENTSlide19.jpg" alt="Slide 19 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 19</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide20.jpg" data-lightbox="presentation-slides" data-title="Slide 20">
+                        <img src="../images/ColburnMAXENTSlide20.jpg" alt="Slide 20 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 20</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide21.jpg" data-lightbox="presentation-slides" data-title="Slide 21">
+                        <img src="../images/ColburnMAXENTSlide21.jpg" alt="Slide 21 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 21</p>
+                </div>
+                
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide23.jpg" data-lightbox="presentation-slides" data-title="Slide 23">
+                        <img src="../images/ColburnMAXENTSlide23.jpg" alt="Slide 23 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 23</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide24.jpg" data-lightbox="presentation-slides" data-title="Slide 24">
+                        <img src="../images/ColburnMAXENTSlide24.jpg" alt="Slide 24 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 24</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide25.jpg" data-lightbox="presentation-slides" data-title="Slide 25">
+                        <img src="../images/ColburnMAXENTSlide25.jpg" alt="Slide 25 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 25</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide26.jpg" data-lightbox="presentation-slides" data-title="Slide 26">
+                        <img src="../images/ColburnMAXENTSlide26.jpg" alt="Slide 26 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 26</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide27.jpg" data-lightbox="presentation-slides" data-title="Slide 27">
+                        <img src="../images/ColburnMAXENTSlide27.jpg" alt="Slide 27 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 27</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide28.jpg" data-lightbox="presentation-slides" data-title="Slide 28">
+                        <img src="../images/ColburnMAXENTSlide28.jpg" alt="Slide 28 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 28</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide29.jpg" data-lightbox="presentation-slides" data-title="Slide 29">
+                        <img src="../images/ColburnMAXENTSlide29.jpg" alt="Slide 29 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 29</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide30.jpg" data-lightbox="presentation-slides" data-title="Slide 30">
+                        <img src="../images/ColburnMAXENTSlide30.jpg" alt="Slide 30 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 30</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide31.jpg" data-lightbox="presentation-slides" data-title="Slide 31">
+                        <img src="../images/ColburnMAXENTSlide31.jpg" alt="Slide 31 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 31</p>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/ColburnMAXENTSlide32.jpg" data-lightbox="presentation-slides" data-title="Slide 32">
+                        <img src="../images/ColburnMAXENTSlide32.jpg" alt="Slide 32 from the Colburn MAXENT presentation">
+                    </a>
+                    <p class="slide-label">Slide 32</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Tools Used ── -->
+        <section id="tools">
+            <h2>Tools & Packages</h2>
+            <div class="tools-row">
+                <span class="tool-pill">Microsoft Excel</span>
+                <span class="tool-pill">Microsoft PowerPoint</span>
+                <span class="tool-pill">Kaleidoscope Pro</span>
+                <span class="tool-pill">ArcGIS Pro</span>
+                <span class="tool-pill">QGIS</span>
+                <span class="tool-pill">FieldMaps</span>
+                <span class="tool-pill">FieldMaps Forms</span>
+                <span class="tool-pill">MAXENT</span>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
