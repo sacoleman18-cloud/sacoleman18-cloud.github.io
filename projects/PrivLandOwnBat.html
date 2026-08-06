@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collecting Bat Data from Private Organizations Can Yield More Information on Bat Densities | Sam Coleman
+    </title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f8f9fa;
+            --text: #333;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── Top Navigation Bar ── */
+        .navbar {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        .navbar-left {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* ── Status Badge ── */
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-in-review {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-poster {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* ── Page Header ── */
+        .project-header {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .project-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── Main Content Area ── */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .project-content section {
+            margin-bottom: 3rem;
+        }
+
+        .project-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .project-content p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* ── Abstract Callout ── */
+        .abstract-box {
+            background: #f0f7f4;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem;
+        }
+
+        .abstract-box p {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 0;
+        }
+
+        /* ── Figures Grid ── */
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .figure-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .figure-item img {
+            width: 100%;
+            display: block;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+
+        .figure-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .figure-caption {
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ── Code Block ── */
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            margin-top: 1rem;
+        }
+
+        .code-block code {
+            font-family: inherit;
+        }
+
+        /* ── Tools Used Pills ── */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tool-pill {
+            background: #eef2f7;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #dbe4ef;
+        }
+
+        /* ── Poster Display (for poster projects) ── */
+        .poster-display {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .poster-display img {
+            width: 100%;
+            display: block;
+        }
+
+        .poster-download-bar {
+            background: var(--primary);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .poster-download-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .poster-download-bar a:hover {
+            color: var(--accent);
+        }
+
+        /* ── Key Findings List ── */
+        .findings-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .findings-list li {
+            padding: 0.75rem 0 0.75rem 2rem;
+            position: relative;
+            font-size: 1.02rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .findings-list li:last-child {
+            border-bottom: none;
+        }
+
+        .findings-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* ── External Links Footer ── */
+        .links-footer {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem 0;
+            border-top: 1px solid #eee;
+        }
+
+        .links-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .links-footer a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ── Back Link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .figures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ─────────── Sticky Navbar ─────────── -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="../index.html">← Back to Portfolio</a>
+        </div>
+        <div class="navbar-right">
+            <a href="../index.html">Home</a>
+            <a href="https://github.com/sacoleman18-cloud">GitHub</a>
+            <a href="mailto:sacoleman18@gmail.com">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ─────────── Project Title & Metadata ─────────── -->
+    <header class="project-header">
+        <span class="status-badge status-in-review">In Review</span>
+        <!-- Use status-poster for posters, status-published for published work -->
+        <h1>Collecting Bat Data from Private Organizations Can Yield More Information on Bat Densities</h1>
+        <p class="subtitle">Worked with public partners to determine the presence and absence of bat species throughout
+            Wisconsin</p>
+
+        <div class="project-meta">
+            <span>Lead Author</span>
+        </div>
+    </header>
+
+    <!-- ─────────── Main Content ─────────── -->
+    <main class="project-content">
+
+        <!-- Back Link -->
+        <a href="../index.html" class="back-link">
+            ← All Projects
+        </a>
+
+        <!-- ── Abstract (for papers) ── -->
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <div class="abstract-box">
+                <p>
+                    82.2% of Wisconsin’s land is privately owned. Working with or researching on private land can be
+                    difficult as you have to
+                    obtain permission from the land owners. Building trust with landowners is a multiple year process
+                    that requires an ability
+                    to see a different perspective and a willingness to learn from both parties. With enough learning,
+                    comes an interest with how
+                    this land is being utilized. This interest can come in the form of aid from private organizations
+                    and continuous cooperation.
+                    For our project, we worked with three private organizations, the Catholic Ecology Center, the
+                    Marshfield Zoo, and a land owner
+                    on Chamber’s Island to collect 356,456 files of acoustic bat (Chiroptera) data that spans from
+                    2017-2023. Working with private
+                    organizations allots us the opportunity to work with higher grade and regularly maintained equipment
+                    that we can’t consistently
+                    obtain from public organizations. Little brown bats (<em>Myotis lucifugus</em>, MYLU) are considered
+                    keystone species among other species
+                    of the insectivorous, evening bats (Vespertilionidae). The five other Wisconsin bats can eavesdrop
+                    on the frequencies emitted by
+                    MYLU as a way to identify where insects are, as MYLUs are the lowest fliers. The recent drop in bat
+                    population numbers, due to
+                    the fungal disease white-nose syndrome and collisions with windmills, can be seen across the state
+                    with the MYLUs and Northern
+                    long-eared bats (<em>Myotis septentrionalis</em>) being the most impacted. It is important to find
+                    out presences and absences
+                    of these bats to assess proper land management and what areas to further research.
+                </p>
+            </div>
+        </section>
+
+        <!-- ── Poster Display ── -->
+        <section id="poster">
+            <h2>Scientific Poster</h2>
+            <div class="poster-display">
+                <img src="../images/PrivateBatPoster.jpg"
+                    alt="Poster: Collecting Bat Data from Private Organizations can yield more Information on Bat Densities">
+                <div class="poster-download-bar">
+                    <a href="../downloads/PrivateBatPoster.pdf" download>⬇ Download Poster (PDF)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Key Findings ── -->
+        <section id="findings">
+            <h2>Key Findings</h2>
+            <ul class="findings-list">
+                <li>
+                    Highest bat call volume was recorded at a landowner's house on Chamber's Island, a remote
+                    island in Green Bay, with high little brown and northern long-eared bat activity.
+                </li>
+                <li>
+                    Various bat species including little brown batswere showing rebound activity from previous
+                    low years in the Wildwood Zoo property, which is located in Central Wisconsin.
+                    This could indicate a potential rebound from white-nose syndrome in the area.
+                </li>
+                <li>
+                    Migrating bats dominated the Catholic Ecology Cetner property, which is located in the Southern
+                    part of the state. Hibernating bats also showed rebound activity from 2021-2023.
+                </li>
+                <li>
+                    Prioritizing long-term monitoring on private lands
+                    and establishing more monitoring stations across the
+                    state can tell us more about WNS recovery and bat
+                    population trends.
+
+                    Our data shows the highest frequency of hibernating
+                    bat calls at Chambers Island. This data is crucial to
+                    future land use decisions in the area, especially with
+                    newly found interest in logging efforts in the area.
+                </li>
+            </ul>
+        </section>
+
+        <!-- ── Figures ── -->
+        <section id="figures">
+            <h2>Selected Figures</h2>
+            <div class="figures-grid">
+                <div class="figure-item">
+                    <a href="../images/PrivBatCIF1.png" data-lightbox="project-figures"
+                        data-title="Bat calls on Chamber's Island from 2021-2023">
+                        <img src="../images/PrivBatCIF1.png"
+                            alt="Pie charts showing bat call volume on Chamber's Island from 2021-2023">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 1.</strong> Bat call frequencies Chambers Island from 2021 to 2023.
+                        The little brown bat, MYLU, is the dominating bat species.
+                    </div>
+                </div>
+
+                <div class="figure-item">
+                    <a href="../images/PrivBatWWF2.png" data-lightbox="project-figures"
+                        data-title="Bat Calls at Wildwood Zoo from 2020-2023, excluding 2022">
+                        <img src="../images/PrivBatWWF2.png"
+                            alt="Pie charts showing bat call volume at Wildwood Zoo from 2020-2023, excluding 2022">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 2.</strong> Bat call frequencies at the Wildwood Zoo monitoring station.
+                        Various bat species have shown a rebound in 2023. EPFU has been the dominant species.
+                    </div>
+                </div>
+                <div class="figure-item">
+                    <a href="../images/PrivBatCECF3.png" data-lightbox="project-figures"
+                        data-title="Bat calls at Catholic Ecology Center from 2021-2023">
+                        <img src="../images/PrivBatCECF3.png"
+                            alt="Pie charts showing bat call volume at Catholic Ecology Center from 2021-2023">
+                    </a>
+                    <div class="figure-caption">
+                        <strong>Figure 3.</strong> Bat call frequencies at the Catholic Ecology Center from 
+                        2021 to 2023. Migrating bats dominated with hibernating bats rebounding in 2023.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Methodology & Code ── -->
+        <section id="methods">
+            <h2>Methodology</h2>
+            <p> We worked with three private organizations to collect acoustic bat data from 2017-2023 via acoustic bat detectors. 
+                The calls were synthesized and analyzed using Kaleidoscope Pro software to identify the species of bats present. We
+                used Microsoft Excel to create pivot tables to summarize the data and visualize the results. We then created pie
+                charts as well as a column chart to visualize the data. </p>
+        </section>
+
+        <!-- ── Tools Used ── -->
+        <section id="tools">
+            <h2>Tools & Packages</h2>
+            <div class="tools-row">
+                <span class="tool-pill">Microsoft Excel</span>
+                <span class="tool-pill">Microsoft PowerPoint</span>
+                <span class="tool-pill">Kaleidoscope Pro</span>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

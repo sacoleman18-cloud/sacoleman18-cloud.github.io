@@ -505,22 +505,41 @@
                 <article class="stage">
                     <span class="num">01</span>
                     <h3>Ingest</h3>
-                    <p>Import raw exports and normalize headers across Kaleidoscope Pro versions.</p>
+                    <p>
+                        Stage 1: Load configuration from study_parameters.yaml<br>
+                        Stage 2: Discover and load raw CSV files (local + external sources)
+                    </p>
                 </article>
                 <article class="stage">
                     <span class="num">02</span>
                     <h3>Standardize</h3>
-                    <p>Map version-specific fields into a single schema and enforce consistent data types.</p>
+                    <p>
+                        Stage 3: Schema transformation (v1/v2/v3 → unified master)<br>
+                        Stage 4: Detector mapping (ID → friendly names)<br>
+                        Stage 5: Timezone conversion (UTC → local)<br>
+                        Stage 6: Finalize schema and optional deduplication<br>
+                        Stage 7: Apply configured data filters (NoID, zero-pulse)<br>
+                        Stage 8: Save checkpoint, register artifact, render validation HTML
+                    </p>
                 </article>
                 <article class="stage">
                     <span class="num">03</span>
-                    <h3>Summarize</h3>
-                    <p>Build <code>calls-per-night.csv</code> for downstream analysis pipelines including GLMMs.</p>
+                    <h3>Generate CPN Template</h3>
+                    <p>
+                        Stage 1: Load configuration from study_parameters.yaml<br>
+                        Stage 2: Load or import kpro_master data<br>
+                        Stage 3: Optional Manual ID integration and species column creation<br>
+                        Stage 4: Calculate study nights with timezone-aware aggregation<br>
+                        Stage 5: Generate detector × night template grid (with schedule)<br>
+                        Stage 6: Verify recording schedule configuration<br>
+                        Stage 7: Format template for Excel (sort, datetime, formulas)<br>
+                        Stage 8: Save template (EDIT_THIS), register artifacts<br>
+                        Stage 9: Render validation HTML.</p>
                 </article>
                 <article class="stage">
                     <span class="num">04</span>
-                    <h3>Report</h3>
-                    <p>Render a Quarto report containing study overview metrics and 27 QA and activity plots.</p>
+                    <h3>Finalize CPn</h3>
+                    <p></p>
                 </article>
             </div>
         </section>
