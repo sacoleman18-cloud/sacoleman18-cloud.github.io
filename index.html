@@ -298,6 +298,24 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+        /* Published ribbon for project cards */
+        .published-ribbon {
+            position: absolute;
+            top: 0.85rem;
+            right: -2.15rem;
+            background: #27ae60;
+            color: white;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.28rem 2.3rem;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            pointer-events: none;
         }
         /* Card Link Styling */
         .card-link {
@@ -347,6 +365,42 @@
             color: #555;
             margin-bottom: 1rem;
             flex-grow: 1;
+        }
+        /* Project tech tags */
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.25rem;
+        }
+        .tech-tag-chip {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            line-height: 1.2;
+            border: 1px solid transparent;
+        }
+        .tech-tag-chip:nth-child(4n + 1) {
+            background: #e8f4ee;
+            color: #1f6f43;
+            border-color: #bfe5cf;
+        }
+        .tech-tag-chip:nth-child(4n + 2) {
+            background: #e8f0fb;
+            color: #1f4e8c;
+            border-color: #bfd4f3;
+        }
+        .tech-tag-chip:nth-child(4n + 3) {
+            background: #fff3e6;
+            color: #9a4f08;
+            border-color: #ffd9b3;
+        }
+        .tech-tag-chip:nth-child(4n + 4) {
+            background: #f3edf9;
+            color: #5c3a8b;
+            border-color: #dccbf1;
         }
         /* Card Links Styling */
         .card-links {
@@ -690,6 +744,11 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                             index, and other spatial statistics
                             to understand habitat selection and distribution patterns.
                         </p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -704,6 +763,11 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                         <h3>Cooper's Hawk </h3>
                         <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across
                             fragmented habitats. Published in <em>Ecological Applications</em>.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -721,7 +785,17 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                     <div class="card-content">
                         <span class="card-tag">Scientific oral presentation</span>
                         <h3>Bat Habitat Suitability Index via MAXENT</h3>
-                        <p>Developed a bat habitat suitability index using the software MAXENT to model.</p>
+                        <p>Developed a bat habitat suitability index using the software MAXENT to model collected bat calls.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">MAXENT</span>
+                            <span class="tech-tag-chip">QGIS</span>
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">ESRI Field Maps</span>
+                            <span class="tech-tag-chip">ESRI Field Maps Forms</span>
+                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">MicrosoftPowerPoint</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -738,25 +812,40 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                     <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
                     <div class="card-content">
                         <span class="card-tag">Scientific poster</span>
-                        <h3>Do Habitat Edges Really Concentrate Bat Activity? </h3>
+                        <h3>Do Habitat Edges Really Concentrate Bat Activity?</h3>
                         <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
                             <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
                             in open, edge and forested areas.
                         </p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Field Maps</span>
+                            <span class="tech-tag-chip">Field Maps Forms</span>
+                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                            <span class="tech-tag-chip">R</span>
+                        </div>
                     </div>
                 </a>
             </article>
 
-            <!-- Project 4: Class Project -->
+            <!-- Project 8: Treehaven Bat Burn Study -->
             <article class="card">
-                <a class="card-link" href="projects/ColburnMAXENT.html"
-                    aria-label="Open Species Distribution Modeling project page">
-                    <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
+                <span class="published-ribbon">Published</span>
+                <a class="card-link" href="projects/TreehavenBatBurn.html"
+                    aria-label="Open Treehaven Bat Burn project page">
+                    <img src="images/TreehavenBatBurn.jpg" alt="Bat activity variation amongst control and 1-year burn interval study poster" class="card-img">
                     <div class="card-content">
                         <span class="card-tag">Scientific poster</span>
-                        <h3>Species Distribution Modeling</h3>
-                        <p>Compared GLM, GAM, and Random Forest approaches for predicting habitat suitability. Focused on
-                            model validation and spatial autocorrelation.</p>
+                        <h3>Treehaven Bat Burn Study</h3>
+                        <p>Study examining bat activity variation amongst control and 1-year burn interval units.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                            <span class="tech-tag-chip">Avenza</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -771,6 +860,11 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                         <h3>Private Landowner Bat Study</h3>
                         <p>Various plots and visual materials explaining the characteristics of bat community 
                         activity and trends on private lands.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -785,6 +879,10 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                         <h3>Barred and Great Horned Owl Ectoparasite Comparison Study</h3>
                         <p>Owl ectoparasite analysis detailing mite and lice averages and abundances found on
                             Barred and Great Horned Owl roadkill and deceased rehabilitation specimens.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -800,19 +898,10 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                         <p>Extracted museum specimens for feather mites (<em>Acari</em>) from four species of Wisconsin
                             owls to evaluate size differentiation amongst specific owl species. This research was conducted in collaboration
                             with the Stephen J. Taft Animal Parasitology Collection at UWSP.</p>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 8: Treehaven Bat Burn Study -->
-            <article class="card">
-                <a class="card-link" href="projects/TreehavenBatBurn.html"
-                    aria-label="Open Treehaven Bat Burn project page">
-                    <img src="images/TreehavenBatBurn.jpg" alt="Bat activity variation amongst control and 1-year burn interval study poster" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Treehaven Bat Burn Study</h3>
-                        <p>Study examining bat activity variation amongst control and 1-year burn interval units.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
                     </div>
                 </a>
             </article>
@@ -833,6 +922,11 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
                         <p>Developed a helper tool to clean and standardize Kaleidoscope Pro <code>id.csv</code> files,
                             generate <code>calls-per-night.csv</code> outputs for downstream models, and render an
                             automated Quarto report with study summaries and diagnostic plots.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
                     </div>
                 </a>
             </article>
