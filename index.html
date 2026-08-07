@@ -17,12 +17,14 @@
             --card-bg: #ffffff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         /* Reset some default styles for consistency across browsers */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         /* Body Styling */
         body {
             font-family: var(--font-main);
@@ -30,6 +32,7 @@
             color: var(--text);
             line-height: 1.6;
         }
+
         /* Header Styling */
         header {
             position: relative;
@@ -46,6 +49,7 @@
             text-align: center;
             padding: 2rem;
         }
+
         /* Overlay for better text visibility */
         header::before {
             content: "";
@@ -55,12 +59,14 @@
             /* Gradient overlay for better depth */
             z-index: 1;
         }
+
         /* Ensure header content is above the overlay */
         header>* {
             position: relative;
             z-index: 2;
             max-width: 800px;
         }
+
         /* Header Text Styling */
         header h1 {
             font-size: 3rem;
@@ -71,6 +77,7 @@
             letter-spacing: -0.5px;
             color: white;
         }
+
         /* Subheading Styling */
         header p {
             font-size: 1.3rem;
@@ -80,6 +87,7 @@
             font-weight: 300;
             color: white;
         }
+
         /* Call-to-Action Button Styling */
         .cta-button {
             display: inline-block;
@@ -94,6 +102,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-shadow: none;
         }
+
         /* Hover effect for the CTA button */
         .cta-button:hover {
             transform: translateY(-3px);
@@ -101,6 +110,7 @@
             background-color: #219a52;
             /* Slightly darker green on hover */
         }
+
         /* Tech Stack Panel */
         .tech-stack-panel {
             background: white;
@@ -109,6 +119,7 @@
             margin-bottom: 2rem;
             text-align: center;
         }
+
         /* Panel Title Styling */
         .panel-title {
             font-size: 1.1rem;
@@ -118,6 +129,7 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
+
         /* Tech Stack Icons Container */
         .tech-stack-icons {
             display: flex;
@@ -126,6 +138,7 @@
             gap: 2rem;
             flex-wrap: wrap;
         }
+
         /* Individual Tech Icon Styling */
         .tech-stack-icons {
             background: white;
@@ -138,6 +151,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 2rem;
         }
+
         /* Individual Tech Icon Styling */
         .tech-icon {
             display: flex;
@@ -145,10 +159,12 @@
             align-items: center;
             transition: transform 0.2s ease;
         }
+
         /* Hover effect for tech icons */
         .tech-icon:hover {
             transform: translateY(-5px);
         }
+
         /* Tech Icon Image Styling */
         .tech-icon img {
             width: 60px;
@@ -157,10 +173,12 @@
             filter: grayscale(20%);
             transition: filter 0.3s ease;
         }
+
         /* Remove grayscale on hover for better visibility */
         .tech-icon:hover img {
             filter: grayscale(0%);
         }
+
         /* Tech Icon Label Styling */
         .tech-icon::after {
             content: attr(title);
@@ -169,6 +187,7 @@
             margin-top: 0.5rem;
             font-weight: 500;
         }
+
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .tech-stack-icons {
@@ -194,6 +213,7 @@
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
+
         /* Individual package card styling */
         .package-card {
             background: white;
@@ -204,11 +224,13 @@
             display: flex;
             flex-direction: column;
         }
+
         /* Hover effect for package cards */
         .package-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
+
         /* Package image styling */
         .package-img {
             width: 100%;
@@ -216,6 +238,7 @@
             object-fit: cover;
             background-color: #eee;
         }
+
         /* Package content styling */
         .package-content {
             padding: 1.25rem;
@@ -223,6 +246,7 @@
             display: flex;
             flex-direction: column;
         }
+
         /* Package title styling */
         .package-content h3 {
             font-size: 1.1rem;
@@ -230,12 +254,14 @@
             margin-bottom: 0.75rem;
             font-weight: 600;
         }
+
         /* Package description styling */
         .package-content p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.6;
         }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .package-grid {
@@ -243,6 +269,7 @@
                 gap: 1rem;
             }
         }
+
         /* Biography Section Styles */
         .bio-section {
             background-color: white;
@@ -251,6 +278,7 @@
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
         }
+
         /* Biography Title Styling */
         .bio-title {
             font-size: 1.5rem;
@@ -259,6 +287,7 @@
             text-align: center;
             font-weight: 600;
         }
+
         /* Biography Text Styling */
         .bio-text {
             font-size: 1.05rem;
@@ -268,12 +297,14 @@
             margin: 0 auto;
             text-align: center;
         }
+
         /* Container for consistent padding and max-width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
+
         /* Section Title Styling */
         .section-title {
             font-size: 1.8rem;
@@ -283,12 +314,14 @@
             display: inline-block;
             padding-bottom: 0.5rem;
         }
+
         /* Project Grid Layout */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
+
         /* Project Card */
         .card {
             background: var(--card-bg);
@@ -300,6 +333,7 @@
             flex-direction: column;
             position: relative;
         }
+
         /* Published ribbon for project cards */
         .published-ribbon {
             position: absolute;
@@ -317,6 +351,7 @@
             z-index: 3;
             pointer-events: none;
         }
+
         /* Card Link Styling */
         .card-link {
             display: flex;
@@ -325,11 +360,13 @@
             color: inherit;
             text-decoration: none;
         }
+
         /* Hover effect for project cards */
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
+
         /* Card Image Styling */
         .card-img {
             height: 180px;
@@ -337,6 +374,7 @@
             object-fit: cover;
             background-color: #eee;
         }
+
         /* Card Content Styling */
         .card-content {
             padding: 1.5rem;
@@ -344,6 +382,7 @@
             display: flex;
             flex-direction: column;
         }
+
         /* Card Tag Styling */
         .card-tag {
             font-size: 0.75rem;
@@ -353,12 +392,14 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
+
         /* Card Title Styling */
         .card h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
         }
+
         /* Card Description Styling */
         .card p {
             font-size: 0.95rem;
@@ -366,6 +407,7 @@
             margin-bottom: 1rem;
             flex-grow: 1;
         }
+
         /* Project tech tags */
         .project-tech-tags {
             display: flex;
@@ -373,6 +415,7 @@
             gap: 0.45rem;
             margin-top: 0.25rem;
         }
+
         .tech-tag-chip {
             display: inline-block;
             padding: 0.2rem 0.6rem;
@@ -382,32 +425,38 @@
             line-height: 1.2;
             border: 1px solid transparent;
         }
+
         .tech-tag-chip:nth-child(4n + 1) {
             background: #e8f4ee;
             color: #1f6f43;
             border-color: #bfe5cf;
         }
+
         .tech-tag-chip:nth-child(4n + 2) {
             background: #e8f0fb;
             color: #1f4e8c;
             border-color: #bfd4f3;
         }
+
         .tech-tag-chip:nth-child(4n + 3) {
             background: #fff3e6;
             color: #9a4f08;
             border-color: #ffd9b3;
         }
+
         .tech-tag-chip:nth-child(4n + 4) {
             background: #f3edf9;
             color: #5c3a8b;
             border-color: #dccbf1;
         }
+
         /* Card Links Styling */
         .card-links {
             margin-top: auto;
             display: flex;
             gap: 1rem;
         }
+
         /* Individual Card Link Styling */
         .link-text {
             color: var(--primary);
@@ -416,10 +465,12 @@
             font-size: 0.9rem;
             border-bottom: 1px solid transparent;
         }
+
         /* Hover effect for card links */
         .link-text:hover {
             border-bottom-color: var(--accent);
         }
+
         /* Footer Styling */
         footer {
             text-align: center;
@@ -428,16 +479,19 @@
             color: #777;
             font-size: 0.9rem;
         }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2rem;
             }
+
             /* Adjust project grid for smaller screens */
             .project-grid {
                 grid-template-columns: 1fr;
             }
         }
+
         /* Lightbox Styles */
         .lightbox-content {
             display: grid;
@@ -449,6 +503,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
         /* Responsive adjustments for lightbox content */
         @media (max-width: 768px) {
             .lightbox-content {
@@ -456,6 +511,7 @@
                 padding: 1rem;
             }
         }
+
         /* Code and Plot Section Styling */
         .code-section,
         .plot-section {
@@ -464,6 +520,7 @@
             border-radius: 6px;
             border: 1px solid #e9ecef;
         }
+
         /* Section Titles Styling */
         .code-section h4,
         .plot-section h4 {
@@ -472,6 +529,7 @@
             font-size: 1rem;
             font-weight: 600;
         }
+
         /* Code Block Styling */
         pre {
             background: #2c3e50;
@@ -484,10 +542,12 @@
             line-height: 1.5;
             margin: 0;
         }
+
         /* Ensure inline code inherits the main font*/
         code {
             font-family: inherit;
         }
+
         /* Syntax highlighting (optional - add Prism.js for better highlighting) */
         .language-r {
             color: #ecf0f1;
@@ -552,13 +612,233 @@
                 population dynamics via an NB GAMM from a nested hierarchical structure
                 of ARU deployments, to developing various plots to aid Cooper's hawk researchers in identifying
                 spatial and temporal trends. My work is multifaceted, coming from a field technician background,
-                I am able to identify the challenges of field data collection and translate them into robust 
-                statistical models and practical ecological applications. Anything from accounting for habitat characteristics
-                to addressing detection biases, to even accounting for uneven sampling effort. I aim to contribute meaningful 
+                I am able to identify the challenges of field data collection and translate them into robust
+                statistical models and practical ecological applications. Anything from accounting for habitat
+                characteristics
+                to addressing detection biases, to even accounting for uneven sampling effort. I aim to contribute
+                meaningful
                 insights that support wildlife conservation and inform management decisions.
             </p>
         </div>
     </section>
+
+    <div class="container">
+
+        <h2 class="section-title">Manuscript in review</h2>
+        <div class="project-grid">
+
+            <!-- Project 1: Victoria, BC COHA Habitat Selection -->
+            <article class="card">
+                <a class="card-link" href="projects/COHAVictoriaBC.html"
+                    aria-label="Open Cooper's Hawk spatial distribution in Victoria, BC project page">
+                    <img src="images/Victoria_COHA_map.png" alt="Population trend graph" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Manuscripts awaiting publication</span>
+                        <h3>Cooper's Hawk spatial distribution in Victoria, BC </h3>
+                        <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize
+                            Cooper's Hawk spatial distribution in Victoria, BC.
+                            Worked with the <code>spatstat</code> package for spatial point pattern analysis,
+                            Clark-evans
+                            index, and other spatial statistics
+                            to understand habitat selection and distribution patterns.
+                        </p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 2: Manuscript -->
+            <article class="card">
+                <a class="card-link" href="projects/COHADispersal.html" aria-label="Open Cooper's Hawk project page">
+                    <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Manuscripts awaiting publication</span>
+                        <h3>Cooper's Hawk </h3>
+                        <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data
+                            across
+                            fragmented habitats. Published in <em>Ecological Applications</em>.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <h2 class="section-title">Scientific Oral Presentations</h2>
+        <div class="project-grid">
+
+            <!-- Project 1: Oral Presentation -->
+            <article class="card">
+                <a class="card-link" href="projects/ColburnMAXENT.html"
+                    aria-label="Open Bat Habitat Suitability Index via MAXENT project page">
+                    <img src="images/MAXENTHeatMaps.jpg" alt="Bat Habitat Suitability Index via MAXENT"
+                        class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific oral presentation</span>
+                        <h3>Bat Habitat Suitability Index via MAXENT</h3>
+                        <p>Developed a bat habitat suitability index using the software MAXENT to model collected bat
+                            calls.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">MAXENT</span>
+                            <span class="tech-tag-chip">QGIS</span>
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">ESRI Field Maps</span>
+                            <span class="tech-tag-chip">ESRI Field Maps Forms</span>
+                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">MicrosoftPowerPoint</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <h2 class="section-title">Scientific poster</h2>
+        <div class="project-grid">
+
+            <!-- Project 3: Schmeeckle Bat NB GAMM Study -->
+            <article class="card">
+                <a class="card-link" href="projects/SchmeeckleBatGAMM.html"
+                    aria-label="Open Do Habitat Edges Really Concentrate Bat Activity project page">
+                    <img src="images/SchmeeckleGAMM.png" alt="Population trend graph" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Do Habitat Edges Really Concentrate Bat Activity?</h3>
+                        <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
+                            <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
+                            in open, edge and forested areas while accounting for detection biases, site biases,
+                            uneven sampling effort and seasonality.
+                        </p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Field Maps</span>
+                            <span class="tech-tag-chip">Field Maps Forms</span>
+                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                            <span class="tech-tag-chip">R</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 8: Treehaven Bat Burn Study -->
+            <article class="card">
+                <span class="published-ribbon">Published</span>
+                <a class="card-link" href="projects/TreehavenBatBurn.html"
+                    aria-label="Open Treehaven Bat Burn project page">
+                    <img src="images/TreehavenBatBurn.jpg"
+                        alt="Bat activity variation amongst control and 1-year burn interval study poster"
+                        class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Treehaven Bat Burn Study</h3>
+                        <p>Study examining bat activity variation amongst control and 1-year burn interval units.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                            <span class="tech-tag-chip">Avenza</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 5: Private Landowner Bat Study -->
+            <article class="card">
+                <a class="card-link" href="projects/PrivLandOwnBat.html"
+                    aria-label="Open Private Landowner Bat Study project page">
+                    <img src="images/PrivateBatPoster.jpg" alt="Population trend graph" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Private Landowner Bat Study</h3>
+                        <p>Various plots and visual materials explaining the characteristics of bat community
+                            activity and trends on private lands.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">ArcGIS Pro</span>
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 6: Owl Ectoparasite Study -->
+            <article class="card">
+                <a class="card-link" href="projects/OwlEctoComparison.html"
+                    aria-label="Open Barred and Great Horned Owl Ectoparasite Study project page">
+                    <img src="images/owlecto.jpg" alt="Barred and Great Horned Owl ectoparasite comparison study poster"
+                        class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Barred and Great Horned Owl Ectoparasite Comparison Study</h3>
+                        <p>Owl ectoparasite analysis detailing mite and lice averages and abundances found on
+                            Barred and Great Horned Owl roadkill and deceased rehabilitation specimens.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 7: Owl Ectoparasite size comparison Study -->
+            <article class="card">
+                <a class="card-link" href="projects/MiteDifferentiation.html"
+                    aria-label="Open Mite Differentiation of Wisconsin Owls project page">
+                    <img src="images/MiteDifferentiation.jpg" alt="Mite Differentiation of Wisconsin Owls poster"
+                        class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Scientific poster</span>
+                        <h3>Mite Differentiation of Wisconsin Owls</h3>
+                        <p>Extracted museum specimens for feather mites (<em>Acari</em>) from four species of Wisconsin
+                            owls to evaluate size differentiation amongst specific owl species. This research was
+                            conducted in collaboration
+                            with the Stephen J. Taft Animal Parasitology Collection at UWSP.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Microsoft Excel</span>
+                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </div>
+
+        <h2 class="section-title">Personal Coding Projects</h2>
+        <div class="project-grid">
+
+            <!-- Project 6: KPRO Standardizer -->
+            <article class="card">
+                <a class="card-link" href="projects/KPROStandardizer.html"
+                    aria-label="Open Kaleidoscope Pro Standardizer project page">
+                    <img src="images/quarto.png" alt="Kaleidoscope Pro standardization workflow" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag">Personal coding project</span>
+                        <h3>Kaleidoscope Pro Standardizer</h3>
+                        <p>Developed a helper tool to clean and standardize Kaleidoscope Pro <code>id.csv</code> files,
+                            generate <code>calls-per-night.csv</code> outputs for downstream models, and render an
+                            automated Quarto report with study summaries and diagnostic plots.</p>
+                        <div class="project-tech-tags" aria-label="Software used">
+                            <span class="tech-tag-chip">Tech 1</span>
+                            <span class="tech-tag-chip">Tech 2</span>
+                            <span class="tech-tag-chip">Tech 3</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </div>
 
     <!-- R Packages Expertise Section -->
     <section class="container">
@@ -571,7 +851,8 @@
                 <div class="package-content">
                     <h3>tidyverse</h3>
                     <p>A cohesive collection of R packages designed for data manipulation, cleaning, and
-                        visualization. Packages include: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and lubridate.</p>
+                        visualization. Packages include: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and
+                        lubridate.</p>
 
                     <!-- New Usage Button -->
                     <a href="#lightbox-code-tidyverse" class="link-text"
@@ -724,216 +1005,6 @@ p <- ggplot(df, aes(x = brood_x, y = BroodCount, group = BroodDisvsNonDis)) +
 
         </div>
     </section>
-
-    <div class="container">
-
-        <h2 class="section-title">Manuscript in review</h2>
-        <div class="project-grid">
-
-            <!-- Project 1: Victoria, BC COHA Habitat Selection -->
-            <article class="card">
-                <a class="card-link" href="projects/COHAVictoriaBC.html"
-                    aria-label="Open Cooper's Hawk spatial distribution in Victoria, BC project page">
-                    <img src="images/Victoria_COHA_map.png" alt="Population trend graph" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Manuscripts awaiting publication</span>
-                        <h3>Cooper's Hawk spatial distribution in Victoria, BC </h3>
-                        <p>Worked with multi-decadal long data set to produce a wide variety of maps to better visualize
-                            Cooper's Hawk spatial distribution in Victoria, BC.
-                            Worked with the <code>spatstat</code> package for spatial point pattern analysis, Clark-evans
-                            index, and other spatial statistics
-                            to understand habitat selection and distribution patterns.
-                        </p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">Tech 1</span>
-                            <span class="tech-tag-chip">Tech 2</span>
-                            <span class="tech-tag-chip">Tech 3</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 2: Manuscript -->
-            <article class="card">
-                <a class="card-link" href="projects/COHADispersal.html"
-                    aria-label="Open Cooper's Hawk project page">
-                    <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Manuscripts awaiting publication</span>
-                        <h3>Cooper's Hawk </h3>
-                        <p>Developed hierarchical Bayesian models using <code>brms</code> to analyze camera trap data across
-                            fragmented habitats. Published in <em>Ecological Applications</em>.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">Tech 1</span>
-                            <span class="tech-tag-chip">Tech 2</span>
-                            <span class="tech-tag-chip">Tech 3</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-        </div>
-
-        <h2 class="section-title">Scientific Oral Presentations</h2>
-        <div class="project-grid">
-
-            <!-- Project 1: Oral Presentation -->
-            <article class="card">
-                <a class="card-link" href="projects/ColburnMAXENT.html"
-                    aria-label="Open Bat Habitat Suitability Index via MAXENT project page">
-                    <img src="images/MAXENTHeatMaps.jpg" alt="Bat Habitat Suitability Index via MAXENT" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific oral presentation</span>
-                        <h3>Bat Habitat Suitability Index via MAXENT</h3>
-                        <p>Developed a bat habitat suitability index using the software MAXENT to model collected bat calls.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">MAXENT</span>
-                            <span class="tech-tag-chip">QGIS</span>
-                            <span class="tech-tag-chip">ArcGIS Pro</span>
-                            <span class="tech-tag-chip">ESRI Field Maps</span>
-                            <span class="tech-tag-chip">ESRI Field Maps Forms</span>
-                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">MicrosoftPowerPoint</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-        </div>
-
-        <h2 class="section-title">Scientific poster</h2>
-        <div class="project-grid">
-
-            <!-- Project 3: Extracurricular Bat Poster -->
-            <article class="card">
-                <a class="card-link" href="projects/SchmeeckleBatGAMM.html"
-                    aria-label="Open Do Habitat Edges Really Concentrate Bat Activity project page">
-                    <img src="images/manuscript-plot.png" alt="Population trend graph" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Do Habitat Edges Really Concentrate Bat Activity?</h3>
-                        <p>Deployed bat detectors to collect data for a nested heirarchical NB GAMM analysis using
-                            <code>tidyverse</code> and <code>mgcv</code>. Identified seasonal trends in bat activity
-                            in open, edge and forested areas.
-                        </p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">ArcGIS Pro</span>
-                            <span class="tech-tag-chip">Field Maps</span>
-                            <span class="tech-tag-chip">Field Maps Forms</span>
-                            <span class="tech-tag-chip">Kaleidoscope Pro</span>
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
-                            <span class="tech-tag-chip">R</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 8: Treehaven Bat Burn Study -->
-            <article class="card">
-                <span class="published-ribbon">Published</span>
-                <a class="card-link" href="projects/TreehavenBatBurn.html"
-                    aria-label="Open Treehaven Bat Burn project page">
-                    <img src="images/TreehavenBatBurn.jpg" alt="Bat activity variation amongst control and 1-year burn interval study poster" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Treehaven Bat Burn Study</h3>
-                        <p>Study examining bat activity variation amongst control and 1-year burn interval units.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">ArcGIS Pro</span>
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
-                            <span class="tech-tag-chip">Avenza</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 5: Private Landowner Bat Study -->
-            <article class="card">
-                <a class="card-link" href="projects/PrivLandOwnBat.html"
-                    aria-label="Open Private Landowner Bat Study project page">
-                    <img src="images/PrivateBatPoster.jpg" alt="Population trend graph" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Private Landowner Bat Study</h3>
-                        <p>Various plots and visual materials explaining the characteristics of bat community 
-                        activity and trends on private lands.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">ArcGIS Pro</span>
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 6: Owl Ectoparasite Study -->
-            <article class="card">
-                <a class="card-link" href="projects/OwlEctoComparison.html"
-                    aria-label="Open Barred and Great Horned Owl Ectoparasite Study project page">
-                    <img src="images/owlecto.jpg" alt="Barred and Great Horned Owl ectoparasite comparison study poster" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Barred and Great Horned Owl Ectoparasite Comparison Study</h3>
-                        <p>Owl ectoparasite analysis detailing mite and lice averages and abundances found on
-                            Barred and Great Horned Owl roadkill and deceased rehabilitation specimens.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-            <!-- Project 7: Owl Ectoparasite size comparison Study -->
-            <article class="card">
-                <a class="card-link" href="projects/MiteDifferentiation.html"
-                    aria-label="Open Mite Differentiation of Wisconsin Owls project page">
-                    <img src="images/MiteDifferentiation.jpg" alt="Mite Differentiation of Wisconsin Owls poster" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Scientific poster</span>
-                        <h3>Mite Differentiation of Wisconsin Owls</h3>
-                        <p>Extracted museum specimens for feather mites (<em>Acari</em>) from four species of Wisconsin
-                            owls to evaluate size differentiation amongst specific owl species. This research was conducted in collaboration
-                            with the Stephen J. Taft Animal Parasitology Collection at UWSP.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">Microsoft Excel</span>
-                            <span class="tech-tag-chip">Microsoft PowerPoint</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-        </div>
-
-        <h2 class="section-title">Personal Coding Projects</h2>
-        <div class="project-grid">
-
-            <!-- Project 6: KPRO Standardizer -->
-            <article class="card">
-                <a class="card-link" href="projects/KPROStandardizer.html"
-                    aria-label="Open Kaleidoscope Pro Standardizer project page">
-                    <img src="images/quarto.png" alt="Kaleidoscope Pro standardization workflow" class="card-img">
-                    <div class="card-content">
-                        <span class="card-tag">Personal coding project</span>
-                        <h3>Kaleidoscope Pro Standardizer</h3>
-                        <p>Developed a helper tool to clean and standardize Kaleidoscope Pro <code>id.csv</code> files,
-                            generate <code>calls-per-night.csv</code> outputs for downstream models, and render an
-                            automated Quarto report with study summaries and diagnostic plots.</p>
-                        <div class="project-tech-tags" aria-label="Software used">
-                            <span class="tech-tag-chip">Tech 1</span>
-                            <span class="tech-tag-chip">Tech 2</span>
-                            <span class="tech-tag-chip">Tech 3</span>
-                        </div>
-                    </div>
-                </a>
-            </article>
-
-        </div>
-
-    </div>
 
     <footer>
         <p>&copy; 2026 Sam Coleman. Built with R & HTML.</p>
