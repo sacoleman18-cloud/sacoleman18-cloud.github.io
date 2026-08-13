@@ -1,0 +1,2 @@
+n_detectors,n_detector_nights,study_start,study_end,study_duration_days,total_calls,total_hours,overall_mean_cpn,overall_median_cpn,overall_sd_cpn,overall_min_cpn,overall_max_cpn,overall_mean_cph,overall_median_cph,overall_sd_cph,overall_min_cph,overall_max_cph,overall_cv_pct,pct_success,pct_partial,pct_fail
+9,252,2025-10-04,2025-10-31,28,1468,2220.3,5.8,0,19.4,0,229,0.69,0.15,1.81,0,17.62,262.3,39.7,29.8,30.6

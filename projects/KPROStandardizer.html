@@ -16,7 +16,6 @@
             --card: #ffffff;
             --line: #d7ddd4;
             --mint: #a8d5ba;
-            --amber: #f0b35f;
             --signal: #d9472d;
             --code: #111822;
             --mono: 'IBM Plex Mono', 'Courier New', monospace;
@@ -40,6 +39,11 @@
 
         a {
             color: inherit;
+        }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.95em;
         }
 
         .topbar {
@@ -99,13 +103,11 @@
             inset: 0;
             background:
                 linear-gradient(90deg, rgba(169, 213, 186, 0.2), transparent 45%),
-                repeating-linear-gradient(
-                    90deg,
+                repeating-linear-gradient(90deg,
                     rgba(255, 255, 255, 0.05) 0,
                     rgba(255, 255, 255, 0.05) 1px,
                     transparent 1px,
-                    transparent 30px
-                );
+                    transparent 30px);
             pointer-events: none;
         }
 
@@ -206,7 +208,8 @@
             color: var(--slate);
         }
 
-        .overview {
+        .overview,
+        .report-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
             gap: 1rem;
@@ -238,16 +241,38 @@
             white-space: nowrap;
         }
 
-        .pipeline {
+        .pipeline,
+        .outputs,
+        .feature-grid,
+        .config-grid,
+        .catalog-groups,
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 0.8rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+        }
+
+        .stage,
+        .output-card,
+        .feature-card,
+        .config-card,
+        .catalog-group,
+        .gallery-card {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fcfcfb;
+            min-width: 0;
+        }
+
+        .stage,
+        .output-card,
+        .feature-card,
+        .config-card,
+        .catalog-group {
+            padding: 1rem;
         }
 
         .stage {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 0.85rem;
             background: linear-gradient(180deg, #ffffff, #f9faf8);
         }
 
@@ -263,57 +288,59 @@
             margin-bottom: 0.55rem;
         }
 
-        .stage h3 {
+        .stage h3,
+        .output-card h3,
+        .feature-card h3,
+        .config-card h3,
+        .catalog-group h3,
+        .gallery-section h3 {
             margin: 0 0 0.35rem;
             font-size: 1rem;
+            color: var(--slate);
         }
 
-        .stage p {
+        .stage-summary,
+        .output-card p,
+        .feature-card p,
+        .config-card p,
+        .catalog-group p,
+        .gallery-section p {
             margin: 0;
-            font-size: 0.9rem;
-            color: #3e4a58;
-        }
-
-        .outputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.9rem;
-        }
-
-        .output-card {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 0.95rem;
-            background: #fcfcfb;
-        }
-
-        .output-card h3 {
-            margin: 0;
-            font-size: 1rem;
-            font-family: var(--mono);
-        }
-
-        .output-card p {
-            margin: 0.5rem 0 0;
+            font-size: 0.92rem;
             color: #445061;
-            font-size: 0.93rem;
         }
 
-        .report-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            align-items: start;
+        .stage-summary {
+            margin-bottom: 0.75rem;
         }
 
+        .stage-list,
+        .config-list,
+        .deliverable-list,
         .report-list {
-            margin: 0;
+            margin: 0.7rem 0 0;
             padding-left: 1.1rem;
-            color: #2a3340;
+            color: #32404e;
         }
 
+        .stage-list li,
+        .config-list li,
+        .deliverable-list li,
         .report-list li {
             margin-bottom: 0.45rem;
+            overflow-wrap: anywhere;
+        }
+
+        .stage-list li:last-child,
+        .config-list li:last-child,
+        .deliverable-list li:last-child,
+        .report-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .report-aside {
+            display: grid;
+            gap: 0.8rem;
         }
 
         .shot {
@@ -336,6 +363,153 @@
             font-size: 0.83rem;
             color: #445061;
             border-top: 1px solid var(--line);
+        }
+
+        .asset-status {
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #49576a;
+            background: #eef3ef;
+            border: 1px solid #d3dbd3;
+            border-radius: 999px;
+            padding: 0.24rem 0.55rem;
+        }
+
+        .gallery-section {
+            margin-top: 1rem;
+        }
+
+        .gallery-preview {
+            min-height: 144px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.75rem;
+            background: linear-gradient(145deg, #f6faf6 0%, #fdf7ef 100%);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .gallery-preview strong {
+            font-size: 0.95rem;
+            color: var(--slate);
+        }
+
+        .gallery-preview span {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: #546274;
+            overflow-wrap: anywhere;
+        }
+
+        .gallery-copy {
+            padding: 0.85rem 0.95rem 0.95rem;
+        }
+
+        .gallery-copy p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #445061;
+        }
+
+        .gallery-card img {
+            display: block;
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--line);
+            background: #f4f6f3;
+            cursor: zoom-in;
+        }
+
+        .gallery-card img:focus-visible {
+            outline: 3px solid rgba(217, 71, 45, 0.35);
+            outline-offset: -3px;
+        }
+
+        .table-resource-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.75rem;
+        }
+
+        .table-resource-links a {
+            text-decoration: none;
+            border: 1px solid #cfd6ce;
+            background: #f5f8f4;
+            border-radius: 999px;
+            padding: 0.28rem 0.65rem;
+            font-size: 0.78rem;
+            color: #2a3340;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(10, 15, 20, 0.88);
+        }
+
+        .lightbox.is-open {
+            display: flex;
+        }
+
+        .lightbox-panel {
+            position: relative;
+            width: min(1100px, 100%);
+            max-height: 100%;
+            background: #111822;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            z-index: 2;
+            border: 0;
+            border-radius: 999px;
+            width: 2.25rem;
+            height: 2.25rem;
+            background: rgba(17, 24, 34, 0.8);
+            color: #f5f7fb;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .lightbox-figure {
+            margin: 0;
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) auto;
+            max-height: 100%;
+        }
+
+        .lightbox-figure img {
+            display: block;
+            width: 100%;
+            max-height: min(78vh, 900px);
+            object-fit: contain;
+            background: #0e141c;
+        }
+
+        .lightbox-figure figcaption {
+            padding: 0.9rem 1rem 1rem;
+            color: #d8dee3;
+            font-size: 0.92rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #111822;
         }
 
         .code-block {
@@ -391,14 +565,17 @@
         }
 
         @media (max-width: 980px) {
+
             .hero-inner,
             .overview,
-            .report-grid {
+            .report-grid,
+            .pipeline,
+            .outputs,
+            .feature-grid,
+            .config-grid,
+            .catalog-groups,
+            .gallery-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .pipeline {
-                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -411,8 +588,6 @@
                 padding: 1.4rem 1rem;
             }
 
-            .outputs,
-            .pipeline,
             .stat-grid {
                 grid-template-columns: 1fr;
             }
@@ -451,20 +626,20 @@
                     <h2>At A Glance</h2>
                     <div class="stat-grid">
                         <div class="stat">
-                            <span class="k">27</span>
+                            <span class="k">30</span>
                             <span class="l">Generated plots</span>
                         </div>
                         <div class="stat">
-                            <span class="k">2</span>
-                            <span class="l">Primary outputs</span>
+                            <span class="k">4</span>
+                            <span class="l">Summary tables</span>
                         </div>
                         <div class="stat">
                             <span class="k">1</span>
-                            <span class="l">Quarto report</span>
+                            <span class="l">Quarto report bundle</span>
                         </div>
                         <div class="stat">
-                            <span class="k">Multi</span>
-                            <span class="l">KPRO versions</span>
+                            <span class="k">27</span>
+                            <span class="l">Tracked stages</span>
                         </div>
                     </div>
                 </aside>
@@ -478,23 +653,24 @@
                     <p>
                         This project solves one recurring bottleneck: Kaleidoscope Pro <code>id.csv</code> files from
                         different versions do not arrive in a consistent format. The tool standardizes those files,
-                        creates a clean <code>calls-per-night.csv</code> for model-ready workflows, and compiles
-                        a Quarto report that packages key diagnostics into one reproducible deliverable.
+                        creates a clean <code>calls-per-night.csv</code> for nightly analysis, and compiles a Quarto
+                        report plus release bundle that preserves every processing decision, validation step, and
+                        downstream artifact in one reproducible workflow.
                     </p>
                     <div class="pill-row" aria-label="Technology stack">
                         <span class="pill">R</span>
                         <span class="pill">tidyverse</span>
-                        <span class="pill">readr</span>
-                        <span class="pill">dplyr</span>
-                        <span class="pill">lubridate</span>
                         <span class="pill">Quarto</span>
                         <span class="pill">Git</span>
+                        <span class="pill">YAML</span>
+                        <span class="pill">SHA256 registry</span>
                     </div>
                 </div>
                 <aside class="side-note">
                     <strong>Why it matters</strong><br>
                     Mixed-source acoustic projects break quickly when schemas drift. This engine enforces one canonical
-                    structure so collaborators can share code, QA rules, and models without custom patches per dataset.
+                    structure, records each processing phase to an external log, and packages a complete analysis-ready
+                    release so collaborators can audit or extend the work without reconstructing what happened.
                 </aside>
             </div>
         </section>
@@ -504,60 +680,203 @@
             <div class="pipeline">
                 <article class="stage">
                     <span class="num">01</span>
-                    <h3>Ingest</h3>
-                    <p>
-                        Stage 1: Load configuration from study_parameters.yaml<br>
-                        Stage 2: Discover and load raw CSV files (local + external sources)
-                    </p>
+                    <h3>data_ingestion.R</h3>
+                    <p class="stage-summary">Loads study settings, resolves source locations, and pulls raw detector exports into one tracked intake step.</p>
+                    <ul class="stage-list">
+                        <li>Stage 1: Load configuration from study_parameters.yaml.</li>
+                        <li>Stage 2: Recursively discover and load raw id.csv files from local and external source directories.</li>
+                    </ul>
                 </article>
                 <article class="stage">
                     <span class="num">02</span>
-                    <h3>Standardize</h3>
-                    <p>
-                        Stage 3: Schema transformation (v1/v2/v3 → unified master)<br>
-                        Stage 4: Detector mapping (ID → friendly names)<br>
-                        Stage 5: Timezone conversion (UTC → local)<br>
-                        Stage 6: Finalize schema and optional deduplication<br>
-                        Stage 7: Apply configured data filters (NoID, zero-pulse)<br>
-                        Stage 8: Save checkpoint, register artifact, render validation HTML
-                    </p>
+                    <h3>data_standardization.R</h3>
+                    <p class="stage-summary">Normalizes version drift into a canonical master table and records exactly what was changed during cleanup.</p>
+                    <ul class="stage-list">
+                        <li>Stage 3: Transform v1, v2, and v3 schemas into one unified master layout.</li>
+                        <li>Stage 4: Map raw detector serial numbers to friendly study labels.</li>
+                        <li>Stage 5: Convert UTC timestamps into the configured local timezone.</li>
+                        <li>Stage 6: Finalize schema and optionally remove duplicate records.</li>
+                        <li>Stage 7: Apply configured data filters such as NoID and zero-pulse removal.</li>
+                        <li>Stage 8: Save checkpoints, register artifacts, and render validation output.</li>
+                    </ul>
                 </article>
                 <article class="stage">
                     <span class="num">03</span>
-                    <h3>Generate CPN Template</h3>
-                    <p>
-                        Stage 1: Load configuration from study_parameters.yaml<br>
-                        Stage 2: Load or import kpro_master data<br>
-                        Stage 3: Optional Manual ID integration and species column creation<br>
-                        Stage 4: Calculate study nights with timezone-aware aggregation<br>
-                        Stage 5: Generate detector × night template grid (with schedule)<br>
-                        Stage 6: Verify recording schedule configuration<br>
-                        Stage 7: Format template for Excel (sort, datetime, formulas)<br>
-                        Stage 8: Save template (EDIT_THIS), register artifacts<br>
-                        Stage 9: Render validation HTML.</p>
+                    <h3>cpn_template.R</h3>
+                    <p class="stage-summary">Builds the editable detector-by-night template that users can review before final nightly metrics are locked in.</p>
+                    <ul class="stage-list">
+                        <li>Stage 1: Load study configuration from YAML.</li>
+                        <li>Stage 2: Load or import standardized kpro_master data.</li>
+                        <li>Stage 3: Optionally integrate manual IDs and create species columns.</li>
+                        <li>Stage 4: Calculate study nights with timezone-aware aggregation.</li>
+                        <li>Stage 5: Generate the detector by night template grid with schedule support.</li>
+                        <li>Stage 6: Verify recording schedule settings against the intended study window.</li>
+                        <li>Stage 7: Format the template for Excel editing, sorting, datetimes, and formulas.</li>
+                        <li>Stage 8: Save the editable template and register the output artifact.</li>
+                        <li>Stage 9: Render validation HTML for the template stage.</li>
+                    </ul>
                 </article>
                 <article class="stage">
                     <span class="num">04</span>
-                    <h3>Finalize CPn</h3>
-                    <p></p>
+                    <h3>finalize_cpn.R</h3>
+                    <p class="stage-summary">Turns the edited template into the final calls-per-night product while preserving manual changes and effort status classifications.</p>
+                    <ul class="stage-list">
+                        <li>Stage 1: Reload processing configuration.</li>
+                        <li>Stage 2: Load standardized data and editable templates.</li>
+                        <li>Stage 3: Track manual edits applied by the user.</li>
+                        <li>Stage 4: Calculate nightly recording hours.</li>
+                        <li>Stage 5: Classify nights as full, partial, or no-recording and compute effort-aware metrics.</li>
+                        <li>Stage 6: Save the final calls-per-night output.</li>
+                    </ul>
+                </article>
+                <article class="stage">
+                    <span class="num">05</span>
+                    <h3>summary_stats.R</h3>
+                    <p class="stage-summary">Computes the summary layer used by tables, workbook exports, and downstream study-wide interpretation.</p>
+                    <ul class="stage-list">
+                        <li>Stage 7: Build detector activity summaries.</li>
+                        <li>Stage 8: Build study-wide summaries.</li>
+                        <li>Stage 9: Estimate variance components.</li>
+                        <li>Stage 10: Compute species composition summaries.</li>
+                        <li>Stage 11: Compute species accumulation summaries.</li>
+                        <li>Stage 12: Compute hourly activity summaries.</li>
+                        <li>Stage 13: Export individual summary CSV files.</li>
+                        <li>Stage 14: Build the Excel workbook from summary tibbles.</li>
+                        <li>Stage 15: Export summary tables to PNG and HTML.</li>
+                        <li>Stage 16: Save the summary RDS archive.</li>
+                    </ul>
+                </article>
+                <article class="stage">
+                    <span class="num">06</span>
+                    <h3>plotting.R</h3>
+                    <p class="stage-summary">Generates the full report figure suite with section-aware controls and isolated failure handling for each plot.</p>
+                    <ul class="stage-list">
+                        <li>Stage 17: Apply plot configuration settings.</li>
+                        <li>Stage 18: Generate seven data-quality plots with per-plot error isolation.</li>
+                        <li>Stage 19: Generate six detector activity plots with per-plot error isolation.</li>
+                        <li>Stage 20: Generate eleven species composition plots with per-plot error isolation.</li>
+                        <li>Stage 21: Generate six temporal plots with per-plot error isolation.</li>
+                        <li>Stage 22: Export plots as PNG artifacts.</li>
+                        <li>Stage 23: Save plot objects to RDS for reuse in other R workflows.</li>
+                    </ul>
+                </article>
+                <article class="stage">
+                    <span class="num">07</span>
+                    <h3>report_release.R</h3>
+                    <p class="stage-summary">Assembles the final report package and makes the results portable, auditable, and easy to share.</p>
+                    <ul class="stage-list">
+                        <li>Stage 24: Verify required RDS artifacts before release.</li>
+                        <li>Stage 25: Render the final Quarto report.</li>
+                        <li>Stage 26: Create the zipped release bundle.</li>
+                        <li>Stage 27: Finalize validation and delivery metadata.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Pipeline features">
+            <h2>What The Pipeline Shows About My Work</h2>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Configurable By Design</h3>
+                    <p>The pipeline is driven by <code>study_parameters.yaml</code>, so a user can define study dates, detector mappings, time zone, filters, external data sources, and output preferences without modifying R code.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Recursive Intake For Real Projects</h3>
+                    <p>Instead of expecting one clean export, the intake stage can recursively discover multiple <code>id.csv</code> files from a configured directory, which is useful when an entire field season is organized across subfolders.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Audit Trail At Every Phase</h3>
+                    <p>Each stage writes to an external <code>log.txt</code> and updates a validation context with counts for processed rows, removed rows, duplicates, mapped detectors, time conversions, schema distribution, warnings, and errors.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Artifact Provenance And Release Packaging</h3>
+                    <p>Plots, tables, CSVs, RDS outputs, manifests, and report files are registered into a registry with SHA256 hashes, then bundled with the Quarto output into a portable release archive for collaborators.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Configuration and validation">
+            <h2>Configuration And Validation Layer</h2>
+            <div class="config-grid">
+                <article class="config-card">
+                    <h3>study_parameters.yaml</h3>
+                    <p>The study file exposes the project knobs a collaborator actually needs to change between deployments.</p>
+                    <ul class="config-list">
+                        <li>Study name, study start and end dates, and local timezone.</li>
+                        <li>Detector serial to friendly-name mapping for cleaner downstream reporting.</li>
+                        <li>External source directory paths for importing bat detector exports.</li>
+                        <li>Data filters such as NoID removal, zero-pulse removal, and duplicate handling.</li>
+                        <li>Processing options including schedule handling, editable template generation, and recording windows.</li>
+                        <li>Plot behavior controls such as NoID handling, low-night highlighting, and outlier percentile thresholds.</li>
+                        <li>Artifact toggles that turn specific CSV, PNG, HTML, Excel, and RDS outputs on or off.</li>
+                    </ul>
+                </article>
+                <article class="config-card">
+                    <h3>Validation Context</h3>
+                    <p>Each phase runs with a structured validation object so the pipeline can summarize what happened instead of only emitting pass or fail messages.</p>
+                    <pre class="code-block"><code>phase_id = phase_id,
+study_name = study_name,
+started_utc = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+pipeline_version = PIPELINE_VERSION,
+events = list(),
+summary = list(
+  rows_processed = 0,
+  rows_removed = 0,
+  duplicates_detected = 0,
+  files_loaded = 0,
+  files_failed = 0,
+  schema_unknown = 0,
+  detectors_mapped = 0,
+  timezone_conversions = 0,
+  na_values = list(),
+  schema_distribution = list(),
+  warnings = 0,
+  errors = 0
+)</code></pre>
                 </article>
             </div>
         </section>
 
         <section class="section" aria-label="Generated outputs">
-            <h2>Generated Outputs</h2>
+            <h2>Generated Outputs And Deliverables</h2>
             <div class="outputs">
                 <article class="output-card">
-                    <h3>id-standardized.csv</h3>
-                    <p>
-                        Harmonized call-level file for cross-dataset compatibility and reproducible processing.
-                    </p>
+                    <h3>kpro_master.csv</h3>
+                    <p>Harmonized call-level file for cross-dataset compatibility and reproducible processing.</p>
                 </article>
                 <article class="output-card">
-                    <h3>calls-per-night.csv</h3>
-                    <p>
-                        Detector-night summary table designed for fast model input and effort-aware trend analyses.
-                    </p>
+                    <h3>calls_per_night_final.csv</h3>
+                    <p>Detector-night summary table designed for fast model input and effort-aware trend analyses.</p>
+                </article>
+                <article class="output-card">
+                    <h3>Release Bundle</h3>
+                    <p>A zipped deliverable that packages the report, plots, tables, summary CSVs, manifests, and RDS outputs together.</p>
+                </article>
+                <article class="output-card">
+                    <h3>Quarto Report</h3>
+                    <p>Rendered study report that surfaces all plots, summary tables, and release metadata in a single reproducible document.</p>
+                </article>
+            </div>
+            <div class="catalog-groups" style="margin-top: 1rem;">
+                <article class="catalog-group">
+                    <h3>Included Artifacts</h3>
+                    <ul class="deliverable-list">
+                        <li>Master file, final calls-per-night file, and summary-stat CSV exports.</li>
+                        <li>PNG plots and PNG table exports for shareable static reporting.</li>
+                        <li>HTML table outputs for interactive review.</li>
+                        <li>Compiled Excel workbook built from summary tibbles.</li>
+                        <li>RDS archives containing summary objects and plot objects for direct reuse in R.</li>
+                    </ul>
+                </article>
+                <article class="catalog-group">
+                    <h3>Release Metadata</h3>
+                    <ul class="deliverable-list">
+                        <li>Study manifest YAML describing the run configuration and generated artifacts.</li>
+                        <li>Artifact registry entries with SHA256 hashes for each tracked output.</li>
+                        <li>Validation HTML outputs and external <code>log.txt</code> stage logs.</li>
+                        <li>Rendered Quarto document that surfaces all final figures and tables in one report.</li>
+                    </ul>
                 </article>
             </div>
         </section>
@@ -567,27 +886,94 @@
             <div class="report-grid">
                 <div>
                     <p>
-                        The generated report includes a study summary block and a suite of 27 plots focused on data
-                        quality, detector activity, species composition, temporal behavior, variance decomposition,
-                        and hourly activity profiles.
+                        The report is organized as a reproducible artifact catalog rather than a single figure dump. Each section carries forward the standardized data, effort metrics, and summary outputs into a readable deliverable for collaborators.
                     </p>
                     <ul class="report-list">
-                        <li>Study Name, Location, Detectors, Detector-Nights</li>
-                        <li>Total Recording Hours and Total Calls Detected</li>
-                        <li>Detector-level and study-wide summaries</li>
-                        <li>Temporal and hourly activity diagnostics</li>
-                        <li>Variance decomposition and composition checks</li>
+                        <li>30 generated plots spanning quality control, detector activity, species composition, and temporal patterns.</li>
+                        <li>4 summary tables exported to PNG and HTML, plus workbook and CSV versions.</li>
+                        <li>Study-wide context including detector counts, effort, and total calls detected.</li>
+                        <li>Reusable RDS outputs so the same registered objects can feed other R projects later.</li>
                     </ul>
+                    <span class="asset-status">Release plot assets wired from bundled PNG exports</span>
                 </div>
-                <div>
+                <div class="report-aside">
                     <figure class="shot">
-                        <img src="../images/tidyverse-example-plot.png" alt="Report preview plot placeholder">
-                        <p>Placeholder: example visualization style used in the automated report output.</p>
+                        <img src="../images/quarto.png" alt="Quarto-driven report assembly illustration">
+                        <p>Quarto render stage: the report consolidates validation summaries, plots, tables, and release metadata into one reproducible document.</p>
                     </figure>
-                    <figure class="shot" style="margin-top:0.8rem;">
-                        <img src="../images/quarto.png" alt="Quarto workflow placeholder">
-                        <p>Placeholder: Quarto-driven build and export stage.</p>
+                    <figure class="shot">
+                        <img src="../images/excel.png" alt="Summary export and deliverables illustration">
+                        <p>Export layer: the same pipeline emits analysis-ready CSVs, Excel summaries, PNG and HTML tables, and RDS archives alongside the report.</p>
                     </figure>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <h3>2 Data Quality &amp; Coverage</h3>
+                <p>Quality-control figures focused on recording completeness, detector effort, and missing-night diagnostics.</p>
+                <div class="gallery-grid">
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/recording_status_percent.png" alt="Recording status percent plot"><div class="gallery-copy"><p><strong>2.1 Recording Status Percent</strong> Percent share of fully, partially, and non-recorded detector nights.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/recording_status_overall.png" alt="Recording status overall plot"><div class="gallery-copy"><p><strong>2.2 Recording Status Overall</strong> Overall recording-status totals across the study.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/effort_by_detector.png" alt="Effort by detector plot"><div class="gallery-copy"><p><strong>2.3 Effort By Detector</strong> Detector-level comparison of accumulated recording effort.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/nights_by_detector.png" alt="Nights by detector plot"><div class="gallery-copy"><p><strong>2.4 Nights By Detector</strong> Detector-by-detector count of nights represented in the final dataset.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/data_completeness_calendar.png" alt="Data completeness calendar plot"><div class="gallery-copy"><p><strong>2.5 Data Completeness Calendar</strong> Calendar view of nightly completeness for spotting gaps in the season.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/missing_nights.png" alt="Missing nights plot"><div class="gallery-copy"><p><strong>2.6 Missing Nights</strong> Explicit list or chart of nights missing from expected recording schedules.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/quality/recording_effort_heatmap.png" alt="Recording effort heatmap plot"><div class="gallery-copy"><p><strong>2.7 Recording Effort Heatmap</strong> Heatmap summarizing relative effort intensity across detectors and nights.</p></div></article>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <h3>3 Detector Activity Diagnostics</h3>
+                <p>Plots that summarize how detector performance and call volume compare across the study.</p>
+                <div class="gallery-grid">
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/total_calls_by_detector.png" alt="Total calls by detector plot"><div class="gallery-copy"><p><strong>3.1 Total Calls By Detector</strong> Detector-level totals for raw or standardized call counts.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/detector_activity_caterpillar.png" alt="Detector activity caterpillar plot"><div class="gallery-copy"><p><strong>3.2 Detector Activity Caterpillar</strong> Ranked detector activity view for quickly comparing relative output.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/detector_boxplots.png" alt="Detector boxplots"><div class="gallery-copy"><p><strong>3.3 Detector Boxplots</strong> Spread of nightly detector activity and between-detector variability.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/activity_with_without_outliers.png" alt="Activity with without outliers plot"><div class="gallery-copy"><p><strong>3.4 Activity With Without Outliers</strong> Comparison view showing detector activity with and without high-end outlier nights.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/correlation_heatmap.png" alt="Correlation heatmap plot"><div class="gallery-copy"><p><strong>3.5 Correlation Heatmap</strong> Pairwise detector correlation structure across time or activity metrics.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/detector/detector_rank_over_time.png" alt="Detector rank over time plot"><div class="gallery-copy"><p><strong>3.6 Detector Rank Over Time</strong> Temporal view of how detector ranking changes through the study period.</p></div></article>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <h3>4 Species Composition</h3>
+                <p>Composition and biodiversity summaries derived from the final standardized master and calls-per-night outputs.</p>
+                <div class="gallery-grid">
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_composition_bar.png" alt="Species composition bar plot"><div class="gallery-copy"><p><strong>4.1 Species Composition Bar</strong> Overall species mix shown as a composition bar chart.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_by_detector_heatmap.png" alt="Species by detector heatmap"><div class="gallery-copy"><p><strong>4.2 Species By Detector Heatmap</strong> Detector-by-species intensity heatmap.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_accumulation_curve.png" alt="Species accumulation curve"><div class="gallery-copy"><p><strong>4.3 Species Accumulation Curve</strong> Accumulation of observed taxa across sampling effort.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_hourly_profile.png" alt="Species hourly profile plot"><div class="gallery-copy"><p><strong>4.4 Species Hourly Profile</strong> Hourly activity profile broken out by species.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/noid_proportion.png" alt="NoID proportion plot"><div class="gallery-copy"><p><strong>4.5 Noid Proportion</strong> Unidentified-call proportion used as a data-quality lens.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_nightly_activity.png" alt="Species nightly activity plot"><div class="gallery-copy"><p><strong>4.6 Species Nightly Activity</strong> Nightly activity trends for each species group.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_phenology_heatmap.png" alt="Species phenology heatmap"><div class="gallery-copy"><p><strong>4.7 Species Phenology Heatmap</strong> Phenology heatmap highlighting seasonal timing patterns.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_turnover.png" alt="Species turnover plot"><div class="gallery-copy"><p><strong>4.8 Species Turnover</strong> Change in community composition across time.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/noid_richness_over_time.png" alt="NoID richness over time plot"><div class="gallery-copy"><p><strong>4.9 Noid Richness Over Time</strong> Tracking how unidentified richness changes through the season.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_by_detector_composition.png" alt="Species by detector composition plot"><div class="gallery-copy"><p><strong>4.10 Species By Detector Composition</strong> Detector-specific composition profiles for comparing site signatures.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/species/species_rank_abundance.png" alt="Species rank abundance plot"><div class="gallery-copy"><p><strong>4.11 Species Rank Abundance</strong> Rank-abundance curve summarizing dominance structure.</p></div></article>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <h3>5 Temporal Patterns</h3>
+                <p>Study-wide timing diagnostics for seasonal accumulation, hourly use, and temporal aggregation behavior.</p>
+                <div class="gallery-grid">
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/activity_over_time.png" alt="Activity over time plot"><div class="gallery-copy"><p><strong>5.1 Activity Over Time</strong> Overall activity time series across the study window.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/cumulative_calls_over_time.png" alt="Cumulative calls over time plot"><div class="gallery-copy"><p><strong>5.2 Cumulative Calls Over Time</strong> Cumulative call count growth through the season.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/hourly_activity_profile.png" alt="Hourly activity profile plot"><div class="gallery-copy"><p><strong>5.3 Hourly Activity Profile</strong> Hourly distribution of call activity across the nightly cycle.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/callsperhour_distribution.png" alt="Calls per hour distribution plot"><div class="gallery-copy"><p><strong>5.4 Callsperhour Distribution</strong> Distribution plot for calls-per-hour metrics.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/weekly_activity.png" alt="Weekly activity plot"><div class="gallery-copy"><p><strong>5.5 Weekly Activity</strong> Weekly aggregation of study activity.</p></div></article>
+                    <article class="gallery-card"><img src="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/figures/temporal/activity_by_month.png" alt="Activity by month plot"><div class="gallery-copy"><p><strong>5.6 Activity By Month</strong> Monthly view of call totals or effort-standardized activity.</p></div></article>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <h3>6 Summary Statistics Tables</h3>
+                <p>The release bundle includes the report-rendered tables plus source CSV exports. I did not find separate standalone PNG table files in this bundle, so these cards link to the real report and data assets instead.</p>
+                <div class="gallery-grid">
+                    <article class="gallery-card"><div class="gallery-preview"><strong>6.1 Detector-Level Summary</strong><span>report/kpro_report.html#detector-level-summary</span></div><div class="gallery-copy"><p>Detector-level effort and activity statistics rendered in the Quarto report and backed by the detector summary CSV.</p><div class="table-resource-links"><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/report/kpro_report.html#detector-level-summary">Open Report Table</a><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/data/summary/detector_summary.csv">Open CSV</a></div></div></article>
+                    <article class="gallery-card"><div class="gallery-preview"><strong>6.2 Study-Wide Summary</strong><span>report/kpro_report.html#study-wide-summary</span></div><div class="gallery-copy"><p>High-level study summary rendered in the report and backed by the study summary CSV.</p><div class="table-resource-links"><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/report/kpro_report.html#study-wide-summary">Open Report Table</a><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/data/summary/study_summary.csv">Open CSV</a></div></div></article>
+                    <article class="gallery-card"><div class="gallery-preview"><strong>6.3 Variance Decomposition</strong><span>report/kpro_report.html#variance-decomposition</span></div><div class="gallery-copy"><p>Variance-components table rendered in the report. The bundle does not appear to include a standalone variance CSV or PNG export.</p><div class="table-resource-links"><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/report/kpro_report.html#variance-decomposition">Open Report Table</a></div></div></article>
+                    <article class="gallery-card"><div class="gallery-preview"><strong>6.4 Hourly Activity Profile</strong><span>report/kpro_report.html#hourly-activity-profile-1</span></div><div class="gallery-copy"><p>Tabular hourly activity summary rendered in the report and backed by the hourly summary CSV.</p><div class="table-resource-links"><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/report/kpro_report.html#hourly-activity-profile-1">Open Report Table</a><a href="../kpro_release_SchmeeckleBatStudy_20260222_111117/kpro_release_SchmeeckleBatStudy_20260222_111117/data/summary/hourly_summary.csv">Open CSV</a></div></div></article>
                 </div>
             </div>
         </section>
@@ -595,20 +981,19 @@
         <section class="section" aria-label="Implementation snapshot">
             <h2>Implementation Snapshot</h2>
             <p>
-                A simplified representation of the workflow structure:
+                The implementation is built around configuration-first execution, artifact tracking, and outputs that can be reused directly in later R analyses:
             </p>
-            <pre class="code-block"><code>id_std <- read_csv("input/id.csv") |>
-  rename_with(tolower) |>
-  mutate(detector_id = coalesce(detector_id, serial_number))
+            <pre class="code-block"><code>config <- load_study_config("study_parameters.yaml")
+sources <- discover_id_csv_files(config$study_parameters$external_data_sources)
+master <- standardize_kpro_exports(sources, config)
+validation <- start_validation_context(phase_id = "data_standardization")
 
-calls_per_night <- id_std |>
-  mutate(night = as.Date(call_time)) |>
-  count(detector_id, night, species, name = "calls")
+master <- track_schema_changes(master, validation)
+cpn <- build_calls_per_night(master, config, validation)
+registry <- register_artifacts_with_hashes(outputs = list(master, cpn), validation = validation)
 
-write_csv(id_std, "output/id-standardized.csv")
-write_csv(calls_per_night, "output/calls-per-night.csv")
-
-# quarto render report.qmd</code></pre>
+render_quarto_report(config, registry)
+build_release_bundle(config, registry, manifest = "study_manifest.yaml")</code></pre>
             <div class="links">
                 <a class="btn primary" href="#">Repository Link Placeholder</a>
                 <a class="btn" href="#">Report Example Placeholder</a>
@@ -620,7 +1005,78 @@ write_csv(calls_per_night, "output/calls-per-night.csv")
             <span>Built as a personal workflow tool for collaborative bat acoustic analysis.</span>
             <span>Last updated: 2026</span>
         </div>
+
+        <div class="lightbox" id="plot-lightbox" aria-hidden="true">
+            <div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+                <button class="lightbox-close" type="button" aria-label="Close plot preview">&times;</button>
+                <figure class="lightbox-figure">
+                    <img id="lightbox-image" src="" alt="">
+                    <figcaption id="lightbox-caption"></figcaption>
+                </figure>
+            </div>
+        </div>
     </main>
+
+    <script>
+        (function () {
+            var lightbox = document.getElementById('plot-lightbox');
+            var lightboxImage = document.getElementById('lightbox-image');
+            var lightboxCaption = document.getElementById('lightbox-caption');
+            var closeButton = lightbox.querySelector('.lightbox-close');
+            var plotImages = document.querySelectorAll('.gallery-grid img');
+            var lastTrigger = null;
+
+            function openLightbox(image) {
+                lastTrigger = image;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt;
+                lightboxCaption.textContent = image.alt;
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                closeButton.focus();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightboxImage.src = '';
+                lightboxImage.alt = '';
+                lightboxCaption.textContent = '';
+                document.body.style.overflow = '';
+                if (lastTrigger) {
+                    lastTrigger.focus();
+                }
+            }
+
+            plotImages.forEach(function (image) {
+                image.tabIndex = 0;
+                image.setAttribute('role', 'button');
+                image.setAttribute('aria-label', image.alt + '. Open larger preview');
+                image.addEventListener('click', function () {
+                    openLightbox(image);
+                });
+                image.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            closeButton.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', function (event) {
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                    closeLightbox();
+                }
+            });
+        }());
+    </script>
 </body>
 
 </html>

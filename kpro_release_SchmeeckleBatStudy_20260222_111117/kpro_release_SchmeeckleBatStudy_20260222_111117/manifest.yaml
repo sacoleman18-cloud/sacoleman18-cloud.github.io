@@ -1,0 +1,34 @@
+release:
+  name: kpro_release_SchmeeckleBatStudy_20260222_111117
+  created_utc: '2026-02-22T17:11:22Z'
+  pipeline_version: '2.1'
+  r_version: 4.5.1
+study:
+  study_id: SchmeeckleBatStudy
+  study_name: SchmeeckleBatStudy
+  start_date: '2025-10-04'
+  end_date: '2025-10-31'
+  timezone: America/Chicago
+artifacts:
+  data:
+  - path: data/calls_per_night_raw.csv
+    description: Detector --- Night grid for GAMM modeling
+    sha256: 4acfa15bd3360e86cd5bf223256c0d1e9f2595cbf7cf060e5b7d78b692f34a01
+  - path: data/kpro_master.csv
+    description: Standardized master detection file
+    sha256: 7ef17a98cb98dd2b50864a2fdc6f149eceda62a683626feafa51fea93b478580
+  figures:
+    count: 30.0
+    categories:
+    - quality
+    - detector
+    - species
+    - temporal
+  report:
+    path: report/kpro_report.html
+  bundle:
+    path: analysis_bundle.rds
+    description: All R objects for programmatic access
+validation:
+  calls_per_night_schema_valid: yes
+  manifest_generated: '2026-02-22T17:11:22Z'
