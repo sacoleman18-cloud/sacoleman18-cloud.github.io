@@ -542,19 +542,21 @@
         /* Lightbox Styles */
         .lightbox-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
             gap: 2rem;
             padding: 2rem;
             background: white;
             border-radius: 8px;
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
             margin: 0 auto;
         }
 
         /* Responsive adjustments for lightbox content */
         @media (max-width: 768px) {
             .lightbox-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
                 padding: 1rem;
             }
         }
@@ -574,8 +576,15 @@
             overflow: auto;
         }
 
+        .plot-section {
+            min-width: 0;
+        }
+
         .plot-section img {
-            max-height: 70vh;
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
             object-fit: contain;
         }
 
@@ -622,7 +631,8 @@
     <!-- Hero Header -->
     <header>
         <h1>Sam Coleman</h1>
-        <p>Wildlife Conservationist & Data Scientist<br>Specializing in R, ArcGIS Pro, Mixed-models, and Spatial Analysis</p>
+        <p>Wildlife Conservationist & Data Scientist<br>Specializing in R, ArcGIS Pro, Mixed-models, and Spatial
+            Analysis</p>
         <a href="path/to/your-resume.pdf" class="cta-button">Download Resume</a>
     </header>
 
@@ -657,10 +667,10 @@
             <div class="tech-icon" title="Microsoft Excel">
                 <img src="images/excel.png" alt="Microsoft Excel Logo">
             </div>
-             <div class="tech-icon" title="OneDrive">
+            <div class="tech-icon" title="OneDrive">
                 <img src="images/onedrive.png" alt="OneDrive Logo">
             </div>
-             <div class="tech-icon" title="Teams">
+            <div class="tech-icon" title="Teams">
                 <img src="images/teams.png" alt="Teams Logo">
             </div>
         </div>
@@ -671,26 +681,38 @@
         <div class="container">
             <h2 class="bio-title">About Me</h2>
             <div class="bio-layout">
-            <img src="images/biophoto.jpg" alt="Me on top of Lassen Peak with Mt. Shasta in the background"
-                        class="bio-photo">
-            <p class="bio-text">
-                I am a wildlife conservationist passionate about transforming complex ecological data into
-                rigorous statistical analyses and understandable visualizations. I completed my bachelor's of science
-                in Wildlife Ecology and Management from the University of Wisconsin -Stevens Point with two minors in 
-                Conservation Biology and Biology. I gained exposure to various research methodologies, field techniques, 
-                statistical and spatial analysis tools, such as <strong>R</strong> and <strong>ArcGIS Pro</strong> through 
-                my classes and delved deeper with my independent research projects. 
-                
-                Inspired by the art of data visualization and statistical modeling, I specialize in turning messy field data 
-                into clear insights. My work ranges from estimating bat population dynamics via an NB GAMM from a nested hierarchical 
-                structure of acoustic recording unit deployments, to developing various plots, models and analyses to aid Cooper's hawk 
-                researchers in identifying spatial and temporal trends. My work is multifaceted, coming from a field 
-                technician background, I am able to identify the challenges of field data collection and translate them 
-                into robust statistical models and practical ecological applications. Anything from accounting for
-                habitat characteristics to addressing detection biases, to even accounting for uneven sampling effort. 
-                I aim to contribute meaningful insights that support wildlife conservation and inform management decisions. Some of my 
-                hobbies include hiking, backpacking, climbing, running and photographing every organism I find to iNaturalist.
-            </p>
+                <img src="images/biophoto.jpg" alt="Me on top of Lassen Peak with Mt. Shasta in the background"
+                    class="bio-photo">
+                <p class="bio-text">
+                    I am a wildlife conservationist passionate about transforming complex ecological data into
+                    rigorous statistical analyses and understandable visualizations. I completed my Bachelor's of
+                    Science
+                    in Wildlife Ecology and Management from the University of Wisconsin -Stevens Point with two minors
+                    in
+                    Conservation Biology and Biology. I gained exposure to various research methodologies, field
+                    techniques,
+                    as well as numerous statistical and spatial analysis tools, such as <strong>R</strong> and
+                    <strong>ArcGIS Pro</strong> through my classes. With this exposure, I delved deeper into these tools
+                    and
+                    methodologies with my independent research projects.
+
+                    Inspired by the art of data visualization and statistical modeling, I specialize in turning messy
+                    field data
+                    into clear insights. My work ranges from estimating bat population dynamics via an NB GAMM from a
+                    nested hierarchical
+                    structure of acoustic recording unit deployments, to developing various plots, models and analyses
+                    to aid Cooper's hawk
+                    researchers in identifying spatial and temporal trends. My work is multifaceted, coming from a field
+                    technician background, I am able to identify the challenges of field data collection and translate
+                    them
+                    into robust statistical models and practical ecological applications. Anything from accounting for
+                    habitat characteristics to addressing detection biases, to even accounting for uneven sampling
+                    effort.
+                    I aim to contribute meaningful insights that support wildlife conservation and inform management
+                    decisions. Some of my
+                    hobbies include hiking, backpacking, climbing, running and photographing every organism I find to
+                    iNaturalist.
+                </p>
             </div>
         </div>
     </section>
@@ -700,9 +722,9 @@
         <!--<h2 class="section-title">Manuscript in review</h2>-->
         <!--<div class="project-grid"> -->
 
-            <!-- Project 1: Victoria, BC COHA Habitat Selection WIP -->
-            
-            <!--<article class="card">
+        <!-- Project 1: Victoria, BC COHA Habitat Selection WIP -->
+
+        <!--<article class="card">
                 <a class="card-link" href="projects/COHAVictoriaBC.html"
                     aria-label="Open Cooper's Hawk spatial distribution in Victoria, BC project page">
                     <img src="images/Victoria_COHA_map.png" alt="Population trend graph" class="card-img">
@@ -731,16 +753,21 @@
         <div class="project-grid">
 
             <article class="card">
-                <img src="images/RaptorCenterPhoto.jpg" alt="Group photo of all wildlife interpeters from the Summer 2026 season" class="card-img">
+                <img src="images/RaptorCenterPhoto.jpg"
+                    alt="Group photo of all wildlife interpeters from the Summer 2026 season" class="card-img">
                 <div class="card-content">
                     <h3>Wildlife Interpreter</h3>
                     <div class="job-org">Alaska Raptor Center</div>
                     <div class="job-meta">Sitka, AK &bull; May 2026 - September 2026</div>
                     <ul class="job-tasks">
-                        <li>Interpreted 25+ raptor-in-residence including a snowy, great horned, barred and great gray owl and rehabbing avian species to thousands of guests daily</li>
-                        <li>Lead engaging tours daily with a passionate and enthusiastic public speaking voice for crowds of 100+</li>
-                        <li>Educated guests on topics relating to raptor and avian biology, research, physiology, ecology, behavior, conservation and policy</li>
-                        <li>Gave talks about topics regarding Southeast Alaska’s botany, ecological relationships, history, indigenous land stewardship</li>
+                        <li>Interpreted 25+ raptor-in-residence including a snowy, great horned, barred and great gray
+                            owl and rehabbing avian species to thousands of guests daily</li>
+                        <li>Lead engaging tours daily with a passionate and enthusiastic public speaking voice for
+                            crowds of 100+</li>
+                        <li>Educated guests on topics relating to raptor and avian biology, research, physiology,
+                            ecology, behavior, conservation and policy</li>
+                        <li>Gave talks about topics regarding Southeast Alaska’s botany, ecological relationships,
+                            history, indigenous land stewardship</li>
                     </ul>
                 </div>
             </article>
@@ -752,15 +779,23 @@
                     <div class="job-org">Western EcoSystems Technology, Inc.</div>
                     <div class="job-meta">Wisconsin, Illinois, Iowa, Arkansas &bull; May 2025 - August 2025</div>
                     <ul class="job-tasks">
-                        <li>Deployed 250+ SM4Bat detectors across multiple states to monitor threatened and endangered bats</li>
-                        <li>Adhered to U.S. Fish and Wildlife Service (USFWS) bat monitoring protocol to provide data for National Environmental Policy Act (NEPA) decision-making processes behind wind-energy development projects</li>
-                        <li>Utilized skills in micro-siting and tree identification to determine optimal detector placement</li>
-                        <li>Conducted habitat assessments to evaluate site suitability for bat activity and detector deployment</li>
+                        <li>Deployed 250+ SM4Bat detectors across multiple states to monitor threatened and endangered
+                            bats</li>
+                        <li>Adhered to U.S. Fish and Wildlife Service (USFWS) bat monitoring protocol to provide data
+                            for National Environmental Policy Act (NEPA) decision-making processes behind wind-energy
+                            development projects</li>
+                        <li>Utilized skills in micro-siting and tree identification to determine optimal detector
+                            placement</li>
+                        <li>Conducted habitat assessments to evaluate site suitability for bat activity and detector
+                            deployment</li>
                         <li>Planned logistics for hotels and travel for multi-state bat monitoring projects</li>
-                        <li>Maintained inventory counts for deployment equipment and organized large libraries of bat audio files and datasheets</li>
+                        <li>Maintained inventory counts for deployment equipment and organized large libraries of bat
+                            audio files and datasheets</li>
                         <li>Communicated with landowners through courtesy calls to secure property access</li>
-                        <li>Operated and maintained 4-wheel drive trucks and hiked rugged terrain while carrying 50+ pounds of equipment</li>
-                        <li>Used the Locus application to identify deployment sites and navigate property boundaries</li>
+                        <li>Operated and maintained 4-wheel drive trucks and hiked rugged terrain while carrying 50+
+                            pounds of equipment</li>
+                        <li>Used the Locus application to identify deployment sites and navigate property boundaries
+                        </li>
                     </ul>
                 </div>
             </article>
@@ -772,69 +807,93 @@
                     <div class="job-org">University of Wisconsin - Stevens Point </div>
                     <div class="job-meta">Stevens Point, Wisconsin &bull; May 2024 - July 2024</div>
                     <ul class="job-tasks">
-                        <li>Performed point count auditory bird surveys adhering to National Ecological Observatory Network (NEON) protocol for graduate student research and forest demonstration site monitoring</li>
+                        <li>Performed point count auditory bird surveys adhering to National Ecological Observatory
+                            Network (NEON) protocol for graduate student research and forest demonstration site
+                            monitoring</li>
                         <li>Documented every individual bird species observed by sight, call, and visual notice</li>
                         <li>Worked early morning hours for bird surveys, starting 15 minutes before sunrise</li>
                         <li>Used rangefinders to estimate distance of observed birds from survey points</li>
                         <li>Recorded abiotic data such as temperature and humidity at each bird survey point</li>
-                        <li>Collected vegetation data including lower forest stratum cover, invasive species percentage, and basal area to support avian research</li>
+                        <li>Collected vegetation data including lower forest stratum cover, invasive species percentage,
+                            and basal area to support avian research</li>
                         <li>Photographed birds using a DSLR camera for educational outreach purposes</li>
-                        <li>Conducted vegetation surveys to assess habitat characteristics and invasive species prevalence</li>
+                        <li>Conducted vegetation surveys to assess habitat characteristics and invasive species
+                            prevalence</li>
                     </ul>
                 </div>
             </article>
 
             <article class="card">
-                <img src="images/Owlecto2a.png" alt="Lab photo of me shaking ectoparasites off of a barred owl specimen" class="card-img">
+                <img src="images/Owlecto2a.png" alt="Lab photo of me shaking ectoparasites off of a barred owl specimen"
+                    class="card-img">
                 <div class="card-content">
                     <h3>Parasite Museum Digitizer</h3>
                     <div class="job-org">Orlofske Lab,University of Wisconsin - Stevens Point</div>
                     <div class="job-meta">Stevens Point, Wisconsin &bull; May 2024 - July 2024</div>
                     <ul class="job-tasks">
-                        <li>Digitized and geolocated over 10,000 museum specimens into Ecdysis, a Global Biodiversity Information Facility (GBIF) recognized database for use in parasite research projects worldwide</li>
-                        <li>Collaborated with research team to produce scientific research examining ectoparasite differences among owl species</li>
+                        <li>Digitized and geolocated over 10,000 museum specimens into Ecdysis, a Global Biodiversity
+                            Information Facility (GBIF) recognized database for use in parasite research projects
+                            worldwide</li>
+                        <li>Collaborated with research team to produce scientific research examining ectoparasite
+                            differences among owl species</li>
                         <li>Performed dissections in laboratory settings on waterfowl, owls, and other species</li>
                         <li>Prepared solutions to filter parasites from wildlife digestive systems</li>
                         <li>Opportunistically collected roadkill owl specimens for dissection and research purposes</li>
-                        <li>Analyzed petri dishes containing washed animal digestive contents to locate and identify parasites</li>
+                        <li>Analyzed petri dishes containing washed animal digestive contents to locate and identify
+                            parasites</li>
                         <li>Cleaned and maintained laboratory equipment and workspaces</li>
                     </ul>
                 </div>
             </article>
 
             <article class="card">
-                <img src="images/NWBatPhoto.jpg" alt="Field photo of bat research at Northwest Bat Hub" class="card-img">
+                <img src="images/NWBatPhoto.jpg" alt="Field photo of bat research at Northwest Bat Hub"
+                    class="card-img">
                 <div class="card-content">
                     <h3>Bat Research Technician</h3>
                     <div class="job-org">Northwest Bat Hub -HERS Lab, Oregon State University -Cascades Campus</div>
                     <div class="job-meta">Oregon, Idaho, Washington &bull; May 2023 - August 2023</div>
                     <ul class="job-tasks">
-                        <li>Adhered to North American Bat Monitoring Program (NABat) protocol to monitor 40+ Generalized Random Tessellation Stratified (GRTS) cells across Idaho, Oregon, and Washington using Pettersson D500X detectors</li>
-                        <li>Used the FieldMaps application to view property boundaries, locate deployment sites, and input microsite data</li>
-                        <li>Planned comprehensive logistics for camping, deployment routes, and travel for 8-day field hitches in remote locations</li>
+                        <li>Adhered to North American Bat Monitoring Program (NABat) protocol to monitor 40+ Generalized
+                            Random Tessellation Stratified (GRTS) cells across Idaho, Oregon, and Washington using
+                            Pettersson D500X detectors</li>
+                        <li>Used the FieldMaps application to view property boundaries, locate deployment sites, and
+                            input microsite data</li>
+                        <li>Planned comprehensive logistics for camping, deployment routes, and travel for 8-day field
+                            hitches in remote locations</li>
                         <li>Operated in high desert, lava fields, forested, and mountainous conditions</li>
                         <li>Operated 4-wheel drive trucks through harsh, remote, rugged, and mountainous landscapes</li>
-                        <li>Adapted field schedules for extreme weather conditions, floods, wildfires, outdated maps, and landowner availability</li>
+                        <li>Adapted field schedules for extreme weather conditions, floods, wildfires, outdated maps,
+                            and landowner availability</li>
                         <li>Contacted landowners to inform them of detector deployment and secure property access</li>
-                        <li>Investigated caves for maternity colonies of various at-risk bat species in Craters of the Moon National Monument</li>
-                        <li>Collaborated with U.S. Army Corps of Engineers and National Park Service personnel to teach NABat protocol</li>
-                        <li>Organized bat call data onto external hard drives for Sonobat analysis and long-term data storage</li>
+                        <li>Investigated caves for maternity colonies of various at-risk bat species in Craters of the
+                            Moon National Monument</li>
+                        <li>Collaborated with U.S. Army Corps of Engineers and National Park Service personnel to teach
+                            NABat protocol</li>
+                        <li>Organized bat call data onto external hard drives for Sonobat analysis and long-term data
+                            storage</li>
                     </ul>
                 </div>
             </article>
 
             <article class="card">
-                <img src="images/KarlstadPhoto.jpg" alt="Prescribed burn taking place during my internship" class="card-img">
+                <img src="images/KarlstadPhoto.jpg" alt="Prescribed burn taking place during my internship"
+                    class="card-img">
                 <div class="card-content">
                     <h3>Wildlife Management Intern</h3>
                     <div class="job-org">Minnesota Department of Natural Resources -Wildlife Division</div>
                     <div class="job-meta">Karlstad, MN &bull; May 2022 - August 2022</div>
                     <ul class="job-tasks">
-                        <li>Conducted habitat restoration projects including invasive species monitoring, removal, and prescribed burns</li>
-                        <li>Used FieldMaps application to monitor and remove invasive species via hand-pulling, mechanical treatment, and chemical application</li>
-                        <li>Performed driving wildlife surveys to contribute data to the Minnesota DNR 2022 August Roadside Survey</li>
-                        <li>Collaborated with The Nature Conservancy on joint habitat restoration efforts for Northwest Minnesota's tallgrass aspen parklands, wetlands, grasslands, and oak savannas</li>
-                        <li>Trailered, operated, and maintained all-terrain vehicles (ATVs) and utility terrain vehicles (UTVs) for invasive species control and prescribed burn operations</li>
+                        <li>Conducted habitat restoration projects including invasive species monitoring, removal, and
+                            prescribed burns</li>
+                        <li>Used FieldMaps application to monitor and remove invasive species via hand-pulling,
+                            mechanical treatment, and chemical application</li>
+                        <li>Performed driving wildlife surveys to contribute data to the Minnesota DNR 2022 August
+                            Roadside Survey</li>
+                        <li>Collaborated with The Nature Conservancy on joint habitat restoration efforts for Northwest
+                            Minnesota's tallgrass aspen parklands, wetlands, grasslands, and oak savannas</li>
+                        <li>Trailered, operated, and maintained all-terrain vehicles (ATVs) and utility terrain vehicles
+                            (UTVs) for invasive species control and prescribed burn operations</li>
                         <li>Applied herbicides following state guidelines for invasive species management</li>
                         <li>Collected native plant seeds for future restoration projects</li>
                         <li>Participated in prescribed fire operations to restore fire-dependent ecosystems</li>
@@ -855,9 +914,12 @@
                         class="card-img">
                     <div class="card-content">
                         <span class="card-tag">Scientific oral presentation</span>
-                        <h3>Utilizing MAXENT to determine the top covariates related to <i>Myotis</i> Activity in central Wisconsin</h3>
-                        <p>A habitat suitability model developed for analysing the top environmental covariates related to <i>Myotis</i> 
-                            bats. We used the software MAXENT to develop the model using bat calls collected through AudioMoth acoustic 
+                        <h3>Utilizing MAXENT to determine the top covariates related to <i>Myotis</i> Activity in
+                            central Wisconsin</h3>
+                        <p>A habitat suitability model developed for analysing the top environmental covariates related
+                            to <i>Myotis</i>
+                            bats. We used the software MAXENT to develop the model using bat calls collected through
+                            AudioMoth acoustic
                             recording units.</p>
                         <div class="project-tech-tags" aria-label="Software used">
                             <span class="tech-tag-chip">MAXENT</span>
@@ -875,16 +937,16 @@
                 </a>
             </article>
 
-             <article class="card">
+            <article class="card">
                 <a class="card-link" href="projects/COHAHeatIsland.html"
                     aria-label="Open COHA Heat Island project page">
-                    <img src="images/COHAUHIFig4.png" alt="COHA Heat Island project"
-                        class="card-img">
+                    <img src="images/COHAUHIFig4.png" alt="COHA Heat Island project" class="card-img">
                     <div class="card-content">
                         <span class="card-tag">Scientific oral presentation</span>
-                        <h3>Do heat island effects impact Cooper's hawks morphology?</h3>
-                        <p>Investigated the impact of urban heat islands on Cooper's hawks body mass and wing chord length
-                           in Milwaukee versus other Wisconsin cities.</p>
+                        <h3>Do Heat Island Effects Impact Cooper's Hawks Morphology?</h3>
+                        <p>Investigated the impact of urban heat islands on Cooper's hawks body mass and wing chord
+                            length
+                            in Milwaukee versus other Wisconsin cities.</p>
                         <div class="project-tech-tags" aria-label="Software used">
                             <span class="tech-tag-chip">R</span>
                             <span class="tech-tag-chip">ArcGIS Pro</span>
@@ -908,9 +970,10 @@
                     <div class="card-content">
                         <span class="card-tag">Scientific poster</span>
                         <h3>Do Habitat Edges Really Concentrate Bat Activity?</h3>
-                        <p>Deployed acoustic bat detectors in a nested, habitat-based design to collect data for a nested 
-                            hierarchical NB GAMM analysis using <code>tidyverse</code> and <code>mgcv</code>. 
-                            Identified seasonal trends in bat activity in open, edge and forested areas while accounting 
+                        <p>Deployed acoustic bat detectors in a nested, habitat-based design to collect data for a
+                            nested
+                            hierarchical NB GAMM analysis using <code>tidyverse</code> and <code>mgcv</code>.
+                            Identified seasonal trends in bat activity in open, edge and forested areas while accounting
                             for detector biases, site biases, uneven sampling effort and seasonality.
                         </p>
                         <div class="project-tech-tags" aria-label="Software used">
@@ -939,7 +1002,7 @@
                     <div class="card-content">
                         <span class="card-tag">Scientific poster</span>
                         <h3>Analyzing Bat Activity in Burned Red Pine Stands in Northern Wisconsin</h3>
-                        <p>Utilizing both stationary detectors and mobile acoustic surveys to examine 
+                        <p>Utilizing both stationary detectors and mobile acoustic surveys to examine
                             bat activity variation amongst control and 1-year burn interval units.</p>
                         <div class="project-tech-tags" aria-label="Software used">
                             <span class="tech-tag-chip">ArcGIS Pro</span>
@@ -961,7 +1024,8 @@
                     <img src="images/PrivateBatPoster.jpg" alt="Population trend graph" class="card-img">
                     <div class="card-content">
                         <span class="card-tag">Scientific poster</span>
-                        <h3>Collecting Bat Data from Private Organizations Can Yield More Information on Bat Densities</h3>
+                        <h3>Collecting Bat Data from Private Organizations Can Yield More Information on Bat Densities
+                        </h3>
                         <p>Various plots and visual materials explaining the characteristics of bat community
                             activity and trends on private lands.</p>
                         <div class="project-tech-tags" aria-label="Software used">
@@ -1034,14 +1098,14 @@
                         <h3>Kaleidoscope Pro Standardizer</h3>
                         <p>Developed a helper tool to clean and standardize Kaleidoscope Pro <code>id.csv</code> files,
                             generate <code>calls-per-night.csv</code> outputs for downstream models, and render an
-                            automated Quarto report with study summaries and diagnostic plots. Packages used include: 
-                            dplyr, tidyr, ggplot2, yaml, digest, here, lubridate, hms, purrr, tibble, scales, zoo, 
+                            automated Quarto report with study summaries and diagnostic plots. Packages used include:
+                            dplyr, tidyr, ggplot2, yaml, digest, here, lubridate, hms, purrr, tibble, scales, zoo,
                             gt, webshot2,readr, zip, janitor, and quarto.</p>
-                        </div>
                     </div>
-                </a>
-            </article>
         </div>
+        </a>
+        </article>
+    </div>
     </div>
 
     <!-- R Packages Expertise Section -->
@@ -1077,8 +1141,6 @@
                         <div class="code-section">
                             <h4>R Code Example:</h4>
                             <pre><code class="language-r"> 
-#!/usr/bin/env Rscript
-
 # ---- 02a_brood_count_violin.R ----
 # Violin plots have box and whisker elements drawn manually 
 # with calculated quartiles so that they can be 
