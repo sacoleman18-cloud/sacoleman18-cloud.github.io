@@ -288,14 +288,39 @@
             font-weight: 600;
         }
 
+        /* Photo and text side by side */
+        .bio-layout {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Full photo, no cropping */
+        .bio-photo {
+            flex: 0 0 35%;
+            max-width: 35%;
+            height: auto;
+            border-radius: 8px;
+        }
+
         /* Biography Text Styling */
         .bio-text {
             font-size: 1.05rem;
             line-height: 1.8;
             color: #444;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+            flex: 1;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .bio-layout {
+                flex-direction: column;
+            }
+
+            .bio-photo {
+                flex-basis: auto;
+                max-width: 100%;
+            }
         }
 
         /* Container for consistent padding and max-width */
@@ -623,8 +648,9 @@
     <section class="bio-section">
         <div class="container">
             <h2 class="bio-title">About Me</h2>
+            <div class="bio-layout">
             <img src="images/biophoto.jpg" alt="Me on top of Lassen Peak with Mt. Shasta in the background"
-                        class="card-img">
+                        class="bio-photo">
             <p class="bio-text">
                 I am a wildlife conservationist passionate about transforming complex ecological data into
                 rigorous statistical analyses and understandable visualizations. I completed my bachelor's of science
@@ -642,6 +668,7 @@
                 habitat characteristics to addressing detection biases, to even accounting for uneven sampling effort. 
                 I aim to contribute meaningful insights that support wildlife conservation and inform management decisions.
             </p>
+            </div>
         </div>
     </section>
 
